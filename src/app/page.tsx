@@ -1,6 +1,30 @@
+"use client";
 import Image from 'next/image'
+import { API, Amplify, graphqlOperation } from 'aws-amplify'
+import { listUsers } from '../graphql/queries'
+import { useEffect } from 'react'
+import { createUser } from '@/graphql/mutations';
+import awsconfig from '../aws-exports';
+Amplify.configure(awsconfig);
+
 
 export default function Home() {
+
+  useEffect(() => {
+    // Actualiza el título del documento usando la API del navegador
+    async function n(){
+      const result = await API.graphql(graphqlOperation(createUser, {
+        input: {
+          name: "usuario1",
+          email: "usuario1",
+          password: "usuario1"
+        }
+      }))
+    }
+
+    n()
+  },[]);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">

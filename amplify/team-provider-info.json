@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-assistcontrolsystem-dev-224419-authRole",
+      "UnauthRoleArn": "arn:aws:iam::200913108632:role/amplify-assistcontrolsystem-dev-224419-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::200913108632:role/amplify-assistcontrolsystem-dev-224419-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-assistcontrolsystem-dev-224419-deployment",
+      "UnauthRoleName": "amplify-assistcontrolsystem-dev-224419-unauthRole",
+      "StackName": "amplify-assistcontrolsystem-dev-224419",
+      "StackId": "arn:aws:cloudformation:us-east-1:200913108632:stack/amplify-assistcontrolsystem-dev-224419/0298d760-359e-11ee-a4ba-0a4dc19bd5f7",
+      "AmplifyAppId": "d2w76awfuwby2q"
+    },
+    "categories": {
+      "api": {
+        "assistcontrolsystem": {}
+      }
+    }
+  }
+}
