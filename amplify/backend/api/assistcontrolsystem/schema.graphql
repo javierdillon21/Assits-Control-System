@@ -2,28 +2,64 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Blog @model {
-  id: ID!
-  name: String!
-  posts: [Post] @hasMany
+enum DiaSemana {
+  LUNES
+  MARTES
+  MIERCOLES
+  JUEVES
+  VIERNES
+  SABADO
+  DOMINGO
 }
 
-type Post @model {
-  id: ID!
-  title: String!
-  blog: Blog @belongsTo
-  comments: [Comment] @hasMany
-}
-
-type Comment @model {
-  id: ID!
-  post: Post @belongsTo
-  content: String!
+enum Asistio {
+  SI
+  NO
+  AUN_NO
 }
 
 type User @model {
   id: ID!
-  name: String
   email: String!
   password: String!
+  profesor: Profesor! @hasOne
+}
+
+type Profesor @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  cursos: [Curso] @hasMany
+}
+
+type Curso @model {
+  id: ID!
+  paralelo: String!
+  nombreCurso: String!
+  creacion: AWSDateTime!
+  horarios: [Horario] @hasMany
+  estudiantes: [Estudiante] @hasMany
+}
+
+type Horario @model {
+  id: ID!
+  dia: DiaSemana!
+  horaDesde: Time!
+  horaHasta: Time!
+}
+
+type Estudiante @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  espolUser: String!
+  espolId: String!
+  espolEmail: String!
+  asistencia: [Asistencia] @hasMany
+}
+
+type Asistencia @model {
+  curso: Curso! @hasOne
+  horario: Horario! @hasOne
+  estado: Asistio!
 }

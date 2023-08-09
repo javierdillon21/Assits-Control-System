@@ -26,7 +26,7 @@ export default function Home() {
               placeholder="Password" type="password"/>
           </div>
           <div className="flex justify-center items-center">
-            <button onClick={login}
+            <button onClick={login} type="button"
               className="text-[0.9rem] bg-indigo-900 border border-blue-800 py-1 px-4 rounded-lg hover:bg-indigo-950 font-bold">
               Iniciar Sesión
             </button>
