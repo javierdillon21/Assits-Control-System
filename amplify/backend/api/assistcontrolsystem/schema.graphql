@@ -44,8 +44,8 @@ type Curso @model {
 type Horario @model {
   id: ID!
   dia: DiaSemana!
-  horaDesde: Time!
-  horaHasta: Time!
+  horaDesde: AWSTime!
+  horaHasta: AWSTime!
 }
 
 type Estudiante @model {
