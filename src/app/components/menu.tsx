@@ -6,10 +6,11 @@ import home_icon from '../../../assets/svg/home.svg';
 import file_icon from '../../../assets/svg/file.svg';
 import book_icon from '../../../assets/svg/book.svg';
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from 'next/navigation';
 
-export default function Sidebar(props: any) {
-  const [show, showSidebar] = useState(false);
+export default function Menu(props: any) {
+  const [show, showMenu] = useState(false);
   const userName = "Nicolas Segovia";
   const sections = [
     {id: 0, title: "Resumen", icon: home_icon.src, route: "/resumen"},
@@ -23,29 +24,14 @@ export default function Sidebar(props: any) {
   }
 
   return (
-    <>
-    {!show? (
-      <button className="top-0 left-0 fixed" onClick={() => showSidebar(!show)}>
-        <img src={burguer_menu_icon.src}/>
-      </button>
-      
-    ) : (
-      <button className="text-white font-bold top-3.5 left-3.5 fixed z-10" onClick={() => showSidebar(!show)}>
-        X
-      </button>
-    )}
-      <div className="fixed top-0 right-0">
-        <img className="h-12" src={acs_logo_white.src}/>
-      </div>
-      <div className={`top-0 left-0 fixed drop-shadow-2xl bg-slate-900 text-white h-screen w-[40vw] xl:w-[20vw] p-5
-        ${show? 'translate-x-0' : '-translate-x-full'} ease-in-out duration-200`}>
+    <section id='menu' className="flex flex-col shrink-0 w-1/6 h-full pt-4 drop-shadow-2xl bg-slate-800 text-white">
         <div className="flex justify-center items-center">
           <img className="h-11 xl:h-20" src={user_round_icon.src}/>
         </div>
         <div className="xl:text-lg text-sm flex justify-center items-center font-bold mb-3.5">
           {userName}
         </div>
-        <div className="space-y-3.5">
+        <div className="flex flex-col gap-3">
           {
             sections.map(({id, title, icon, route}) => (
               <div key={id} className="flex justify-center items-center">
@@ -57,7 +43,6 @@ export default function Sidebar(props: any) {
             ))
           }          
         </div>
-      </div>
-    </>
+    </section>
   );
 }
