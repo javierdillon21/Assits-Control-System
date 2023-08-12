@@ -1,21 +1,20 @@
 import user_round_icon from "../../../assets/svg/user_round.svg";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function Topbar(props: any) {
   const [show, showTopbar] = useState(false);
-  const userName = "Nicolas Segovia";
-
+  const firstName = props.firstName? props.firstName : "Nicolas";
+  const lastName = props.lastName? props.lastName : "Segovia";
+  
   return (
-      <div className="flex border-b  border-slate-300 mx-10 h-20 justify-end text-black">
+      <div className="flex bg-gradient-to-b from-slate-900 to-slate-700 justify-end py-1 px-2 gap-x-3">
         <img className="h-12" src={user_round_icon.src}/>
-        <FontAwesomeIcon
-              icon="users"
-              size="lg"
-              className="text-current scale-110"
-            />
+        <div className="flex items-center">
+          <div className="text-white font-bold">{firstName} {lastName}</div>
+        </div>
+      <div/>
       </div>
   );
 }
