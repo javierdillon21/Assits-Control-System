@@ -10,7 +10,7 @@ export default function Layout(props: { children: React.ReactElement }) {
   return (
       <div id="layout" className="flex h-screen w-screen">
         {!isLoginPage? <Menu /> : <></>}
-        <div id="content" className="flex flex-1 flex-col w-full h-full">
+        <div id="content" className="flex flex-1 flex-col w-full h-full bg-gray-100">
             {!isLoginPage? <Topbar/> : <></>}
             {props.children}
         </div>

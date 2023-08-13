@@ -13,7 +13,7 @@ export default function Resumen(props: any) {
 
   return (
     <div className="flex flex-col flex-1 h-full w-full">
-      <div className="bg-white h-full p-2.5 space-y-3">
+      <div className="h-full p-2.5 space-y-3">
         <div className="flex flex-grow">
           <div className="w-3/4 font-bold text-slate-700 text-xl">
             ¡Bienvenido, {firstName}!
