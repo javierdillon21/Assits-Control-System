@@ -6,16 +6,8 @@ export default function Cursos() {
   //TODO: fetch cursos from database
 
   const cursos = [
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
-    {id: "12-9d1", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"}
+    {id: "129d1", color:"#10b981", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},
+    {id: "129d2", color:"#03a9fc", paralelo:"101", nombreCurso: "Sistemas Embebidos", creacion: "08-08-2023"},
   ];
 
   return (
@@ -32,7 +24,7 @@ export default function Cursos() {
       <section id="cursos" className="-mb-2.5 grid h-full sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-3 overflow-auto">
           {
             cursos.map((curso) => (
-              <CursoCard curso={curso}/>
+              <CursoCard key={curso.id} curso={curso} color={curso.color}/>
             ))
           }
       </section>

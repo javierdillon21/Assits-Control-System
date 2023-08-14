@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import Card from '@/app/components/resumencard';
+import ResumenCard from '@/app/components/resumencard';
 import user_round_icon from "../../assets/svg/user_round.svg";
 
 
@@ -32,9 +32,9 @@ export default function Resumen(props: any) {
         </div>
         <section className="flex flex-grow">
           <div className="w-3/4 flex flex-row gap-3">
-            <Card title='Estudiantes' value={estudiantes} icon={user_round_icon.src}></Card>
-            <Card title='Cursos' value={estudiantes} icon={user_round_icon.src}></Card>
-            <Card title='Avance del periodo' value={estudiantes} icon={user_round_icon.src}></Card>
+            <ResumenCard title='Estudiantes' value={estudiantes} icon={user_round_icon.src}></ResumenCard>
+            <ResumenCard title='Cursos' value={estudiantes} icon={user_round_icon.src}></ResumenCard>
+            <ResumenCard title='Avance del periodo' value={estudiantes} icon={user_round_icon.src}></ResumenCard>
           </div>
         </section>
       </div>
