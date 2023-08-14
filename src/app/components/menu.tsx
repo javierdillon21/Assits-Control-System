@@ -22,12 +22,12 @@ export default function Menu(props: any) {
   }
 
   return (
-    <section id='menu' className="flex flex-col shrink-0 w-1/6 h-full bg-slate-800 text-white gap-8 py-10">
+    <section id='menu' className="flex flex-col shrink-0 w-72 h-full bg-slate-800 text-white gap-8 py-10">
         <div className="flex flex-col justify-center items-center ">
         <Image
           src={acs_logo_white.src}
-          width={110}
-          height={110}
+          width={140}
+          height={140}
           alt="assist-control-system"
           objectFit='scale-down'
         />

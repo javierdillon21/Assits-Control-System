@@ -12,7 +12,7 @@ export default function Card(props:{
     const [estudiantes, setEstudiantes]= useState(0)
 
   return (
-    <div className='flex flex-col h-52 w-52 items-center justify-center gap-4 border rounded-lg border-slate-200 bg-gray-100 '>
+    <div className='flex flex-col h-52 w-52 items-center justify-center gap-4 border rounded-lg border-slate-200 bg-white shadow-md '>
     <Image
       src={props.icon}
       width={60}
