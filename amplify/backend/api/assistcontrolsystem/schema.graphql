@@ -34,11 +34,18 @@ type Profesor @model {
 
 type Curso @model {
   id: ID!
+  color: String!
   paralelo: String!
   nombreCurso: String!
   creacion: AWSDateTime!
+  dispositivo: Device!
   horarios: [Horario] @hasMany
   estudiantes: [Estudiante] @hasMany
+}
+
+type Device @model {
+  id: ID!
+  topic: String!
 }
 
 type Horario @model {

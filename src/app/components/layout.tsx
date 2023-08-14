@@ -8,7 +8,7 @@ Amplify.configure(awsconfig);
 export default function Layout(props: { children: React.ReactElement }) {
   const isLoginPage = useRouter().pathname == "/";
   return (
-      <div id="layout" className="flex h-screen w-screen">
+      <div id="layout" className="flex h-screen w-screen overflow-auto">
         {!isLoginPage? <Menu /> : <></>}
         <div id="content" className="flex flex-1 flex-col w-full h-full">
             {!isLoginPage? <Topbar/> : <></>}
