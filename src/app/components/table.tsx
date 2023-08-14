@@ -12,7 +12,7 @@ export default function Table(props: {
         <tr>
           {
             props.cols.map((colName)=> (
-              <th scope="col" className={`px-6 py-3`}>{colName}</th>
+              <th scope="col" className={`text-slate-700 px-6 py-3`}>{colName}</th>
             ))
           }
         </tr>
