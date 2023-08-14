@@ -38,7 +38,7 @@ type Curso @model {
   paralelo: String!
   nombreCurso: String!
   creacion: AWSDateTime!
-  dispositivo: Device!
+  dispositivo: Device! @hasOne
   horarios: [Horario] @hasMany
   estudiantes: [Estudiante] @hasMany
 }

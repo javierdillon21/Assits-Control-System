@@ -27,6 +27,8 @@ export default function Cursos() {
               <CursoCard key={curso.id} curso={curso} color={curso.color}/>
             ))
           }
+          <input>
+          </input>
       </section>
     </div>
   )

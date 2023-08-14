@@ -2,282 +2,27 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onCreateBlog(filter: $filter) {
-      id
-      name
-      posts {
-        items {
-          id
-          title
-          createdAt
-          updatedAt
-          blogPostsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onUpdateBlog(filter: $filter) {
-      id
-      name
-      posts {
-        items {
-          id
-          title
-          createdAt
-          updatedAt
-          blogPostsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog($filter: ModelSubscriptionBlogFilterInput) {
-    onDeleteBlog(filter: $filter) {
-      id
-      name
-      posts {
-        items {
-          id
-          title
-          createdAt
-          updatedAt
-          blogPostsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
-    onCreatePost(filter: $filter) {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-  }
-`;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
-    onUpdatePost(filter: $filter) {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-  }
-`;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
-    onDeletePost(filter: $filter) {
-      id
-      title
-      blog {
-        id
-        name
-        posts {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          postCommentsId
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      blogPostsId
-      __typename
-    }
-  }
-`;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onCreateComment(filter: $filter) {
-      id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
-    onUpdateComment(filter: $filter) {
-      id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
-    onDeleteComment(filter: $filter) {
-      id
-      post {
-        id
-        title
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          __typename
-        }
-        comments {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        blogPostsId
-        __typename
-      }
-      content
-      createdAt
-      updatedAt
-      postCommentsId
-      __typename
-    }
-  }
-`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
     onCreateUser(filter: $filter) {
       id
-      name
       email
       password
+      profesor {
+        id
+        firstName
+        lastName
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
+      userProfesorId
       __typename
     }
   }
@@ -286,11 +31,23 @@ export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
     onUpdateUser(filter: $filter) {
       id
-      name
       email
       password
+      profesor {
+        id
+        firstName
+        lastName
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
+      userProfesorId
       __typename
     }
   }
@@ -299,11 +56,596 @@ export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
     onDeleteUser(filter: $filter) {
       id
-      name
       email
       password
+      profesor {
+        id
+        firstName
+        lastName
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
+      userProfesorId
+      __typename
+    }
+  }
+`;
+export const onCreateProfesor = /* GraphQL */ `
+  subscription OnCreateProfesor($filter: ModelSubscriptionProfesorFilterInput) {
+    onCreateProfesor(filter: $filter) {
+      id
+      firstName
+      lastName
+      cursos {
+        items {
+          id
+          color
+          paralelo
+          nombreCurso
+          creacion
+          createdAt
+          updatedAt
+          profesorCursosId
+          cursoDispositivoId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateProfesor = /* GraphQL */ `
+  subscription OnUpdateProfesor($filter: ModelSubscriptionProfesorFilterInput) {
+    onUpdateProfesor(filter: $filter) {
+      id
+      firstName
+      lastName
+      cursos {
+        items {
+          id
+          color
+          paralelo
+          nombreCurso
+          creacion
+          createdAt
+          updatedAt
+          profesorCursosId
+          cursoDispositivoId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteProfesor = /* GraphQL */ `
+  subscription OnDeleteProfesor($filter: ModelSubscriptionProfesorFilterInput) {
+    onDeleteProfesor(filter: $filter) {
+      id
+      firstName
+      lastName
+      cursos {
+        items {
+          id
+          color
+          paralelo
+          nombreCurso
+          creacion
+          createdAt
+          updatedAt
+          profesorCursosId
+          cursoDispositivoId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateCurso = /* GraphQL */ `
+  subscription OnCreateCurso($filter: ModelSubscriptionCursoFilterInput) {
+    onCreateCurso(filter: $filter) {
+      id
+      color
+      paralelo
+      nombreCurso
+      creacion
+      dispositivo {
+        id
+        topic
+        createdAt
+        updatedAt
+        __typename
+      }
+      horarios {
+        items {
+          id
+          dia
+          horaDesde
+          horaHasta
+          createdAt
+          updatedAt
+          cursoHorariosId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      estudiantes {
+        items {
+          id
+          firstName
+          lastName
+          espolUser
+          espolId
+          espolEmail
+          createdAt
+          updatedAt
+          cursoEstudiantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      profesorCursosId
+      cursoDispositivoId
+      __typename
+    }
+  }
+`;
+export const onUpdateCurso = /* GraphQL */ `
+  subscription OnUpdateCurso($filter: ModelSubscriptionCursoFilterInput) {
+    onUpdateCurso(filter: $filter) {
+      id
+      color
+      paralelo
+      nombreCurso
+      creacion
+      dispositivo {
+        id
+        topic
+        createdAt
+        updatedAt
+        __typename
+      }
+      horarios {
+        items {
+          id
+          dia
+          horaDesde
+          horaHasta
+          createdAt
+          updatedAt
+          cursoHorariosId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      estudiantes {
+        items {
+          id
+          firstName
+          lastName
+          espolUser
+          espolId
+          espolEmail
+          createdAt
+          updatedAt
+          cursoEstudiantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      profesorCursosId
+      cursoDispositivoId
+      __typename
+    }
+  }
+`;
+export const onDeleteCurso = /* GraphQL */ `
+  subscription OnDeleteCurso($filter: ModelSubscriptionCursoFilterInput) {
+    onDeleteCurso(filter: $filter) {
+      id
+      color
+      paralelo
+      nombreCurso
+      creacion
+      dispositivo {
+        id
+        topic
+        createdAt
+        updatedAt
+        __typename
+      }
+      horarios {
+        items {
+          id
+          dia
+          horaDesde
+          horaHasta
+          createdAt
+          updatedAt
+          cursoHorariosId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      estudiantes {
+        items {
+          id
+          firstName
+          lastName
+          espolUser
+          espolId
+          espolEmail
+          createdAt
+          updatedAt
+          cursoEstudiantesId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      profesorCursosId
+      cursoDispositivoId
+      __typename
+    }
+  }
+`;
+export const onCreateDevice = /* GraphQL */ `
+  subscription OnCreateDevice($filter: ModelSubscriptionDeviceFilterInput) {
+    onCreateDevice(filter: $filter) {
+      id
+      topic
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateDevice = /* GraphQL */ `
+  subscription OnUpdateDevice($filter: ModelSubscriptionDeviceFilterInput) {
+    onUpdateDevice(filter: $filter) {
+      id
+      topic
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteDevice = /* GraphQL */ `
+  subscription OnDeleteDevice($filter: ModelSubscriptionDeviceFilterInput) {
+    onDeleteDevice(filter: $filter) {
+      id
+      topic
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateHorario = /* GraphQL */ `
+  subscription OnCreateHorario($filter: ModelSubscriptionHorarioFilterInput) {
+    onCreateHorario(filter: $filter) {
+      id
+      dia
+      horaDesde
+      horaHasta
+      createdAt
+      updatedAt
+      cursoHorariosId
+      __typename
+    }
+  }
+`;
+export const onUpdateHorario = /* GraphQL */ `
+  subscription OnUpdateHorario($filter: ModelSubscriptionHorarioFilterInput) {
+    onUpdateHorario(filter: $filter) {
+      id
+      dia
+      horaDesde
+      horaHasta
+      createdAt
+      updatedAt
+      cursoHorariosId
+      __typename
+    }
+  }
+`;
+export const onDeleteHorario = /* GraphQL */ `
+  subscription OnDeleteHorario($filter: ModelSubscriptionHorarioFilterInput) {
+    onDeleteHorario(filter: $filter) {
+      id
+      dia
+      horaDesde
+      horaHasta
+      createdAt
+      updatedAt
+      cursoHorariosId
+      __typename
+    }
+  }
+`;
+export const onCreateEstudiante = /* GraphQL */ `
+  subscription OnCreateEstudiante(
+    $filter: ModelSubscriptionEstudianteFilterInput
+  ) {
+    onCreateEstudiante(filter: $filter) {
+      id
+      firstName
+      lastName
+      espolUser
+      espolId
+      espolEmail
+      asistencia {
+        items {
+          estado
+          id
+          createdAt
+          updatedAt
+          estudianteAsistenciaId
+          asistenciaCursoId
+          asistenciaHorarioId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      cursoEstudiantesId
+      __typename
+    }
+  }
+`;
+export const onUpdateEstudiante = /* GraphQL */ `
+  subscription OnUpdateEstudiante(
+    $filter: ModelSubscriptionEstudianteFilterInput
+  ) {
+    onUpdateEstudiante(filter: $filter) {
+      id
+      firstName
+      lastName
+      espolUser
+      espolId
+      espolEmail
+      asistencia {
+        items {
+          estado
+          id
+          createdAt
+          updatedAt
+          estudianteAsistenciaId
+          asistenciaCursoId
+          asistenciaHorarioId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      cursoEstudiantesId
+      __typename
+    }
+  }
+`;
+export const onDeleteEstudiante = /* GraphQL */ `
+  subscription OnDeleteEstudiante(
+    $filter: ModelSubscriptionEstudianteFilterInput
+  ) {
+    onDeleteEstudiante(filter: $filter) {
+      id
+      firstName
+      lastName
+      espolUser
+      espolId
+      espolEmail
+      asistencia {
+        items {
+          estado
+          id
+          createdAt
+          updatedAt
+          estudianteAsistenciaId
+          asistenciaCursoId
+          asistenciaHorarioId
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      cursoEstudiantesId
+      __typename
+    }
+  }
+`;
+export const onCreateAsistencia = /* GraphQL */ `
+  subscription OnCreateAsistencia(
+    $filter: ModelSubscriptionAsistenciaFilterInput
+  ) {
+    onCreateAsistencia(filter: $filter) {
+      curso {
+        id
+        color
+        paralelo
+        nombreCurso
+        creacion
+        dispositivo {
+          id
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        profesorCursosId
+        cursoDispositivoId
+        __typename
+      }
+      horario {
+        id
+        dia
+        horaDesde
+        horaHasta
+        createdAt
+        updatedAt
+        cursoHorariosId
+        __typename
+      }
+      estado
+      id
+      createdAt
+      updatedAt
+      estudianteAsistenciaId
+      asistenciaCursoId
+      asistenciaHorarioId
+      __typename
+    }
+  }
+`;
+export const onUpdateAsistencia = /* GraphQL */ `
+  subscription OnUpdateAsistencia(
+    $filter: ModelSubscriptionAsistenciaFilterInput
+  ) {
+    onUpdateAsistencia(filter: $filter) {
+      curso {
+        id
+        color
+        paralelo
+        nombreCurso
+        creacion
+        dispositivo {
+          id
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        profesorCursosId
+        cursoDispositivoId
+        __typename
+      }
+      horario {
+        id
+        dia
+        horaDesde
+        horaHasta
+        createdAt
+        updatedAt
+        cursoHorariosId
+        __typename
+      }
+      estado
+      id
+      createdAt
+      updatedAt
+      estudianteAsistenciaId
+      asistenciaCursoId
+      asistenciaHorarioId
+      __typename
+    }
+  }
+`;
+export const onDeleteAsistencia = /* GraphQL */ `
+  subscription OnDeleteAsistencia(
+    $filter: ModelSubscriptionAsistenciaFilterInput
+  ) {
+    onDeleteAsistencia(filter: $filter) {
+      curso {
+        id
+        color
+        paralelo
+        nombreCurso
+        creacion
+        dispositivo {
+          id
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        profesorCursosId
+        cursoDispositivoId
+        __typename
+      }
+      horario {
+        id
+        dia
+        horaDesde
+        horaHasta
+        createdAt
+        updatedAt
+        cursoHorariosId
+        __typename
+      }
+      estado
+      id
+      createdAt
+      updatedAt
+      estudianteAsistenciaId
+      asistenciaCursoId
+      asistenciaHorarioId
       __typename
     }
   }

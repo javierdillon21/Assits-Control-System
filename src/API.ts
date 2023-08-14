@@ -2,16 +2,20 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateBlogInput = {
+export type CreateUserInput = {
   id?: string | null,
-  name: string,
+  email: string,
+  password: string,
+  userProfesorId: string,
 };
 
-export type ModelBlogConditionInput = {
-  name?: ModelStringInput | null,
-  and?: Array< ModelBlogConditionInput | null > | null,
-  or?: Array< ModelBlogConditionInput | null > | null,
-  not?: ModelBlogConditionInput | null,
+export type ModelUserConditionInput = {
+  email?: ModelStringInput | null,
+  password?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
+  userProfesorId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,71 +58,6 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Blog = {
-  __typename: "Blog",
-  id: string,
-  name: string,
-  posts?: ModelPostConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type ModelPostConnection = {
-  __typename: "ModelPostConnection",
-  items:  Array<Post | null >,
-  nextToken?: string | null,
-};
-
-export type Post = {
-  __typename: "Post",
-  id: string,
-  title: string,
-  blog?: Blog | null,
-  comments?: ModelCommentConnection | null,
-  createdAt: string,
-  updatedAt: string,
-  blogPostsId?: string | null,
-};
-
-export type ModelCommentConnection = {
-  __typename: "ModelCommentConnection",
-  items:  Array<Comment | null >,
-  nextToken?: string | null,
-};
-
-export type Comment = {
-  __typename: "Comment",
-  id: string,
-  post?: Post | null,
-  content: string,
-  createdAt: string,
-  updatedAt: string,
-  postCommentsId?: string | null,
-};
-
-export type UpdateBlogInput = {
-  id: string,
-  name?: string | null,
-};
-
-export type DeleteBlogInput = {
-  id: string,
-};
-
-export type CreatePostInput = {
-  id?: string | null,
-  title: string,
-  blogPostsId?: string | null,
-};
-
-export type ModelPostConditionInput = {
-  title?: ModelStringInput | null,
-  and?: Array< ModelPostConditionInput | null > | null,
-  or?: Array< ModelPostConditionInput | null > | null,
-  not?: ModelPostConditionInput | null,
-  blogPostsId?: ModelIDInput | null,
-};
-
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -135,117 +74,337 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdatePostInput = {
-  id: string,
-  title?: string | null,
-  blogPostsId?: string | null,
-};
-
-export type DeletePostInput = {
-  id: string,
-};
-
-export type CreateCommentInput = {
-  id?: string | null,
-  content: string,
-  postCommentsId?: string | null,
-};
-
-export type ModelCommentConditionInput = {
-  content?: ModelStringInput | null,
-  and?: Array< ModelCommentConditionInput | null > | null,
-  or?: Array< ModelCommentConditionInput | null > | null,
-  not?: ModelCommentConditionInput | null,
-  postCommentsId?: ModelIDInput | null,
-};
-
-export type UpdateCommentInput = {
-  id: string,
-  content?: string | null,
-  postCommentsId?: string | null,
-};
-
-export type DeleteCommentInput = {
-  id: string,
-};
-
-export type CreateUserInput = {
-  id?: string | null,
-  name?: string | null,
-  email: string,
-  password: string,
-};
-
-export type ModelUserConditionInput = {
-  name?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  password?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-};
-
 export type User = {
   __typename: "User",
   id: string,
-  name?: string | null,
   email: string,
   password: string,
+  profesor: Profesor,
+  createdAt: string,
+  updatedAt: string,
+  userProfesorId: string,
+};
+
+export type Profesor = {
+  __typename: "Profesor",
+  id: string,
+  firstName: string,
+  lastName: string,
+  cursos?: ModelCursoConnection | null,
   createdAt: string,
   updatedAt: string,
 };
 
+export type ModelCursoConnection = {
+  __typename: "ModelCursoConnection",
+  items:  Array<Curso | null >,
+  nextToken?: string | null,
+};
+
+export type Curso = {
+  __typename: "Curso",
+  id: string,
+  color: string,
+  paralelo: string,
+  nombreCurso: string,
+  creacion: string,
+  dispositivo: Device,
+  horarios?: ModelHorarioConnection | null,
+  estudiantes?: ModelEstudianteConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  profesorCursosId?: string | null,
+  cursoDispositivoId: string,
+};
+
+export type Device = {
+  __typename: "Device",
+  id: string,
+  topic: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelHorarioConnection = {
+  __typename: "ModelHorarioConnection",
+  items:  Array<Horario | null >,
+  nextToken?: string | null,
+};
+
+export type Horario = {
+  __typename: "Horario",
+  id: string,
+  dia: DiaSemana,
+  horaDesde: string,
+  horaHasta: string,
+  createdAt: string,
+  updatedAt: string,
+  cursoHorariosId?: string | null,
+};
+
+export enum DiaSemana {
+  LUNES = "LUNES",
+  MARTES = "MARTES",
+  MIERCOLES = "MIERCOLES",
+  JUEVES = "JUEVES",
+  VIERNES = "VIERNES",
+  SABADO = "SABADO",
+  DOMINGO = "DOMINGO",
+}
+
+
+export type ModelEstudianteConnection = {
+  __typename: "ModelEstudianteConnection",
+  items:  Array<Estudiante | null >,
+  nextToken?: string | null,
+};
+
+export type Estudiante = {
+  __typename: "Estudiante",
+  id: string,
+  firstName: string,
+  lastName: string,
+  espolUser: string,
+  espolId: string,
+  espolEmail: string,
+  asistencia?: ModelAsistenciaConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  cursoEstudiantesId?: string | null,
+};
+
+export type ModelAsistenciaConnection = {
+  __typename: "ModelAsistenciaConnection",
+  items:  Array<Asistencia | null >,
+  nextToken?: string | null,
+};
+
+export type Asistencia = {
+  __typename: "Asistencia",
+  curso: Curso,
+  horario: Horario,
+  estado: Asistio,
+  id: string,
+  createdAt: string,
+  updatedAt: string,
+  estudianteAsistenciaId?: string | null,
+  asistenciaCursoId: string,
+  asistenciaHorarioId: string,
+};
+
+export enum Asistio {
+  SI = "SI",
+  NO = "NO",
+  AUN_NO = "AUN_NO",
+}
+
+
 export type UpdateUserInput = {
   id: string,
-  name?: string | null,
   email?: string | null,
   password?: string | null,
+  userProfesorId?: string | null,
 };
 
 export type DeleteUserInput = {
   id: string,
 };
 
-export type ModelBlogFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  and?: Array< ModelBlogFilterInput | null > | null,
-  or?: Array< ModelBlogFilterInput | null > | null,
-  not?: ModelBlogFilterInput | null,
+export type CreateProfesorInput = {
+  id?: string | null,
+  firstName: string,
+  lastName: string,
 };
 
-export type ModelBlogConnection = {
-  __typename: "ModelBlogConnection",
-  items:  Array<Blog | null >,
-  nextToken?: string | null,
+export type ModelProfesorConditionInput = {
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  and?: Array< ModelProfesorConditionInput | null > | null,
+  or?: Array< ModelProfesorConditionInput | null > | null,
+  not?: ModelProfesorConditionInput | null,
 };
 
-export type ModelPostFilterInput = {
-  id?: ModelIDInput | null,
-  title?: ModelStringInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
-  blogPostsId?: ModelIDInput | null,
+export type UpdateProfesorInput = {
+  id: string,
+  firstName?: string | null,
+  lastName?: string | null,
 };
 
-export type ModelCommentFilterInput = {
-  id?: ModelIDInput | null,
-  content?: ModelStringInput | null,
-  and?: Array< ModelCommentFilterInput | null > | null,
-  or?: Array< ModelCommentFilterInput | null > | null,
-  not?: ModelCommentFilterInput | null,
-  postCommentsId?: ModelIDInput | null,
+export type DeleteProfesorInput = {
+  id: string,
+};
+
+export type CreateCursoInput = {
+  id?: string | null,
+  color: string,
+  paralelo: string,
+  nombreCurso: string,
+  creacion: string,
+  profesorCursosId?: string | null,
+  cursoDispositivoId: string,
+};
+
+export type ModelCursoConditionInput = {
+  color?: ModelStringInput | null,
+  paralelo?: ModelStringInput | null,
+  nombreCurso?: ModelStringInput | null,
+  creacion?: ModelStringInput | null,
+  and?: Array< ModelCursoConditionInput | null > | null,
+  or?: Array< ModelCursoConditionInput | null > | null,
+  not?: ModelCursoConditionInput | null,
+  profesorCursosId?: ModelIDInput | null,
+  cursoDispositivoId?: ModelIDInput | null,
+};
+
+export type UpdateCursoInput = {
+  id: string,
+  color?: string | null,
+  paralelo?: string | null,
+  nombreCurso?: string | null,
+  creacion?: string | null,
+  profesorCursosId?: string | null,
+  cursoDispositivoId?: string | null,
+};
+
+export type DeleteCursoInput = {
+  id: string,
+};
+
+export type CreateDeviceInput = {
+  id?: string | null,
+  topic: string,
+};
+
+export type ModelDeviceConditionInput = {
+  topic?: ModelStringInput | null,
+  and?: Array< ModelDeviceConditionInput | null > | null,
+  or?: Array< ModelDeviceConditionInput | null > | null,
+  not?: ModelDeviceConditionInput | null,
+};
+
+export type UpdateDeviceInput = {
+  id: string,
+  topic?: string | null,
+};
+
+export type DeleteDeviceInput = {
+  id: string,
+};
+
+export type CreateHorarioInput = {
+  id?: string | null,
+  dia: DiaSemana,
+  horaDesde: string,
+  horaHasta: string,
+  cursoHorariosId?: string | null,
+};
+
+export type ModelHorarioConditionInput = {
+  dia?: ModelDiaSemanaInput | null,
+  horaDesde?: ModelStringInput | null,
+  horaHasta?: ModelStringInput | null,
+  and?: Array< ModelHorarioConditionInput | null > | null,
+  or?: Array< ModelHorarioConditionInput | null > | null,
+  not?: ModelHorarioConditionInput | null,
+  cursoHorariosId?: ModelIDInput | null,
+};
+
+export type ModelDiaSemanaInput = {
+  eq?: DiaSemana | null,
+  ne?: DiaSemana | null,
+};
+
+export type UpdateHorarioInput = {
+  id: string,
+  dia?: DiaSemana | null,
+  horaDesde?: string | null,
+  horaHasta?: string | null,
+  cursoHorariosId?: string | null,
+};
+
+export type DeleteHorarioInput = {
+  id: string,
+};
+
+export type CreateEstudianteInput = {
+  id?: string | null,
+  firstName: string,
+  lastName: string,
+  espolUser: string,
+  espolId: string,
+  espolEmail: string,
+  cursoEstudiantesId?: string | null,
+};
+
+export type ModelEstudianteConditionInput = {
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  espolUser?: ModelStringInput | null,
+  espolId?: ModelStringInput | null,
+  espolEmail?: ModelStringInput | null,
+  and?: Array< ModelEstudianteConditionInput | null > | null,
+  or?: Array< ModelEstudianteConditionInput | null > | null,
+  not?: ModelEstudianteConditionInput | null,
+  cursoEstudiantesId?: ModelIDInput | null,
+};
+
+export type UpdateEstudianteInput = {
+  id: string,
+  firstName?: string | null,
+  lastName?: string | null,
+  espolUser?: string | null,
+  espolId?: string | null,
+  espolEmail?: string | null,
+  cursoEstudiantesId?: string | null,
+};
+
+export type DeleteEstudianteInput = {
+  id: string,
+};
+
+export type CreateAsistenciaInput = {
+  estado: Asistio,
+  id?: string | null,
+  estudianteAsistenciaId?: string | null,
+  asistenciaCursoId: string,
+  asistenciaHorarioId: string,
+};
+
+export type ModelAsistenciaConditionInput = {
+  estado?: ModelAsistioInput | null,
+  and?: Array< ModelAsistenciaConditionInput | null > | null,
+  or?: Array< ModelAsistenciaConditionInput | null > | null,
+  not?: ModelAsistenciaConditionInput | null,
+  estudianteAsistenciaId?: ModelIDInput | null,
+  asistenciaCursoId?: ModelIDInput | null,
+  asistenciaHorarioId?: ModelIDInput | null,
+};
+
+export type ModelAsistioInput = {
+  eq?: Asistio | null,
+  ne?: Asistio | null,
+};
+
+export type UpdateAsistenciaInput = {
+  estado?: Asistio | null,
+  id: string,
+  estudianteAsistenciaId?: string | null,
+  asistenciaCursoId?: string | null,
+  asistenciaHorarioId?: string | null,
+};
+
+export type DeleteAsistenciaInput = {
+  id: string,
 };
 
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
   email?: ModelStringInput | null,
   password?: ModelStringInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
+  userProfesorId?: ModelIDInput | null,
 };
 
 export type ModelUserConnection = {
@@ -254,11 +413,88 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
-export type ModelSubscriptionBlogFilterInput = {
+export type ModelProfesorFilterInput = {
+  id?: ModelIDInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  and?: Array< ModelProfesorFilterInput | null > | null,
+  or?: Array< ModelProfesorFilterInput | null > | null,
+  not?: ModelProfesorFilterInput | null,
+};
+
+export type ModelProfesorConnection = {
+  __typename: "ModelProfesorConnection",
+  items:  Array<Profesor | null >,
+  nextToken?: string | null,
+};
+
+export type ModelCursoFilterInput = {
+  id?: ModelIDInput | null,
+  color?: ModelStringInput | null,
+  paralelo?: ModelStringInput | null,
+  nombreCurso?: ModelStringInput | null,
+  creacion?: ModelStringInput | null,
+  and?: Array< ModelCursoFilterInput | null > | null,
+  or?: Array< ModelCursoFilterInput | null > | null,
+  not?: ModelCursoFilterInput | null,
+  profesorCursosId?: ModelIDInput | null,
+  cursoDispositivoId?: ModelIDInput | null,
+};
+
+export type ModelDeviceFilterInput = {
+  id?: ModelIDInput | null,
+  topic?: ModelStringInput | null,
+  and?: Array< ModelDeviceFilterInput | null > | null,
+  or?: Array< ModelDeviceFilterInput | null > | null,
+  not?: ModelDeviceFilterInput | null,
+};
+
+export type ModelDeviceConnection = {
+  __typename: "ModelDeviceConnection",
+  items:  Array<Device | null >,
+  nextToken?: string | null,
+};
+
+export type ModelHorarioFilterInput = {
+  id?: ModelIDInput | null,
+  dia?: ModelDiaSemanaInput | null,
+  horaDesde?: ModelStringInput | null,
+  horaHasta?: ModelStringInput | null,
+  and?: Array< ModelHorarioFilterInput | null > | null,
+  or?: Array< ModelHorarioFilterInput | null > | null,
+  not?: ModelHorarioFilterInput | null,
+  cursoHorariosId?: ModelIDInput | null,
+};
+
+export type ModelEstudianteFilterInput = {
+  id?: ModelIDInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  espolUser?: ModelStringInput | null,
+  espolId?: ModelStringInput | null,
+  espolEmail?: ModelStringInput | null,
+  and?: Array< ModelEstudianteFilterInput | null > | null,
+  or?: Array< ModelEstudianteFilterInput | null > | null,
+  not?: ModelEstudianteFilterInput | null,
+  cursoEstudiantesId?: ModelIDInput | null,
+};
+
+export type ModelAsistenciaFilterInput = {
+  estado?: ModelAsistioInput | null,
+  and?: Array< ModelAsistenciaFilterInput | null > | null,
+  or?: Array< ModelAsistenciaFilterInput | null > | null,
+  not?: ModelAsistenciaFilterInput | null,
+  estudianteAsistenciaId?: ModelIDInput | null,
+  asistenciaCursoId?: ModelIDInput | null,
+  asistenciaHorarioId?: ModelIDInput | null,
+};
+
+export type ModelSubscriptionUserFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionBlogFilterInput | null > | null,
-  or?: Array< ModelSubscriptionBlogFilterInput | null > | null,
+  email?: ModelSubscriptionStringInput | null,
+  password?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -291,330 +527,55 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionPostFilterInput = {
+export type ModelSubscriptionProfesorFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  title?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionPostFilterInput | null > | null,
-  or?: Array< ModelSubscriptionPostFilterInput | null > | null,
+  firstName?: ModelSubscriptionStringInput | null,
+  lastName?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionProfesorFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProfesorFilterInput | null > | null,
 };
 
-export type ModelSubscriptionCommentFilterInput = {
+export type ModelSubscriptionCursoFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  content?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionCommentFilterInput | null > | null,
-  or?: Array< ModelSubscriptionCommentFilterInput | null > | null,
+  color?: ModelSubscriptionStringInput | null,
+  paralelo?: ModelSubscriptionStringInput | null,
+  nombreCurso?: ModelSubscriptionStringInput | null,
+  creacion?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionCursoFilterInput | null > | null,
+  or?: Array< ModelSubscriptionCursoFilterInput | null > | null,
 };
 
-export type ModelSubscriptionUserFilterInput = {
+export type ModelSubscriptionDeviceFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  password?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  topic?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionDeviceFilterInput | null > | null,
+  or?: Array< ModelSubscriptionDeviceFilterInput | null > | null,
 };
 
-export type CreateBlogMutationVariables = {
-  input: CreateBlogInput,
-  condition?: ModelBlogConditionInput | null,
+export type ModelSubscriptionHorarioFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  dia?: ModelSubscriptionStringInput | null,
+  horaDesde?: ModelSubscriptionStringInput | null,
+  horaHasta?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionHorarioFilterInput | null > | null,
+  or?: Array< ModelSubscriptionHorarioFilterInput | null > | null,
 };
 
-export type CreateBlogMutation = {
-  createBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
+export type ModelSubscriptionEstudianteFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  firstName?: ModelSubscriptionStringInput | null,
+  lastName?: ModelSubscriptionStringInput | null,
+  espolUser?: ModelSubscriptionStringInput | null,
+  espolId?: ModelSubscriptionStringInput | null,
+  espolEmail?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionEstudianteFilterInput | null > | null,
+  or?: Array< ModelSubscriptionEstudianteFilterInput | null > | null,
 };
 
-export type UpdateBlogMutationVariables = {
-  input: UpdateBlogInput,
-  condition?: ModelBlogConditionInput | null,
-};
-
-export type UpdateBlogMutation = {
-  updateBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteBlogMutationVariables = {
-  input: DeleteBlogInput,
-  condition?: ModelBlogConditionInput | null,
-};
-
-export type DeleteBlogMutation = {
-  deleteBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreatePostMutationVariables = {
-  input: CreatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type CreatePostMutation = {
-  createPost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type UpdatePostMutationVariables = {
-  input: UpdatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type UpdatePostMutation = {
-  updatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type DeletePostMutationVariables = {
-  input: DeletePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type DeletePostMutation = {
-  deletePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type CreateCommentMutationVariables = {
-  input: CreateCommentInput,
-  condition?: ModelCommentConditionInput | null,
-};
-
-export type CreateCommentMutation = {
-  createComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
-    } | null,
-    content: string,
-    createdAt: string,
-    updatedAt: string,
-    postCommentsId?: string | null,
-  } | null,
-};
-
-export type UpdateCommentMutationVariables = {
-  input: UpdateCommentInput,
-  condition?: ModelCommentConditionInput | null,
-};
-
-export type UpdateCommentMutation = {
-  updateComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
-    } | null,
-    content: string,
-    createdAt: string,
-    updatedAt: string,
-    postCommentsId?: string | null,
-  } | null,
-};
-
-export type DeleteCommentMutationVariables = {
-  input: DeleteCommentInput,
-  condition?: ModelCommentConditionInput | null,
-};
-
-export type DeleteCommentMutation = {
-  deleteComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
-    } | null,
-    content: string,
-    createdAt: string,
-    updatedAt: string,
-    postCommentsId?: string | null,
-  } | null,
+export type ModelSubscriptionAsistenciaFilterInput = {
+  estado?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAsistenciaFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAsistenciaFilterInput | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -626,11 +587,23 @@ export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
     id: string,
-    name?: string | null,
     email: string,
     password: string,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
+    userProfesorId: string,
   } | null,
 };
 
@@ -643,11 +616,23 @@ export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
     id: string,
-    name?: string | null,
     email: string,
     password: string,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
+    userProfesorId: string,
   } | null,
 };
 
@@ -660,32 +645,50 @@ export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
     id: string,
-    name?: string | null,
     email: string,
     password: string,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
+    userProfesorId: string,
   } | null,
 };
 
-export type GetBlogQueryVariables = {
-  id: string,
+export type CreateProfesorMutationVariables = {
+  input: CreateProfesorInput,
+  condition?: ModelProfesorConditionInput | null,
 };
 
-export type GetBlogQuery = {
-  getBlog?:  {
-    __typename: "Blog",
+export type CreateProfesorMutation = {
+  createProfesor?:  {
+    __typename: "Profesor",
     id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
+    firstName: string,
+    lastName: string,
+    cursos?:  {
+      __typename: "ModelCursoConnection",
       items:  Array< {
-        __typename: "Post",
+        __typename: "Curso",
         id: string,
-        title: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -694,160 +697,604 @@ export type GetBlogQuery = {
   } | null,
 };
 
-export type ListBlogsQueryVariables = {
-  filter?: ModelBlogFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
+export type UpdateProfesorMutationVariables = {
+  input: UpdateProfesorInput,
+  condition?: ModelProfesorConditionInput | null,
 };
 
-export type ListBlogsQuery = {
-  listBlogs?:  {
-    __typename: "ModelBlogConnection",
-    items:  Array< {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetPostQueryVariables = {
-  id: string,
-};
-
-export type GetPostQuery = {
-  getPost?:  {
-    __typename: "Post",
+export type UpdateProfesorMutation = {
+  updateProfesor?:  {
+    __typename: "Profesor",
     id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
+    firstName: string,
+    lastName: string,
+    cursos?:  {
+      __typename: "ModelCursoConnection",
       items:  Array< {
-        __typename: "Comment",
+        __typename: "Curso",
         id: string,
-        content: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
         createdAt: string,
         updatedAt: string,
-        postCommentsId?: string | null,
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
   } | null,
 };
 
-export type ListPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
+export type DeleteProfesorMutationVariables = {
+  input: DeleteProfesorInput,
+  condition?: ModelProfesorConditionInput | null,
 };
 
-export type ListPostsQuery = {
-  listPosts?:  {
-    __typename: "ModelPostConnection",
-    items:  Array< {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetCommentQueryVariables = {
-  id: string,
-};
-
-export type GetCommentQuery = {
-  getComment?:  {
-    __typename: "Comment",
+export type DeleteProfesorMutation = {
+  deleteProfesor?:  {
+    __typename: "Profesor",
     id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+    firstName: string,
+    lastName: string,
+    cursos?:  {
+      __typename: "ModelCursoConnection",
+      items:  Array< {
+        __typename: "Curso",
         id: string,
-        name: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
-    content: string,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
   } | null,
 };
 
-export type ListCommentsQueryVariables = {
-  filter?: ModelCommentFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
+export type CreateCursoMutationVariables = {
+  input: CreateCursoInput,
+  condition?: ModelCursoConditionInput | null,
 };
 
-export type ListCommentsQuery = {
-  listComments?:  {
-    __typename: "ModelCommentConnection",
-    items:  Array< {
-      __typename: "Comment",
+export type CreateCursoMutation = {
+  createCurso?:  {
+    __typename: "Curso",
+    id: string,
+    color: string,
+    paralelo: string,
+    nombreCurso: string,
+    creacion: string,
+    dispositivo:  {
+      __typename: "Device",
       id: string,
-      post?:  {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null,
-      content: string,
+      topic: string,
       createdAt: string,
       updatedAt: string,
-      postCommentsId?: string | null,
-    } | null >,
-    nextToken?: string | null,
+    },
+    horarios?:  {
+      __typename: "ModelHorarioConnection",
+      items:  Array< {
+        __typename: "Horario",
+        id: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoHorariosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    estudiantes?:  {
+      __typename: "ModelEstudianteConnection",
+      items:  Array< {
+        __typename: "Estudiante",
+        id: string,
+        firstName: string,
+        lastName: string,
+        espolUser: string,
+        espolId: string,
+        espolEmail: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoEstudiantesId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profesorCursosId?: string | null,
+    cursoDispositivoId: string,
+  } | null,
+};
+
+export type UpdateCursoMutationVariables = {
+  input: UpdateCursoInput,
+  condition?: ModelCursoConditionInput | null,
+};
+
+export type UpdateCursoMutation = {
+  updateCurso?:  {
+    __typename: "Curso",
+    id: string,
+    color: string,
+    paralelo: string,
+    nombreCurso: string,
+    creacion: string,
+    dispositivo:  {
+      __typename: "Device",
+      id: string,
+      topic: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    horarios?:  {
+      __typename: "ModelHorarioConnection",
+      items:  Array< {
+        __typename: "Horario",
+        id: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoHorariosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    estudiantes?:  {
+      __typename: "ModelEstudianteConnection",
+      items:  Array< {
+        __typename: "Estudiante",
+        id: string,
+        firstName: string,
+        lastName: string,
+        espolUser: string,
+        espolId: string,
+        espolEmail: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoEstudiantesId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profesorCursosId?: string | null,
+    cursoDispositivoId: string,
+  } | null,
+};
+
+export type DeleteCursoMutationVariables = {
+  input: DeleteCursoInput,
+  condition?: ModelCursoConditionInput | null,
+};
+
+export type DeleteCursoMutation = {
+  deleteCurso?:  {
+    __typename: "Curso",
+    id: string,
+    color: string,
+    paralelo: string,
+    nombreCurso: string,
+    creacion: string,
+    dispositivo:  {
+      __typename: "Device",
+      id: string,
+      topic: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    horarios?:  {
+      __typename: "ModelHorarioConnection",
+      items:  Array< {
+        __typename: "Horario",
+        id: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoHorariosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    estudiantes?:  {
+      __typename: "ModelEstudianteConnection",
+      items:  Array< {
+        __typename: "Estudiante",
+        id: string,
+        firstName: string,
+        lastName: string,
+        espolUser: string,
+        espolId: string,
+        espolEmail: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoEstudiantesId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profesorCursosId?: string | null,
+    cursoDispositivoId: string,
+  } | null,
+};
+
+export type CreateDeviceMutationVariables = {
+  input: CreateDeviceInput,
+  condition?: ModelDeviceConditionInput | null,
+};
+
+export type CreateDeviceMutation = {
+  createDevice?:  {
+    __typename: "Device",
+    id: string,
+    topic: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateDeviceMutationVariables = {
+  input: UpdateDeviceInput,
+  condition?: ModelDeviceConditionInput | null,
+};
+
+export type UpdateDeviceMutation = {
+  updateDevice?:  {
+    __typename: "Device",
+    id: string,
+    topic: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteDeviceMutationVariables = {
+  input: DeleteDeviceInput,
+  condition?: ModelDeviceConditionInput | null,
+};
+
+export type DeleteDeviceMutation = {
+  deleteDevice?:  {
+    __typename: "Device",
+    id: string,
+    topic: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateHorarioMutationVariables = {
+  input: CreateHorarioInput,
+  condition?: ModelHorarioConditionInput | null,
+};
+
+export type CreateHorarioMutation = {
+  createHorario?:  {
+    __typename: "Horario",
+    id: string,
+    dia: DiaSemana,
+    horaDesde: string,
+    horaHasta: string,
+    createdAt: string,
+    updatedAt: string,
+    cursoHorariosId?: string | null,
+  } | null,
+};
+
+export type UpdateHorarioMutationVariables = {
+  input: UpdateHorarioInput,
+  condition?: ModelHorarioConditionInput | null,
+};
+
+export type UpdateHorarioMutation = {
+  updateHorario?:  {
+    __typename: "Horario",
+    id: string,
+    dia: DiaSemana,
+    horaDesde: string,
+    horaHasta: string,
+    createdAt: string,
+    updatedAt: string,
+    cursoHorariosId?: string | null,
+  } | null,
+};
+
+export type DeleteHorarioMutationVariables = {
+  input: DeleteHorarioInput,
+  condition?: ModelHorarioConditionInput | null,
+};
+
+export type DeleteHorarioMutation = {
+  deleteHorario?:  {
+    __typename: "Horario",
+    id: string,
+    dia: DiaSemana,
+    horaDesde: string,
+    horaHasta: string,
+    createdAt: string,
+    updatedAt: string,
+    cursoHorariosId?: string | null,
+  } | null,
+};
+
+export type CreateEstudianteMutationVariables = {
+  input: CreateEstudianteInput,
+  condition?: ModelEstudianteConditionInput | null,
+};
+
+export type CreateEstudianteMutation = {
+  createEstudiante?:  {
+    __typename: "Estudiante",
+    id: string,
+    firstName: string,
+    lastName: string,
+    espolUser: string,
+    espolId: string,
+    espolEmail: string,
+    asistencia?:  {
+      __typename: "ModelAsistenciaConnection",
+      items:  Array< {
+        __typename: "Asistencia",
+        estado: Asistio,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        estudianteAsistenciaId?: string | null,
+        asistenciaCursoId: string,
+        asistenciaHorarioId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    cursoEstudiantesId?: string | null,
+  } | null,
+};
+
+export type UpdateEstudianteMutationVariables = {
+  input: UpdateEstudianteInput,
+  condition?: ModelEstudianteConditionInput | null,
+};
+
+export type UpdateEstudianteMutation = {
+  updateEstudiante?:  {
+    __typename: "Estudiante",
+    id: string,
+    firstName: string,
+    lastName: string,
+    espolUser: string,
+    espolId: string,
+    espolEmail: string,
+    asistencia?:  {
+      __typename: "ModelAsistenciaConnection",
+      items:  Array< {
+        __typename: "Asistencia",
+        estado: Asistio,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        estudianteAsistenciaId?: string | null,
+        asistenciaCursoId: string,
+        asistenciaHorarioId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    cursoEstudiantesId?: string | null,
+  } | null,
+};
+
+export type DeleteEstudianteMutationVariables = {
+  input: DeleteEstudianteInput,
+  condition?: ModelEstudianteConditionInput | null,
+};
+
+export type DeleteEstudianteMutation = {
+  deleteEstudiante?:  {
+    __typename: "Estudiante",
+    id: string,
+    firstName: string,
+    lastName: string,
+    espolUser: string,
+    espolId: string,
+    espolEmail: string,
+    asistencia?:  {
+      __typename: "ModelAsistenciaConnection",
+      items:  Array< {
+        __typename: "Asistencia",
+        estado: Asistio,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        estudianteAsistenciaId?: string | null,
+        asistenciaCursoId: string,
+        asistenciaHorarioId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    cursoEstudiantesId?: string | null,
+  } | null,
+};
+
+export type CreateAsistenciaMutationVariables = {
+  input: CreateAsistenciaInput,
+  condition?: ModelAsistenciaConditionInput | null,
+};
+
+export type CreateAsistenciaMutation = {
+  createAsistencia?:  {
+    __typename: "Asistencia",
+    curso:  {
+      __typename: "Curso",
+      id: string,
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
+        id: string,
+        topic: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    },
+    horario:  {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    },
+    estado: Asistio,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    estudianteAsistenciaId?: string | null,
+    asistenciaCursoId: string,
+    asistenciaHorarioId: string,
+  } | null,
+};
+
+export type UpdateAsistenciaMutationVariables = {
+  input: UpdateAsistenciaInput,
+  condition?: ModelAsistenciaConditionInput | null,
+};
+
+export type UpdateAsistenciaMutation = {
+  updateAsistencia?:  {
+    __typename: "Asistencia",
+    curso:  {
+      __typename: "Curso",
+      id: string,
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
+        id: string,
+        topic: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    },
+    horario:  {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    },
+    estado: Asistio,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    estudianteAsistenciaId?: string | null,
+    asistenciaCursoId: string,
+    asistenciaHorarioId: string,
+  } | null,
+};
+
+export type DeleteAsistenciaMutationVariables = {
+  input: DeleteAsistenciaInput,
+  condition?: ModelAsistenciaConditionInput | null,
+};
+
+export type DeleteAsistenciaMutation = {
+  deleteAsistencia?:  {
+    __typename: "Asistencia",
+    curso:  {
+      __typename: "Curso",
+      id: string,
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
+        id: string,
+        topic: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    },
+    horario:  {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    },
+    estado: Asistio,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    estudianteAsistenciaId?: string | null,
+    asistenciaCursoId: string,
+    asistenciaHorarioId: string,
   } | null,
 };
 
@@ -859,11 +1306,23 @@ export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
     id: string,
-    name?: string | null,
     email: string,
     password: string,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
+    userProfesorId: string,
   } | null,
 };
 
@@ -879,9 +1338,73 @@ export type ListUsersQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
-      name?: string | null,
       email: string,
       password: string,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        firstName: string,
+        lastName: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+      userProfesorId: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetProfesorQueryVariables = {
+  id: string,
+};
+
+export type GetProfesorQuery = {
+  getProfesor?:  {
+    __typename: "Profesor",
+    id: string,
+    firstName: string,
+    lastName: string,
+    cursos?:  {
+      __typename: "ModelCursoConnection",
+      items:  Array< {
+        __typename: "Curso",
+        id: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
+        createdAt: string,
+        updatedAt: string,
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListProfesorsQueryVariables = {
+  filter?: ModelProfesorFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProfesorsQuery = {
+  listProfesors?:  {
+    __typename: "ModelProfesorConnection",
+    items:  Array< {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -889,297 +1412,334 @@ export type ListUsersQuery = {
   } | null,
 };
 
-export type OnCreateBlogSubscriptionVariables = {
-  filter?: ModelSubscriptionBlogFilterInput | null,
+export type GetCursoQueryVariables = {
+  id: string,
 };
 
-export type OnCreateBlogSubscription = {
-  onCreateBlog?:  {
-    __typename: "Blog",
+export type GetCursoQuery = {
+  getCurso?:  {
+    __typename: "Curso",
     id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
+    color: string,
+    paralelo: string,
+    nombreCurso: string,
+    creacion: string,
+    dispositivo:  {
+      __typename: "Device",
+      id: string,
+      topic: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    horarios?:  {
+      __typename: "ModelHorarioConnection",
       items:  Array< {
-        __typename: "Post",
+        __typename: "Horario",
         id: string,
-        title: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        cursoHorariosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    estudiantes?:  {
+      __typename: "ModelEstudianteConnection",
+      items:  Array< {
+        __typename: "Estudiante",
+        id: string,
+        firstName: string,
+        lastName: string,
+        espolUser: string,
+        espolId: string,
+        espolEmail: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    profesorCursosId?: string | null,
+    cursoDispositivoId: string,
   } | null,
 };
 
-export type OnUpdateBlogSubscriptionVariables = {
-  filter?: ModelSubscriptionBlogFilterInput | null,
+export type ListCursosQueryVariables = {
+  filter?: ModelCursoFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type OnUpdateBlogSubscription = {
-  onUpdateBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
+export type ListCursosQuery = {
+  listCursos?:  {
+    __typename: "ModelCursoConnection",
+    items:  Array< {
+      __typename: "Curso",
+      id: string,
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
         id: string,
-        title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetDeviceQueryVariables = {
+  id: string,
+};
+
+export type GetDeviceQuery = {
+  getDevice?:  {
+    __typename: "Device",
+    id: string,
+    topic: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListDevicesQueryVariables = {
+  filter?: ModelDeviceFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListDevicesQuery = {
+  listDevices?:  {
+    __typename: "ModelDeviceConnection",
+    items:  Array< {
+      __typename: "Device",
+      id: string,
+      topic: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetHorarioQueryVariables = {
+  id: string,
+};
+
+export type GetHorarioQuery = {
+  getHorario?:  {
+    __typename: "Horario",
+    id: string,
+    dia: DiaSemana,
+    horaDesde: string,
+    horaHasta: string,
+    createdAt: string,
+    updatedAt: string,
+    cursoHorariosId?: string | null,
+  } | null,
+};
+
+export type ListHorariosQueryVariables = {
+  filter?: ModelHorarioFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListHorariosQuery = {
+  listHorarios?:  {
+    __typename: "ModelHorarioConnection",
+    items:  Array< {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetEstudianteQueryVariables = {
+  id: string,
+};
+
+export type GetEstudianteQuery = {
+  getEstudiante?:  {
+    __typename: "Estudiante",
+    id: string,
+    firstName: string,
+    lastName: string,
+    espolUser: string,
+    espolId: string,
+    espolEmail: string,
+    asistencia?:  {
+      __typename: "ModelAsistenciaConnection",
+      items:  Array< {
+        __typename: "Asistencia",
+        estado: Asistio,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        estudianteAsistenciaId?: string | null,
+        asistenciaCursoId: string,
+        asistenciaHorarioId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
+    cursoEstudiantesId?: string | null,
   } | null,
 };
 
-export type OnDeleteBlogSubscriptionVariables = {
-  filter?: ModelSubscriptionBlogFilterInput | null,
+export type ListEstudiantesQueryVariables = {
+  filter?: ModelEstudianteFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type OnDeleteBlogSubscription = {
-  onDeleteBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreatePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
-};
-
-export type OnCreatePostSubscription = {
-  onCreatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
+export type ListEstudiantesQuery = {
+  listEstudiantes?:  {
+    __typename: "ModelEstudianteConnection",
+    items:  Array< {
+      __typename: "Estudiante",
       id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
+      firstName: string,
+      lastName: string,
+      espolUser: string,
+      espolId: string,
+      espolEmail: string,
+      asistencia?:  {
+        __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
+      cursoEstudiantesId?: string | null,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
-export type OnUpdatePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
+export type GetAsistenciaQueryVariables = {
+  id: string,
 };
 
-export type OnUpdatePostSubscription = {
-  onUpdatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
+export type GetAsistenciaQuery = {
+  getAsistencia?:  {
+    __typename: "Asistencia",
+    curso:  {
+      __typename: "Curso",
       id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
+        id: string,
+        topic: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    },
+    horario:  {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    },
+    estado: Asistio,
+    id: string,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    estudianteAsistenciaId?: string | null,
+    asistenciaCursoId: string,
+    asistenciaHorarioId: string,
   } | null,
 };
 
-export type OnDeletePostSubscriptionVariables = {
-  filter?: ModelSubscriptionPostFilterInput | null,
+export type ListAsistenciasQueryVariables = {
+  filter?: ModelAsistenciaFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
 };
 
-export type OnDeletePostSubscription = {
-  onDeletePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
+export type ListAsistenciasQuery = {
+  listAsistencias?:  {
+    __typename: "ModelAsistenciaConnection",
+    items:  Array< {
+      __typename: "Asistencia",
+      curso:  {
+        __typename: "Curso",
         id: string,
-        content: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
         createdAt: string,
         updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type OnCreateCommentSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentFilterInput | null,
-};
-
-export type OnCreateCommentSubscription = {
-  onCreateComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
+      },
+      horario:  {
+        __typename: "Horario",
         id: string,
-        name: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
-    } | null,
-    content: string,
-    createdAt: string,
-    updatedAt: string,
-    postCommentsId?: string | null,
-  } | null,
-};
-
-export type OnUpdateCommentSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentFilterInput | null,
-};
-
-export type OnUpdateCommentSubscription = {
-  onUpdateComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
+        cursoHorariosId?: string | null,
+      },
+      estado: Asistio,
       id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
-    } | null,
-    content: string,
-    createdAt: string,
-    updatedAt: string,
-    postCommentsId?: string | null,
-  } | null,
-};
-
-export type OnDeleteCommentSubscriptionVariables = {
-  filter?: ModelSubscriptionCommentFilterInput | null,
-};
-
-export type OnDeleteCommentSubscription = {
-  onDeleteComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
-    } | null,
-    content: string,
-    createdAt: string,
-    updatedAt: string,
-    postCommentsId?: string | null,
+      estudianteAsistenciaId?: string | null,
+      asistenciaCursoId: string,
+      asistenciaHorarioId: string,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -1191,11 +1751,23 @@ export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
     id: string,
-    name?: string | null,
     email: string,
     password: string,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
+    userProfesorId: string,
   } | null,
 };
 
@@ -1207,11 +1779,23 @@ export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
     id: string,
-    name?: string | null,
     email: string,
     password: string,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
+    userProfesorId: string,
   } | null,
 };
 
@@ -1223,10 +1807,637 @@ export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
     id: string,
-    name?: string | null,
     email: string,
     password: string,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      firstName: string,
+      lastName: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
+    userProfesorId: string,
+  } | null,
+};
+
+export type OnCreateProfesorSubscriptionVariables = {
+  filter?: ModelSubscriptionProfesorFilterInput | null,
+};
+
+export type OnCreateProfesorSubscription = {
+  onCreateProfesor?:  {
+    __typename: "Profesor",
+    id: string,
+    firstName: string,
+    lastName: string,
+    cursos?:  {
+      __typename: "ModelCursoConnection",
+      items:  Array< {
+        __typename: "Curso",
+        id: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
+        createdAt: string,
+        updatedAt: string,
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateProfesorSubscriptionVariables = {
+  filter?: ModelSubscriptionProfesorFilterInput | null,
+};
+
+export type OnUpdateProfesorSubscription = {
+  onUpdateProfesor?:  {
+    __typename: "Profesor",
+    id: string,
+    firstName: string,
+    lastName: string,
+    cursos?:  {
+      __typename: "ModelCursoConnection",
+      items:  Array< {
+        __typename: "Curso",
+        id: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
+        createdAt: string,
+        updatedAt: string,
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteProfesorSubscriptionVariables = {
+  filter?: ModelSubscriptionProfesorFilterInput | null,
+};
+
+export type OnDeleteProfesorSubscription = {
+  onDeleteProfesor?:  {
+    __typename: "Profesor",
+    id: string,
+    firstName: string,
+    lastName: string,
+    cursos?:  {
+      __typename: "ModelCursoConnection",
+      items:  Array< {
+        __typename: "Curso",
+        id: string,
+        color: string,
+        paralelo: string,
+        nombreCurso: string,
+        creacion: string,
+        createdAt: string,
+        updatedAt: string,
+        profesorCursosId?: string | null,
+        cursoDispositivoId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateCursoSubscriptionVariables = {
+  filter?: ModelSubscriptionCursoFilterInput | null,
+};
+
+export type OnCreateCursoSubscription = {
+  onCreateCurso?:  {
+    __typename: "Curso",
+    id: string,
+    color: string,
+    paralelo: string,
+    nombreCurso: string,
+    creacion: string,
+    dispositivo:  {
+      __typename: "Device",
+      id: string,
+      topic: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    horarios?:  {
+      __typename: "ModelHorarioConnection",
+      items:  Array< {
+        __typename: "Horario",
+        id: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoHorariosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    estudiantes?:  {
+      __typename: "ModelEstudianteConnection",
+      items:  Array< {
+        __typename: "Estudiante",
+        id: string,
+        firstName: string,
+        lastName: string,
+        espolUser: string,
+        espolId: string,
+        espolEmail: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoEstudiantesId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profesorCursosId?: string | null,
+    cursoDispositivoId: string,
+  } | null,
+};
+
+export type OnUpdateCursoSubscriptionVariables = {
+  filter?: ModelSubscriptionCursoFilterInput | null,
+};
+
+export type OnUpdateCursoSubscription = {
+  onUpdateCurso?:  {
+    __typename: "Curso",
+    id: string,
+    color: string,
+    paralelo: string,
+    nombreCurso: string,
+    creacion: string,
+    dispositivo:  {
+      __typename: "Device",
+      id: string,
+      topic: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    horarios?:  {
+      __typename: "ModelHorarioConnection",
+      items:  Array< {
+        __typename: "Horario",
+        id: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoHorariosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    estudiantes?:  {
+      __typename: "ModelEstudianteConnection",
+      items:  Array< {
+        __typename: "Estudiante",
+        id: string,
+        firstName: string,
+        lastName: string,
+        espolUser: string,
+        espolId: string,
+        espolEmail: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoEstudiantesId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profesorCursosId?: string | null,
+    cursoDispositivoId: string,
+  } | null,
+};
+
+export type OnDeleteCursoSubscriptionVariables = {
+  filter?: ModelSubscriptionCursoFilterInput | null,
+};
+
+export type OnDeleteCursoSubscription = {
+  onDeleteCurso?:  {
+    __typename: "Curso",
+    id: string,
+    color: string,
+    paralelo: string,
+    nombreCurso: string,
+    creacion: string,
+    dispositivo:  {
+      __typename: "Device",
+      id: string,
+      topic: string,
+      createdAt: string,
+      updatedAt: string,
+    },
+    horarios?:  {
+      __typename: "ModelHorarioConnection",
+      items:  Array< {
+        __typename: "Horario",
+        id: string,
+        dia: DiaSemana,
+        horaDesde: string,
+        horaHasta: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoHorariosId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    estudiantes?:  {
+      __typename: "ModelEstudianteConnection",
+      items:  Array< {
+        __typename: "Estudiante",
+        id: string,
+        firstName: string,
+        lastName: string,
+        espolUser: string,
+        espolId: string,
+        espolEmail: string,
+        createdAt: string,
+        updatedAt: string,
+        cursoEstudiantesId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profesorCursosId?: string | null,
+    cursoDispositivoId: string,
+  } | null,
+};
+
+export type OnCreateDeviceSubscriptionVariables = {
+  filter?: ModelSubscriptionDeviceFilterInput | null,
+};
+
+export type OnCreateDeviceSubscription = {
+  onCreateDevice?:  {
+    __typename: "Device",
+    id: string,
+    topic: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateDeviceSubscriptionVariables = {
+  filter?: ModelSubscriptionDeviceFilterInput | null,
+};
+
+export type OnUpdateDeviceSubscription = {
+  onUpdateDevice?:  {
+    __typename: "Device",
+    id: string,
+    topic: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteDeviceSubscriptionVariables = {
+  filter?: ModelSubscriptionDeviceFilterInput | null,
+};
+
+export type OnDeleteDeviceSubscription = {
+  onDeleteDevice?:  {
+    __typename: "Device",
+    id: string,
+    topic: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateHorarioSubscriptionVariables = {
+  filter?: ModelSubscriptionHorarioFilterInput | null,
+};
+
+export type OnCreateHorarioSubscription = {
+  onCreateHorario?:  {
+    __typename: "Horario",
+    id: string,
+    dia: DiaSemana,
+    horaDesde: string,
+    horaHasta: string,
+    createdAt: string,
+    updatedAt: string,
+    cursoHorariosId?: string | null,
+  } | null,
+};
+
+export type OnUpdateHorarioSubscriptionVariables = {
+  filter?: ModelSubscriptionHorarioFilterInput | null,
+};
+
+export type OnUpdateHorarioSubscription = {
+  onUpdateHorario?:  {
+    __typename: "Horario",
+    id: string,
+    dia: DiaSemana,
+    horaDesde: string,
+    horaHasta: string,
+    createdAt: string,
+    updatedAt: string,
+    cursoHorariosId?: string | null,
+  } | null,
+};
+
+export type OnDeleteHorarioSubscriptionVariables = {
+  filter?: ModelSubscriptionHorarioFilterInput | null,
+};
+
+export type OnDeleteHorarioSubscription = {
+  onDeleteHorario?:  {
+    __typename: "Horario",
+    id: string,
+    dia: DiaSemana,
+    horaDesde: string,
+    horaHasta: string,
+    createdAt: string,
+    updatedAt: string,
+    cursoHorariosId?: string | null,
+  } | null,
+};
+
+export type OnCreateEstudianteSubscriptionVariables = {
+  filter?: ModelSubscriptionEstudianteFilterInput | null,
+};
+
+export type OnCreateEstudianteSubscription = {
+  onCreateEstudiante?:  {
+    __typename: "Estudiante",
+    id: string,
+    firstName: string,
+    lastName: string,
+    espolUser: string,
+    espolId: string,
+    espolEmail: string,
+    asistencia?:  {
+      __typename: "ModelAsistenciaConnection",
+      items:  Array< {
+        __typename: "Asistencia",
+        estado: Asistio,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        estudianteAsistenciaId?: string | null,
+        asistenciaCursoId: string,
+        asistenciaHorarioId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    cursoEstudiantesId?: string | null,
+  } | null,
+};
+
+export type OnUpdateEstudianteSubscriptionVariables = {
+  filter?: ModelSubscriptionEstudianteFilterInput | null,
+};
+
+export type OnUpdateEstudianteSubscription = {
+  onUpdateEstudiante?:  {
+    __typename: "Estudiante",
+    id: string,
+    firstName: string,
+    lastName: string,
+    espolUser: string,
+    espolId: string,
+    espolEmail: string,
+    asistencia?:  {
+      __typename: "ModelAsistenciaConnection",
+      items:  Array< {
+        __typename: "Asistencia",
+        estado: Asistio,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        estudianteAsistenciaId?: string | null,
+        asistenciaCursoId: string,
+        asistenciaHorarioId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    cursoEstudiantesId?: string | null,
+  } | null,
+};
+
+export type OnDeleteEstudianteSubscriptionVariables = {
+  filter?: ModelSubscriptionEstudianteFilterInput | null,
+};
+
+export type OnDeleteEstudianteSubscription = {
+  onDeleteEstudiante?:  {
+    __typename: "Estudiante",
+    id: string,
+    firstName: string,
+    lastName: string,
+    espolUser: string,
+    espolId: string,
+    espolEmail: string,
+    asistencia?:  {
+      __typename: "ModelAsistenciaConnection",
+      items:  Array< {
+        __typename: "Asistencia",
+        estado: Asistio,
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        estudianteAsistenciaId?: string | null,
+        asistenciaCursoId: string,
+        asistenciaHorarioId: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    cursoEstudiantesId?: string | null,
+  } | null,
+};
+
+export type OnCreateAsistenciaSubscriptionVariables = {
+  filter?: ModelSubscriptionAsistenciaFilterInput | null,
+};
+
+export type OnCreateAsistenciaSubscription = {
+  onCreateAsistencia?:  {
+    __typename: "Asistencia",
+    curso:  {
+      __typename: "Curso",
+      id: string,
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
+        id: string,
+        topic: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    },
+    horario:  {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    },
+    estado: Asistio,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    estudianteAsistenciaId?: string | null,
+    asistenciaCursoId: string,
+    asistenciaHorarioId: string,
+  } | null,
+};
+
+export type OnUpdateAsistenciaSubscriptionVariables = {
+  filter?: ModelSubscriptionAsistenciaFilterInput | null,
+};
+
+export type OnUpdateAsistenciaSubscription = {
+  onUpdateAsistencia?:  {
+    __typename: "Asistencia",
+    curso:  {
+      __typename: "Curso",
+      id: string,
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
+        id: string,
+        topic: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    },
+    horario:  {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    },
+    estado: Asistio,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    estudianteAsistenciaId?: string | null,
+    asistenciaCursoId: string,
+    asistenciaHorarioId: string,
+  } | null,
+};
+
+export type OnDeleteAsistenciaSubscriptionVariables = {
+  filter?: ModelSubscriptionAsistenciaFilterInput | null,
+};
+
+export type OnDeleteAsistenciaSubscription = {
+  onDeleteAsistencia?:  {
+    __typename: "Asistencia",
+    curso:  {
+      __typename: "Curso",
+      id: string,
+      color: string,
+      paralelo: string,
+      nombreCurso: string,
+      creacion: string,
+      dispositivo:  {
+        __typename: "Device",
+        id: string,
+        topic: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      horarios?:  {
+        __typename: "ModelHorarioConnection",
+        nextToken?: string | null,
+      } | null,
+      estudiantes?:  {
+        __typename: "ModelEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profesorCursosId?: string | null,
+      cursoDispositivoId: string,
+    },
+    horario:  {
+      __typename: "Horario",
+      id: string,
+      dia: DiaSemana,
+      horaDesde: string,
+      horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+      cursoHorariosId?: string | null,
+    },
+    estado: Asistio,
+    id: string,
+    createdAt: string,
+    updatedAt: string,
+    estudianteAsistenciaId?: string | null,
+    asistenciaCursoId: string,
+    asistenciaHorarioId: string,
   } | null,
 };
