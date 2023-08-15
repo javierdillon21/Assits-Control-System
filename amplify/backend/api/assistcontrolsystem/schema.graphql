@@ -23,7 +23,7 @@ type Profesor @model {
   id: ID!
   nombres: String!
   apellidos: String!
-  email: String!
+  email: ID!
   password: String!
   cursos: [Curso] @hasMany
 }
@@ -32,11 +32,11 @@ type Curso @model {
   id: ID!
   paralelo: String!
   nombre: String!
-  creacion: AWSDateTime!
-  dispositivo: Device! @hasOne
+  creacion: AWSDateTime
+  dispositivo: Device @hasOne
   horarios: [Horario] @hasMany
   estudiantes: [Estudiante] @hasMany
-  profesor: Profesor! @hasOne
+  profesor: Profesor @hasOne
 }
 
 type Device @model {
@@ -52,11 +52,10 @@ type Horario @model {
 }
 
 type Estudiante @model {
-  id: ID!
+  matricula: ID!
   nombres: String!
   apellidos: String!
   usuario: String!
-  matricula: String!
   email: String!
   asistencia: [Asistencia] @hasMany
 }

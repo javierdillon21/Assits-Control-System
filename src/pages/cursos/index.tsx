@@ -1,25 +1,45 @@
-import { GetCursoQuery, GetCursoQueryVariables, ListCursosQuery, ListCursosQueryVariables } from '@/API';
+import { CreateCursoInput, CreateCursoMutation, GetCursoQuery, GetCursoQueryVariables, ListCursosQuery, ListCursosQueryVariables } from '@/API';
 import CursoCard from '@/app/components/cursocard'
 import '@/app/globals.css'
 import { getCurso, listCursos } from '@/graphql/queries';
 import { API, Auth } from 'aws-amplify';
 import { useQuery } from 'urql';
 import { GraphQLQuery } from '@aws-amplify/api';
+import { useEffect, useState } from 'react';
+import { createCurso } from '@/graphql/mutations';
 
 export default function Cursos() {
 
   //TODO: fetch cursos from database
+  const [cursos, setCursos]= useState<Curso>()
 
-  async function d(){
-   
+  async function fetchingdata(){
     const allTodos = await API.graphql<GraphQLQuery<ListCursosQuery>>(
       { query: listCursos }
       );
     console.log(allTodos)
   }
-// d()
 
-  // console.log(resultRetrieveCursos)
+  async function createdata(){
+    const inputs:CreateCursoInput={
+      cursoProfesorId: "1",
+      nombre: "Telemetria",
+      cursoDispositivoId: '1',
+      paralelo: '101',
+      profesorCursosId: "1"
+    }
+
+    const newTodo = await API.graphql<GraphQLQuery<CreateCursoMutation>>({ 
+      query: createCurso, 
+      variables: { input:  inputs}
+    });
+  }
+
+  useEffect(()=>{
+    // createdata()
+    fetchingdata()
+  },[])
+
 
   const cursos = [
     {id: "129d1", color:"#10b981", paralelo:"102", nombreCurso: "Telemetria", creacion: "08-08-2023"},

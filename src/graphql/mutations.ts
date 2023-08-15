@@ -134,12 +134,12 @@ export const createCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          id
+          matricula
           nombres
           apellidos
           usuario
-          matricula
           email
+          id
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -204,12 +204,12 @@ export const updateCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          id
+          matricula
           nombres
           apellidos
           usuario
-          matricula
           email
+          id
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -274,12 +274,12 @@ export const deleteCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          id
+          matricula
           nombres
           apellidos
           usuario
-          matricula
           email
+          id
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -410,11 +410,10 @@ export const createEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     createEstudiante(input: $input, condition: $condition) {
-      id
+      matricula
       nombres
       apellidos
       usuario
-      matricula
       email
       asistencia {
         items {
@@ -430,6 +429,7 @@ export const createEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
+      id
       createdAt
       updatedAt
       cursoEstudiantesId
@@ -443,11 +443,10 @@ export const updateEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     updateEstudiante(input: $input, condition: $condition) {
-      id
+      matricula
       nombres
       apellidos
       usuario
-      matricula
       email
       asistencia {
         items {
@@ -463,6 +462,7 @@ export const updateEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
+      id
       createdAt
       updatedAt
       cursoEstudiantesId
@@ -476,11 +476,10 @@ export const deleteEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     deleteEstudiante(input: $input, condition: $condition) {
-      id
+      matricula
       nombres
       apellidos
       usuario
-      matricula
       email
       asistencia {
         items {
@@ -496,6 +495,7 @@ export const deleteEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
+      id
       createdAt
       updatedAt
       cursoEstudiantesId

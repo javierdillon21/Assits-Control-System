@@ -122,12 +122,12 @@ export const onCreateCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          id
+          matricula
           nombres
           apellidos
           usuario
-          matricula
           email
+          id
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -189,12 +189,12 @@ export const onUpdateCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          id
+          matricula
           nombres
           apellidos
           usuario
-          matricula
           email
+          id
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -256,12 +256,12 @@ export const onDeleteCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          id
+          matricula
           nombres
           apellidos
           usuario
-          matricula
           email
+          id
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -373,11 +373,10 @@ export const onCreateEstudiante = /* GraphQL */ `
     $filter: ModelSubscriptionEstudianteFilterInput
   ) {
     onCreateEstudiante(filter: $filter) {
-      id
+      matricula
       nombres
       apellidos
       usuario
-      matricula
       email
       asistencia {
         items {
@@ -393,6 +392,7 @@ export const onCreateEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
+      id
       createdAt
       updatedAt
       cursoEstudiantesId
@@ -405,11 +405,10 @@ export const onUpdateEstudiante = /* GraphQL */ `
     $filter: ModelSubscriptionEstudianteFilterInput
   ) {
     onUpdateEstudiante(filter: $filter) {
-      id
+      matricula
       nombres
       apellidos
       usuario
-      matricula
       email
       asistencia {
         items {
@@ -425,6 +424,7 @@ export const onUpdateEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
+      id
       createdAt
       updatedAt
       cursoEstudiantesId
@@ -437,11 +437,10 @@ export const onDeleteEstudiante = /* GraphQL */ `
     $filter: ModelSubscriptionEstudianteFilterInput
   ) {
     onDeleteEstudiante(filter: $filter) {
-      id
+      matricula
       nombres
       apellidos
       usuario
-      matricula
       email
       asistencia {
         items {
@@ -457,6 +456,7 @@ export const onDeleteEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
+      id
       createdAt
       updatedAt
       cursoEstudiantesId
