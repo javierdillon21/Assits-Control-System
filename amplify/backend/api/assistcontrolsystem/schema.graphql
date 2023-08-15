@@ -1,6 +1,6 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public} } # FOR TESTING ONLY!
 
 enum DiaSemana {
   LUNES
@@ -18,29 +18,25 @@ enum Asistio {
   AUN_NO
 }
 
-type User @model {
-  id: ID!
-  email: String!
-  password: String!
-  profesor: Profesor! @hasOne
-}
 
 type Profesor @model {
   id: ID!
-  firstName: String!
-  lastName: String!
+  nombres: String!
+  apellidos: String!
+  email: String!
+  password: String!
   cursos: [Curso] @hasMany
 }
 
 type Curso @model {
   id: ID!
-  color: String!
   paralelo: String!
-  nombreCurso: String!
+  nombre: String!
   creacion: AWSDateTime!
   dispositivo: Device! @hasOne
   horarios: [Horario] @hasMany
   estudiantes: [Estudiante] @hasMany
+  profesor: Profesor! @hasOne
 }
 
 type Device @model {
@@ -57,11 +53,11 @@ type Horario @model {
 
 type Estudiante @model {
   id: ID!
-  firstName: String!
-  lastName: String!
-  espolUser: String!
-  espolId: String!
-  espolEmail: String!
+  nombres: String!
+  apellidos: String!
+  usuario: String!
+  matricula: String!
+  email: String!
   asistencia: [Asistencia] @hasMany
 }
 

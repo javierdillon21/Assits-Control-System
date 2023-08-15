@@ -2,98 +2,25 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
-      id
-      email
-      password
-      profesor {
-        id
-        firstName
-        lastName
-        cursos {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      userProfesorId
-      __typename
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
-      id
-      email
-      password
-      profesor {
-        id
-        firstName
-        lastName
-        cursos {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      userProfesorId
-      __typename
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
-      id
-      email
-      password
-      profesor {
-        id
-        firstName
-        lastName
-        cursos {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      userProfesorId
-      __typename
-    }
-  }
-`;
 export const onCreateProfesor = /* GraphQL */ `
   subscription OnCreateProfesor($filter: ModelSubscriptionProfesorFilterInput) {
     onCreateProfesor(filter: $filter) {
       id
-      firstName
-      lastName
+      nombres
+      apellidos
+      email
+      password
       cursos {
         items {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         nextToken
@@ -109,19 +36,21 @@ export const onUpdateProfesor = /* GraphQL */ `
   subscription OnUpdateProfesor($filter: ModelSubscriptionProfesorFilterInput) {
     onUpdateProfesor(filter: $filter) {
       id
-      firstName
-      lastName
+      nombres
+      apellidos
+      email
+      password
       cursos {
         items {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         nextToken
@@ -137,19 +66,21 @@ export const onDeleteProfesor = /* GraphQL */ `
   subscription OnDeleteProfesor($filter: ModelSubscriptionProfesorFilterInput) {
     onDeleteProfesor(filter: $filter) {
       id
-      firstName
-      lastName
+      nombres
+      apellidos
+      email
+      password
       cursos {
         items {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         nextToken
@@ -165,9 +96,8 @@ export const onCreateCurso = /* GraphQL */ `
   subscription OnCreateCurso($filter: ModelSubscriptionCursoFilterInput) {
     onCreateCurso(filter: $filter) {
       id
-      color
       paralelo
-      nombreCurso
+      nombre
       creacion
       dispositivo {
         id
@@ -193,11 +123,11 @@ export const onCreateCurso = /* GraphQL */ `
       estudiantes {
         items {
           id
-          firstName
-          lastName
-          espolUser
-          espolId
-          espolEmail
+          nombres
+          apellidos
+          usuario
+          matricula
+          email
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -206,10 +136,25 @@ export const onCreateCurso = /* GraphQL */ `
         nextToken
         __typename
       }
+      profesor {
+        id
+        nombres
+        apellidos
+        email
+        password
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       profesorCursosId
       cursoDispositivoId
+      cursoProfesorId
       __typename
     }
   }
@@ -218,9 +163,8 @@ export const onUpdateCurso = /* GraphQL */ `
   subscription OnUpdateCurso($filter: ModelSubscriptionCursoFilterInput) {
     onUpdateCurso(filter: $filter) {
       id
-      color
       paralelo
-      nombreCurso
+      nombre
       creacion
       dispositivo {
         id
@@ -246,11 +190,11 @@ export const onUpdateCurso = /* GraphQL */ `
       estudiantes {
         items {
           id
-          firstName
-          lastName
-          espolUser
-          espolId
-          espolEmail
+          nombres
+          apellidos
+          usuario
+          matricula
+          email
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -259,10 +203,25 @@ export const onUpdateCurso = /* GraphQL */ `
         nextToken
         __typename
       }
+      profesor {
+        id
+        nombres
+        apellidos
+        email
+        password
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       profesorCursosId
       cursoDispositivoId
+      cursoProfesorId
       __typename
     }
   }
@@ -271,9 +230,8 @@ export const onDeleteCurso = /* GraphQL */ `
   subscription OnDeleteCurso($filter: ModelSubscriptionCursoFilterInput) {
     onDeleteCurso(filter: $filter) {
       id
-      color
       paralelo
-      nombreCurso
+      nombre
       creacion
       dispositivo {
         id
@@ -299,11 +257,11 @@ export const onDeleteCurso = /* GraphQL */ `
       estudiantes {
         items {
           id
-          firstName
-          lastName
-          espolUser
-          espolId
-          espolEmail
+          nombres
+          apellidos
+          usuario
+          matricula
+          email
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -312,10 +270,25 @@ export const onDeleteCurso = /* GraphQL */ `
         nextToken
         __typename
       }
+      profesor {
+        id
+        nombres
+        apellidos
+        email
+        password
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       profesorCursosId
       cursoDispositivoId
+      cursoProfesorId
       __typename
     }
   }
@@ -401,11 +374,11 @@ export const onCreateEstudiante = /* GraphQL */ `
   ) {
     onCreateEstudiante(filter: $filter) {
       id
-      firstName
-      lastName
-      espolUser
-      espolId
-      espolEmail
+      nombres
+      apellidos
+      usuario
+      matricula
+      email
       asistencia {
         items {
           estado
@@ -433,11 +406,11 @@ export const onUpdateEstudiante = /* GraphQL */ `
   ) {
     onUpdateEstudiante(filter: $filter) {
       id
-      firstName
-      lastName
-      espolUser
-      espolId
-      espolEmail
+      nombres
+      apellidos
+      usuario
+      matricula
+      email
       asistencia {
         items {
           estado
@@ -465,11 +438,11 @@ export const onDeleteEstudiante = /* GraphQL */ `
   ) {
     onDeleteEstudiante(filter: $filter) {
       id
-      firstName
-      lastName
-      espolUser
-      espolId
-      espolEmail
+      nombres
+      apellidos
+      usuario
+      matricula
+      email
       asistencia {
         items {
           estado
@@ -498,9 +471,8 @@ export const onCreateAsistencia = /* GraphQL */ `
     onCreateAsistencia(filter: $filter) {
       curso {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -517,10 +489,21 @@ export const onCreateAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       horario {
@@ -551,9 +534,8 @@ export const onUpdateAsistencia = /* GraphQL */ `
     onUpdateAsistencia(filter: $filter) {
       curso {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -570,10 +552,21 @@ export const onUpdateAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       horario {
@@ -604,9 +597,8 @@ export const onDeleteAsistencia = /* GraphQL */ `
     onDeleteAsistencia(filter: $filter) {
       curso {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -623,10 +615,21 @@ export const onDeleteAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       horario {

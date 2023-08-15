@@ -2,90 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createUser = /* GraphQL */ `
-  mutation CreateUser(
-    $input: CreateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    createUser(input: $input, condition: $condition) {
-      id
-      email
-      password
-      profesor {
-        id
-        firstName
-        lastName
-        cursos {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      userProfesorId
-      __typename
-    }
-  }
-`;
-export const updateUser = /* GraphQL */ `
-  mutation UpdateUser(
-    $input: UpdateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    updateUser(input: $input, condition: $condition) {
-      id
-      email
-      password
-      profesor {
-        id
-        firstName
-        lastName
-        cursos {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      userProfesorId
-      __typename
-    }
-  }
-`;
-export const deleteUser = /* GraphQL */ `
-  mutation DeleteUser(
-    $input: DeleteUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    deleteUser(input: $input, condition: $condition) {
-      id
-      email
-      password
-      profesor {
-        id
-        firstName
-        lastName
-        cursos {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      userProfesorId
-      __typename
-    }
-  }
-`;
 export const createProfesor = /* GraphQL */ `
   mutation CreateProfesor(
     $input: CreateProfesorInput!
@@ -93,19 +9,21 @@ export const createProfesor = /* GraphQL */ `
   ) {
     createProfesor(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
+      nombres
+      apellidos
+      email
+      password
       cursos {
         items {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         nextToken
@@ -124,19 +42,21 @@ export const updateProfesor = /* GraphQL */ `
   ) {
     updateProfesor(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
+      nombres
+      apellidos
+      email
+      password
       cursos {
         items {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         nextToken
@@ -155,19 +75,21 @@ export const deleteProfesor = /* GraphQL */ `
   ) {
     deleteProfesor(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
+      nombres
+      apellidos
+      email
+      password
       cursos {
         items {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         nextToken
@@ -186,9 +108,8 @@ export const createCurso = /* GraphQL */ `
   ) {
     createCurso(input: $input, condition: $condition) {
       id
-      color
       paralelo
-      nombreCurso
+      nombre
       creacion
       dispositivo {
         id
@@ -214,11 +135,11 @@ export const createCurso = /* GraphQL */ `
       estudiantes {
         items {
           id
-          firstName
-          lastName
-          espolUser
-          espolId
-          espolEmail
+          nombres
+          apellidos
+          usuario
+          matricula
+          email
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -227,10 +148,25 @@ export const createCurso = /* GraphQL */ `
         nextToken
         __typename
       }
+      profesor {
+        id
+        nombres
+        apellidos
+        email
+        password
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       profesorCursosId
       cursoDispositivoId
+      cursoProfesorId
       __typename
     }
   }
@@ -242,9 +178,8 @@ export const updateCurso = /* GraphQL */ `
   ) {
     updateCurso(input: $input, condition: $condition) {
       id
-      color
       paralelo
-      nombreCurso
+      nombre
       creacion
       dispositivo {
         id
@@ -270,11 +205,11 @@ export const updateCurso = /* GraphQL */ `
       estudiantes {
         items {
           id
-          firstName
-          lastName
-          espolUser
-          espolId
-          espolEmail
+          nombres
+          apellidos
+          usuario
+          matricula
+          email
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -283,10 +218,25 @@ export const updateCurso = /* GraphQL */ `
         nextToken
         __typename
       }
+      profesor {
+        id
+        nombres
+        apellidos
+        email
+        password
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       profesorCursosId
       cursoDispositivoId
+      cursoProfesorId
       __typename
     }
   }
@@ -298,9 +248,8 @@ export const deleteCurso = /* GraphQL */ `
   ) {
     deleteCurso(input: $input, condition: $condition) {
       id
-      color
       paralelo
-      nombreCurso
+      nombre
       creacion
       dispositivo {
         id
@@ -326,11 +275,11 @@ export const deleteCurso = /* GraphQL */ `
       estudiantes {
         items {
           id
-          firstName
-          lastName
-          espolUser
-          espolId
-          espolEmail
+          nombres
+          apellidos
+          usuario
+          matricula
+          email
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -339,10 +288,25 @@ export const deleteCurso = /* GraphQL */ `
         nextToken
         __typename
       }
+      profesor {
+        id
+        nombres
+        apellidos
+        email
+        password
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       profesorCursosId
       cursoDispositivoId
+      cursoProfesorId
       __typename
     }
   }
@@ -447,11 +411,11 @@ export const createEstudiante = /* GraphQL */ `
   ) {
     createEstudiante(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
-      espolUser
-      espolId
-      espolEmail
+      nombres
+      apellidos
+      usuario
+      matricula
+      email
       asistencia {
         items {
           estado
@@ -480,11 +444,11 @@ export const updateEstudiante = /* GraphQL */ `
   ) {
     updateEstudiante(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
-      espolUser
-      espolId
-      espolEmail
+      nombres
+      apellidos
+      usuario
+      matricula
+      email
       asistencia {
         items {
           estado
@@ -513,11 +477,11 @@ export const deleteEstudiante = /* GraphQL */ `
   ) {
     deleteEstudiante(input: $input, condition: $condition) {
       id
-      firstName
-      lastName
-      espolUser
-      espolId
-      espolEmail
+      nombres
+      apellidos
+      usuario
+      matricula
+      email
       asistencia {
         items {
           estado
@@ -547,9 +511,8 @@ export const createAsistencia = /* GraphQL */ `
     createAsistencia(input: $input, condition: $condition) {
       curso {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -566,10 +529,21 @@ export const createAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       horario {
@@ -601,9 +575,8 @@ export const updateAsistencia = /* GraphQL */ `
     updateAsistencia(input: $input, condition: $condition) {
       curso {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -620,10 +593,21 @@ export const updateAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       horario {
@@ -655,9 +639,8 @@ export const deleteAsistencia = /* GraphQL */ `
     deleteAsistencia(input: $input, condition: $condition) {
       curso {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -674,10 +657,21 @@ export const deleteAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       horario {
