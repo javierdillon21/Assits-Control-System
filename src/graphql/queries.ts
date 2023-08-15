@@ -2,77 +2,25 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      email
-      password
-      profesor {
-        id
-        firstName
-        lastName
-        cursos {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      userProfesorId
-      __typename
-    }
-  }
-`;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        email
-        password
-        profesor {
-          id
-          firstName
-          lastName
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        userProfesorId
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const getProfesor = /* GraphQL */ `
   query GetProfesor($id: ID!) {
     getProfesor(id: $id) {
       id
-      firstName
-      lastName
+      nombres
+      apellidos
+      email
+      password
       cursos {
         items {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         nextToken
@@ -93,8 +41,10 @@ export const listProfesors = /* GraphQL */ `
     listProfesors(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        firstName
-        lastName
+        nombres
+        apellidos
+        email
+        password
         cursos {
           nextToken
           __typename
@@ -112,9 +62,8 @@ export const getCurso = /* GraphQL */ `
   query GetCurso($id: ID!) {
     getCurso(id: $id) {
       id
-      color
       paralelo
-      nombreCurso
+      nombre
       creacion
       dispositivo {
         id
@@ -140,11 +89,11 @@ export const getCurso = /* GraphQL */ `
       estudiantes {
         items {
           id
-          firstName
-          lastName
-          espolUser
-          espolId
-          espolEmail
+          nombres
+          apellidos
+          usuario
+          matricula
+          email
           createdAt
           updatedAt
           cursoEstudiantesId
@@ -153,10 +102,25 @@ export const getCurso = /* GraphQL */ `
         nextToken
         __typename
       }
+      profesor {
+        id
+        nombres
+        apellidos
+        email
+        password
+        cursos {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       profesorCursosId
       cursoDispositivoId
+      cursoProfesorId
       __typename
     }
   }
@@ -170,9 +134,8 @@ export const listCursos = /* GraphQL */ `
     listCursos(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -189,10 +152,21 @@ export const listCursos = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       nextToken
@@ -270,11 +244,11 @@ export const getEstudiante = /* GraphQL */ `
   query GetEstudiante($id: ID!) {
     getEstudiante(id: $id) {
       id
-      firstName
-      lastName
-      espolUser
-      espolId
-      espolEmail
+      nombres
+      apellidos
+      usuario
+      matricula
+      email
       asistencia {
         items {
           estado
@@ -305,11 +279,11 @@ export const listEstudiantes = /* GraphQL */ `
     listEstudiantes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        firstName
-        lastName
-        espolUser
-        espolId
-        espolEmail
+        nombres
+        apellidos
+        usuario
+        matricula
+        email
         asistencia {
           nextToken
           __typename
@@ -329,9 +303,8 @@ export const getAsistencia = /* GraphQL */ `
     getAsistencia(id: $id) {
       curso {
         id
-        color
         paralelo
-        nombreCurso
+        nombre
         creacion
         dispositivo {
           id
@@ -348,10 +321,21 @@ export const getAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
+        profesor {
+          id
+          nombres
+          apellidos
+          email
+          password
+          createdAt
+          updatedAt
+          __typename
+        }
         createdAt
         updatedAt
         profesorCursosId
         cursoDispositivoId
+        cursoProfesorId
         __typename
       }
       horario {
@@ -385,14 +369,14 @@ export const listAsistencias = /* GraphQL */ `
       items {
         curso {
           id
-          color
           paralelo
-          nombreCurso
+          nombre
           creacion
           createdAt
           updatedAt
           profesorCursosId
           cursoDispositivoId
+          cursoProfesorId
           __typename
         }
         horario {

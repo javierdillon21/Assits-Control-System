@@ -1,7 +1,8 @@
 import { Auth } from 'aws-amplify'
 import { useEffect, useState } from 'react'
-import { cacheExchange, Client, createClient, fetchExchange } from 'urql'
+import { cacheExchange, Client, createClient, fetchExchange, OperationContext, useQuery } from 'urql'
 import awsExports from './aws-exports'
+import { CognitoUserCustom } from './data'
 
 
 // to be used outside React
@@ -13,7 +14,9 @@ export let globalUrqlClient: Client
  * client will be used along all the app through a
  * Provider, using the React's Context API.
  * */
-export function useUrqlClient(){
+export function useUrqlClient(
+  userCognito?: CognitoUserCustom
+): [Client | undefined, boolean] {
   const [urqlClient, setUrqlClient] = useState<Client>()
   const [loading, setLoading] = useState(true)
   
@@ -24,16 +27,16 @@ export function useUrqlClient(){
       try {
         const auth = await Auth.currentSession()
         const token = auth.getIdToken().getJwtToken()
-
+        console.log(auth)
         // change according to the env
         const client = createClient({
           url: awsExports.aws_appsync_graphqlEndpoint,
-          exchanges: [cacheExchange, fetchExchange],
           fetchOptions: () => {
             return {
-              headers: { authorization: token },
-            }
+              headers: { authorization: token ? `Bearer ${token}` : '' },
+            };
           },
+          exchanges: [cacheExchange, fetchExchange],
         })
         setUrqlClient(client)
         globalUrqlClient = client
@@ -44,7 +47,7 @@ export function useUrqlClient(){
       }
     })()
     // }
-  }, [])
+  }, [userCognito])
 
   return [urqlClient, loading]
 }

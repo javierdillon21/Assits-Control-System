@@ -2,20 +2,22 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateUserInput = {
+export type CreateProfesorInput = {
   id?: string | null,
+  nombres: string,
+  apellidos: string,
   email: string,
   password: string,
-  userProfesorId: string,
 };
 
-export type ModelUserConditionInput = {
+export type ModelProfesorConditionInput = {
+  nombres?: ModelStringInput | null,
+  apellidos?: ModelStringInput | null,
   email?: ModelStringInput | null,
   password?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
-  userProfesorId?: ModelIDInput | null,
+  and?: Array< ModelProfesorConditionInput | null > | null,
+  or?: Array< ModelProfesorConditionInput | null > | null,
+  not?: ModelProfesorConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -58,38 +60,13 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
-export type User = {
-  __typename: "User",
-  id: string,
-  email: string,
-  password: string,
-  profesor: Profesor,
-  createdAt: string,
-  updatedAt: string,
-  userProfesorId: string,
-};
-
 export type Profesor = {
   __typename: "Profesor",
   id: string,
-  firstName: string,
-  lastName: string,
+  nombres: string,
+  apellidos: string,
+  email: string,
+  password: string,
   cursos?: ModelCursoConnection | null,
   createdAt: string,
   updatedAt: string,
@@ -104,17 +81,18 @@ export type ModelCursoConnection = {
 export type Curso = {
   __typename: "Curso",
   id: string,
-  color: string,
   paralelo: string,
-  nombreCurso: string,
+  nombre: string,
   creacion: string,
   dispositivo: Device,
   horarios?: ModelHorarioConnection | null,
   estudiantes?: ModelEstudianteConnection | null,
+  profesor: Profesor,
   createdAt: string,
   updatedAt: string,
   profesorCursosId?: string | null,
   cursoDispositivoId: string,
+  cursoProfesorId: string,
 };
 
 export type Device = {
@@ -162,11 +140,11 @@ export type ModelEstudianteConnection = {
 export type Estudiante = {
   __typename: "Estudiante",
   id: string,
-  firstName: string,
-  lastName: string,
-  espolUser: string,
-  espolId: string,
-  espolEmail: string,
+  nombres: string,
+  apellidos: string,
+  usuario: string,
+  matricula: string,
+  email: string,
   asistencia?: ModelAsistenciaConnection | null,
   createdAt: string,
   updatedAt: string,
@@ -199,35 +177,12 @@ export enum Asistio {
 }
 
 
-export type UpdateUserInput = {
-  id: string,
-  email?: string | null,
-  password?: string | null,
-  userProfesorId?: string | null,
-};
-
-export type DeleteUserInput = {
-  id: string,
-};
-
-export type CreateProfesorInput = {
-  id?: string | null,
-  firstName: string,
-  lastName: string,
-};
-
-export type ModelProfesorConditionInput = {
-  firstName?: ModelStringInput | null,
-  lastName?: ModelStringInput | null,
-  and?: Array< ModelProfesorConditionInput | null > | null,
-  or?: Array< ModelProfesorConditionInput | null > | null,
-  not?: ModelProfesorConditionInput | null,
-};
-
 export type UpdateProfesorInput = {
   id: string,
-  firstName?: string | null,
-  lastName?: string | null,
+  nombres?: string | null,
+  apellidos?: string | null,
+  email?: string | null,
+  password?: string | null,
 };
 
 export type DeleteProfesorInput = {
@@ -236,34 +191,50 @@ export type DeleteProfesorInput = {
 
 export type CreateCursoInput = {
   id?: string | null,
-  color: string,
   paralelo: string,
-  nombreCurso: string,
+  nombre: string,
   creacion: string,
   profesorCursosId?: string | null,
   cursoDispositivoId: string,
+  cursoProfesorId: string,
 };
 
 export type ModelCursoConditionInput = {
-  color?: ModelStringInput | null,
   paralelo?: ModelStringInput | null,
-  nombreCurso?: ModelStringInput | null,
+  nombre?: ModelStringInput | null,
   creacion?: ModelStringInput | null,
   and?: Array< ModelCursoConditionInput | null > | null,
   or?: Array< ModelCursoConditionInput | null > | null,
   not?: ModelCursoConditionInput | null,
   profesorCursosId?: ModelIDInput | null,
   cursoDispositivoId?: ModelIDInput | null,
+  cursoProfesorId?: ModelIDInput | null,
+};
+
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type UpdateCursoInput = {
   id: string,
-  color?: string | null,
   paralelo?: string | null,
-  nombreCurso?: string | null,
+  nombre?: string | null,
   creacion?: string | null,
   profesorCursosId?: string | null,
   cursoDispositivoId?: string | null,
+  cursoProfesorId?: string | null,
 };
 
 export type DeleteCursoInput = {
@@ -328,20 +299,20 @@ export type DeleteHorarioInput = {
 
 export type CreateEstudianteInput = {
   id?: string | null,
-  firstName: string,
-  lastName: string,
-  espolUser: string,
-  espolId: string,
-  espolEmail: string,
+  nombres: string,
+  apellidos: string,
+  usuario: string,
+  matricula: string,
+  email: string,
   cursoEstudiantesId?: string | null,
 };
 
 export type ModelEstudianteConditionInput = {
-  firstName?: ModelStringInput | null,
-  lastName?: ModelStringInput | null,
-  espolUser?: ModelStringInput | null,
-  espolId?: ModelStringInput | null,
-  espolEmail?: ModelStringInput | null,
+  nombres?: ModelStringInput | null,
+  apellidos?: ModelStringInput | null,
+  usuario?: ModelStringInput | null,
+  matricula?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   and?: Array< ModelEstudianteConditionInput | null > | null,
   or?: Array< ModelEstudianteConditionInput | null > | null,
   not?: ModelEstudianteConditionInput | null,
@@ -350,11 +321,11 @@ export type ModelEstudianteConditionInput = {
 
 export type UpdateEstudianteInput = {
   id: string,
-  firstName?: string | null,
-  lastName?: string | null,
-  espolUser?: string | null,
-  espolId?: string | null,
-  espolEmail?: string | null,
+  nombres?: string | null,
+  apellidos?: string | null,
+  usuario?: string | null,
+  matricula?: string | null,
+  email?: string | null,
   cursoEstudiantesId?: string | null,
 };
 
@@ -397,26 +368,12 @@ export type DeleteAsistenciaInput = {
   id: string,
 };
 
-export type ModelUserFilterInput = {
-  id?: ModelIDInput | null,
-  email?: ModelStringInput | null,
-  password?: ModelStringInput | null,
-  and?: Array< ModelUserFilterInput | null > | null,
-  or?: Array< ModelUserFilterInput | null > | null,
-  not?: ModelUserFilterInput | null,
-  userProfesorId?: ModelIDInput | null,
-};
-
-export type ModelUserConnection = {
-  __typename: "ModelUserConnection",
-  items:  Array<User | null >,
-  nextToken?: string | null,
-};
-
 export type ModelProfesorFilterInput = {
   id?: ModelIDInput | null,
-  firstName?: ModelStringInput | null,
-  lastName?: ModelStringInput | null,
+  nombres?: ModelStringInput | null,
+  apellidos?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  password?: ModelStringInput | null,
   and?: Array< ModelProfesorFilterInput | null > | null,
   or?: Array< ModelProfesorFilterInput | null > | null,
   not?: ModelProfesorFilterInput | null,
@@ -430,15 +387,15 @@ export type ModelProfesorConnection = {
 
 export type ModelCursoFilterInput = {
   id?: ModelIDInput | null,
-  color?: ModelStringInput | null,
   paralelo?: ModelStringInput | null,
-  nombreCurso?: ModelStringInput | null,
+  nombre?: ModelStringInput | null,
   creacion?: ModelStringInput | null,
   and?: Array< ModelCursoFilterInput | null > | null,
   or?: Array< ModelCursoFilterInput | null > | null,
   not?: ModelCursoFilterInput | null,
   profesorCursosId?: ModelIDInput | null,
   cursoDispositivoId?: ModelIDInput | null,
+  cursoProfesorId?: ModelIDInput | null,
 };
 
 export type ModelDeviceFilterInput = {
@@ -468,11 +425,11 @@ export type ModelHorarioFilterInput = {
 
 export type ModelEstudianteFilterInput = {
   id?: ModelIDInput | null,
-  firstName?: ModelStringInput | null,
-  lastName?: ModelStringInput | null,
-  espolUser?: ModelStringInput | null,
-  espolId?: ModelStringInput | null,
-  espolEmail?: ModelStringInput | null,
+  nombres?: ModelStringInput | null,
+  apellidos?: ModelStringInput | null,
+  usuario?: ModelStringInput | null,
+  matricula?: ModelStringInput | null,
+  email?: ModelStringInput | null,
   and?: Array< ModelEstudianteFilterInput | null > | null,
   or?: Array< ModelEstudianteFilterInput | null > | null,
   not?: ModelEstudianteFilterInput | null,
@@ -489,12 +446,14 @@ export type ModelAsistenciaFilterInput = {
   asistenciaHorarioId?: ModelIDInput | null,
 };
 
-export type ModelSubscriptionUserFilterInput = {
+export type ModelSubscriptionProfesorFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  nombres?: ModelSubscriptionStringInput | null,
+  apellidos?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   password?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionUserFilterInput | null > | null,
-  or?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  and?: Array< ModelSubscriptionProfesorFilterInput | null > | null,
+  or?: Array< ModelSubscriptionProfesorFilterInput | null > | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -527,19 +486,10 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionProfesorFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  firstName?: ModelSubscriptionStringInput | null,
-  lastName?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionProfesorFilterInput | null > | null,
-  or?: Array< ModelSubscriptionProfesorFilterInput | null > | null,
-};
-
 export type ModelSubscriptionCursoFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  color?: ModelSubscriptionStringInput | null,
   paralelo?: ModelSubscriptionStringInput | null,
-  nombreCurso?: ModelSubscriptionStringInput | null,
+  nombre?: ModelSubscriptionStringInput | null,
   creacion?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionCursoFilterInput | null > | null,
   or?: Array< ModelSubscriptionCursoFilterInput | null > | null,
@@ -563,11 +513,11 @@ export type ModelSubscriptionHorarioFilterInput = {
 
 export type ModelSubscriptionEstudianteFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  firstName?: ModelSubscriptionStringInput | null,
-  lastName?: ModelSubscriptionStringInput | null,
-  espolUser?: ModelSubscriptionStringInput | null,
-  espolId?: ModelSubscriptionStringInput | null,
-  espolEmail?: ModelSubscriptionStringInput | null,
+  nombres?: ModelSubscriptionStringInput | null,
+  apellidos?: ModelSubscriptionStringInput | null,
+  usuario?: ModelSubscriptionStringInput | null,
+  matricula?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionEstudianteFilterInput | null > | null,
   or?: Array< ModelSubscriptionEstudianteFilterInput | null > | null,
 };
@@ -576,93 +526,6 @@ export type ModelSubscriptionAsistenciaFilterInput = {
   estado?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionAsistenciaFilterInput | null > | null,
   or?: Array< ModelSubscriptionAsistenciaFilterInput | null > | null,
-};
-
-export type CreateUserMutationVariables = {
-  input: CreateUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type CreateUserMutation = {
-  createUser?:  {
-    __typename: "User",
-    id: string,
-    email: string,
-    password: string,
-    profesor:  {
-      __typename: "Profesor",
-      id: string,
-      firstName: string,
-      lastName: string,
-      cursos?:  {
-        __typename: "ModelCursoConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    userProfesorId: string,
-  } | null,
-};
-
-export type UpdateUserMutationVariables = {
-  input: UpdateUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type UpdateUserMutation = {
-  updateUser?:  {
-    __typename: "User",
-    id: string,
-    email: string,
-    password: string,
-    profesor:  {
-      __typename: "Profesor",
-      id: string,
-      firstName: string,
-      lastName: string,
-      cursos?:  {
-        __typename: "ModelCursoConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    userProfesorId: string,
-  } | null,
-};
-
-export type DeleteUserMutationVariables = {
-  input: DeleteUserInput,
-  condition?: ModelUserConditionInput | null,
-};
-
-export type DeleteUserMutation = {
-  deleteUser?:  {
-    __typename: "User",
-    id: string,
-    email: string,
-    password: string,
-    profesor:  {
-      __typename: "Profesor",
-      id: string,
-      firstName: string,
-      lastName: string,
-      cursos?:  {
-        __typename: "ModelCursoConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    userProfesorId: string,
-  } | null,
 };
 
 export type CreateProfesorMutationVariables = {
@@ -674,21 +537,23 @@ export type CreateProfesorMutation = {
   createProfesor?:  {
     __typename: "Profesor",
     id: string,
-    firstName: string,
-    lastName: string,
+    nombres: string,
+    apellidos: string,
+    email: string,
+    password: string,
     cursos?:  {
       __typename: "ModelCursoConnection",
       items:  Array< {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -706,21 +571,23 @@ export type UpdateProfesorMutation = {
   updateProfesor?:  {
     __typename: "Profesor",
     id: string,
-    firstName: string,
-    lastName: string,
+    nombres: string,
+    apellidos: string,
+    email: string,
+    password: string,
     cursos?:  {
       __typename: "ModelCursoConnection",
       items:  Array< {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -738,21 +605,23 @@ export type DeleteProfesorMutation = {
   deleteProfesor?:  {
     __typename: "Profesor",
     id: string,
-    firstName: string,
-    lastName: string,
+    nombres: string,
+    apellidos: string,
+    email: string,
+    password: string,
     cursos?:  {
       __typename: "ModelCursoConnection",
       items:  Array< {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -770,9 +639,8 @@ export type CreateCursoMutation = {
   createCurso?:  {
     __typename: "Curso",
     id: string,
-    color: string,
     paralelo: string,
-    nombreCurso: string,
+    nombre: string,
     creacion: string,
     dispositivo:  {
       __typename: "Device",
@@ -800,21 +668,36 @@ export type CreateCursoMutation = {
       items:  Array< {
         __typename: "Estudiante",
         id: string,
-        firstName: string,
-        lastName: string,
-        espolUser: string,
-        espolId: string,
-        espolEmail: string,
+        nombres: string,
+        apellidos: string,
+        usuario: string,
+        matricula: string,
+        email: string,
         createdAt: string,
         updatedAt: string,
         cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
     profesorCursosId?: string | null,
     cursoDispositivoId: string,
+    cursoProfesorId: string,
   } | null,
 };
 
@@ -827,9 +710,8 @@ export type UpdateCursoMutation = {
   updateCurso?:  {
     __typename: "Curso",
     id: string,
-    color: string,
     paralelo: string,
-    nombreCurso: string,
+    nombre: string,
     creacion: string,
     dispositivo:  {
       __typename: "Device",
@@ -857,21 +739,36 @@ export type UpdateCursoMutation = {
       items:  Array< {
         __typename: "Estudiante",
         id: string,
-        firstName: string,
-        lastName: string,
-        espolUser: string,
-        espolId: string,
-        espolEmail: string,
+        nombres: string,
+        apellidos: string,
+        usuario: string,
+        matricula: string,
+        email: string,
         createdAt: string,
         updatedAt: string,
         cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
     profesorCursosId?: string | null,
     cursoDispositivoId: string,
+    cursoProfesorId: string,
   } | null,
 };
 
@@ -884,9 +781,8 @@ export type DeleteCursoMutation = {
   deleteCurso?:  {
     __typename: "Curso",
     id: string,
-    color: string,
     paralelo: string,
-    nombreCurso: string,
+    nombre: string,
     creacion: string,
     dispositivo:  {
       __typename: "Device",
@@ -914,21 +810,36 @@ export type DeleteCursoMutation = {
       items:  Array< {
         __typename: "Estudiante",
         id: string,
-        firstName: string,
-        lastName: string,
-        espolUser: string,
-        espolId: string,
-        espolEmail: string,
+        nombres: string,
+        apellidos: string,
+        usuario: string,
+        matricula: string,
+        email: string,
         createdAt: string,
         updatedAt: string,
         cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
     profesorCursosId?: string | null,
     cursoDispositivoId: string,
+    cursoProfesorId: string,
   } | null,
 };
 
@@ -1040,11 +951,11 @@ export type CreateEstudianteMutation = {
   createEstudiante?:  {
     __typename: "Estudiante",
     id: string,
-    firstName: string,
-    lastName: string,
-    espolUser: string,
-    espolId: string,
-    espolEmail: string,
+    nombres: string,
+    apellidos: string,
+    usuario: string,
+    matricula: string,
+    email: string,
     asistencia?:  {
       __typename: "ModelAsistenciaConnection",
       items:  Array< {
@@ -1074,11 +985,11 @@ export type UpdateEstudianteMutation = {
   updateEstudiante?:  {
     __typename: "Estudiante",
     id: string,
-    firstName: string,
-    lastName: string,
-    espolUser: string,
-    espolId: string,
-    espolEmail: string,
+    nombres: string,
+    apellidos: string,
+    usuario: string,
+    matricula: string,
+    email: string,
     asistencia?:  {
       __typename: "ModelAsistenciaConnection",
       items:  Array< {
@@ -1108,11 +1019,11 @@ export type DeleteEstudianteMutation = {
   deleteEstudiante?:  {
     __typename: "Estudiante",
     id: string,
-    firstName: string,
-    lastName: string,
-    espolUser: string,
-    espolId: string,
-    espolEmail: string,
+    nombres: string,
+    apellidos: string,
+    usuario: string,
+    matricula: string,
+    email: string,
     asistencia?:  {
       __typename: "ModelAsistenciaConnection",
       items:  Array< {
@@ -1144,9 +1055,8 @@ export type CreateAsistenciaMutation = {
     curso:  {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -1163,10 +1073,21 @@ export type CreateAsistenciaMutation = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     },
     horario:  {
       __typename: "Horario",
@@ -1199,9 +1120,8 @@ export type UpdateAsistenciaMutation = {
     curso:  {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -1218,10 +1138,21 @@ export type UpdateAsistenciaMutation = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     },
     horario:  {
       __typename: "Horario",
@@ -1254,9 +1185,8 @@ export type DeleteAsistenciaMutation = {
     curso:  {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -1273,10 +1203,21 @@ export type DeleteAsistenciaMutation = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     },
     horario:  {
       __typename: "Horario",
@@ -1298,64 +1239,6 @@ export type DeleteAsistenciaMutation = {
   } | null,
 };
 
-export type GetUserQueryVariables = {
-  id: string,
-};
-
-export type GetUserQuery = {
-  getUser?:  {
-    __typename: "User",
-    id: string,
-    email: string,
-    password: string,
-    profesor:  {
-      __typename: "Profesor",
-      id: string,
-      firstName: string,
-      lastName: string,
-      cursos?:  {
-        __typename: "ModelCursoConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    userProfesorId: string,
-  } | null,
-};
-
-export type ListUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListUsersQuery = {
-  listUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      email: string,
-      password: string,
-      profesor:  {
-        __typename: "Profesor",
-        id: string,
-        firstName: string,
-        lastName: string,
-        createdAt: string,
-        updatedAt: string,
-      },
-      createdAt: string,
-      updatedAt: string,
-      userProfesorId: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
 export type GetProfesorQueryVariables = {
   id: string,
 };
@@ -1364,21 +1247,23 @@ export type GetProfesorQuery = {
   getProfesor?:  {
     __typename: "Profesor",
     id: string,
-    firstName: string,
-    lastName: string,
+    nombres: string,
+    apellidos: string,
+    email: string,
+    password: string,
     cursos?:  {
       __typename: "ModelCursoConnection",
       items:  Array< {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1399,8 +1284,10 @@ export type ListProfesorsQuery = {
     items:  Array< {
       __typename: "Profesor",
       id: string,
-      firstName: string,
-      lastName: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
       cursos?:  {
         __typename: "ModelCursoConnection",
         nextToken?: string | null,
@@ -1420,9 +1307,8 @@ export type GetCursoQuery = {
   getCurso?:  {
     __typename: "Curso",
     id: string,
-    color: string,
     paralelo: string,
-    nombreCurso: string,
+    nombre: string,
     creacion: string,
     dispositivo:  {
       __typename: "Device",
@@ -1450,21 +1336,36 @@ export type GetCursoQuery = {
       items:  Array< {
         __typename: "Estudiante",
         id: string,
-        firstName: string,
-        lastName: string,
-        espolUser: string,
-        espolId: string,
-        espolEmail: string,
+        nombres: string,
+        apellidos: string,
+        usuario: string,
+        matricula: string,
+        email: string,
         createdAt: string,
         updatedAt: string,
         cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
     profesorCursosId?: string | null,
     cursoDispositivoId: string,
+    cursoProfesorId: string,
   } | null,
 };
 
@@ -1480,9 +1381,8 @@ export type ListCursosQuery = {
     items:  Array< {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -1499,10 +1399,21 @@ export type ListCursosQuery = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1590,11 +1501,11 @@ export type GetEstudianteQuery = {
   getEstudiante?:  {
     __typename: "Estudiante",
     id: string,
-    firstName: string,
-    lastName: string,
-    espolUser: string,
-    espolId: string,
-    espolEmail: string,
+    nombres: string,
+    apellidos: string,
+    usuario: string,
+    matricula: string,
+    email: string,
     asistencia?:  {
       __typename: "ModelAsistenciaConnection",
       items:  Array< {
@@ -1627,11 +1538,11 @@ export type ListEstudiantesQuery = {
     items:  Array< {
       __typename: "Estudiante",
       id: string,
-      firstName: string,
-      lastName: string,
-      espolUser: string,
-      espolId: string,
-      espolEmail: string,
+      nombres: string,
+      apellidos: string,
+      usuario: string,
+      matricula: string,
+      email: string,
       asistencia?:  {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
@@ -1654,9 +1565,8 @@ export type GetAsistenciaQuery = {
     curso:  {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -1673,10 +1583,21 @@ export type GetAsistenciaQuery = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     },
     horario:  {
       __typename: "Horario",
@@ -1712,14 +1633,14 @@ export type ListAsistenciasQuery = {
       curso:  {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       },
       horario:  {
         __typename: "Horario",
@@ -1743,90 +1664,6 @@ export type ListAsistenciasQuery = {
   } | null,
 };
 
-export type OnCreateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnCreateUserSubscription = {
-  onCreateUser?:  {
-    __typename: "User",
-    id: string,
-    email: string,
-    password: string,
-    profesor:  {
-      __typename: "Profesor",
-      id: string,
-      firstName: string,
-      lastName: string,
-      cursos?:  {
-        __typename: "ModelCursoConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    userProfesorId: string,
-  } | null,
-};
-
-export type OnUpdateUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnUpdateUserSubscription = {
-  onUpdateUser?:  {
-    __typename: "User",
-    id: string,
-    email: string,
-    password: string,
-    profesor:  {
-      __typename: "Profesor",
-      id: string,
-      firstName: string,
-      lastName: string,
-      cursos?:  {
-        __typename: "ModelCursoConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    userProfesorId: string,
-  } | null,
-};
-
-export type OnDeleteUserSubscriptionVariables = {
-  filter?: ModelSubscriptionUserFilterInput | null,
-};
-
-export type OnDeleteUserSubscription = {
-  onDeleteUser?:  {
-    __typename: "User",
-    id: string,
-    email: string,
-    password: string,
-    profesor:  {
-      __typename: "Profesor",
-      id: string,
-      firstName: string,
-      lastName: string,
-      cursos?:  {
-        __typename: "ModelCursoConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    createdAt: string,
-    updatedAt: string,
-    userProfesorId: string,
-  } | null,
-};
-
 export type OnCreateProfesorSubscriptionVariables = {
   filter?: ModelSubscriptionProfesorFilterInput | null,
 };
@@ -1835,21 +1672,23 @@ export type OnCreateProfesorSubscription = {
   onCreateProfesor?:  {
     __typename: "Profesor",
     id: string,
-    firstName: string,
-    lastName: string,
+    nombres: string,
+    apellidos: string,
+    email: string,
+    password: string,
     cursos?:  {
       __typename: "ModelCursoConnection",
       items:  Array< {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1866,21 +1705,23 @@ export type OnUpdateProfesorSubscription = {
   onUpdateProfesor?:  {
     __typename: "Profesor",
     id: string,
-    firstName: string,
-    lastName: string,
+    nombres: string,
+    apellidos: string,
+    email: string,
+    password: string,
     cursos?:  {
       __typename: "ModelCursoConnection",
       items:  Array< {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1897,21 +1738,23 @@ export type OnDeleteProfesorSubscription = {
   onDeleteProfesor?:  {
     __typename: "Profesor",
     id: string,
-    firstName: string,
-    lastName: string,
+    nombres: string,
+    apellidos: string,
+    email: string,
+    password: string,
     cursos?:  {
       __typename: "ModelCursoConnection",
       items:  Array< {
         __typename: "Curso",
         id: string,
-        color: string,
         paralelo: string,
-        nombreCurso: string,
+        nombre: string,
         creacion: string,
         createdAt: string,
         updatedAt: string,
         profesorCursosId?: string | null,
         cursoDispositivoId: string,
+        cursoProfesorId: string,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -1928,9 +1771,8 @@ export type OnCreateCursoSubscription = {
   onCreateCurso?:  {
     __typename: "Curso",
     id: string,
-    color: string,
     paralelo: string,
-    nombreCurso: string,
+    nombre: string,
     creacion: string,
     dispositivo:  {
       __typename: "Device",
@@ -1958,21 +1800,36 @@ export type OnCreateCursoSubscription = {
       items:  Array< {
         __typename: "Estudiante",
         id: string,
-        firstName: string,
-        lastName: string,
-        espolUser: string,
-        espolId: string,
-        espolEmail: string,
+        nombres: string,
+        apellidos: string,
+        usuario: string,
+        matricula: string,
+        email: string,
         createdAt: string,
         updatedAt: string,
         cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
     profesorCursosId?: string | null,
     cursoDispositivoId: string,
+    cursoProfesorId: string,
   } | null,
 };
 
@@ -1984,9 +1841,8 @@ export type OnUpdateCursoSubscription = {
   onUpdateCurso?:  {
     __typename: "Curso",
     id: string,
-    color: string,
     paralelo: string,
-    nombreCurso: string,
+    nombre: string,
     creacion: string,
     dispositivo:  {
       __typename: "Device",
@@ -2014,21 +1870,36 @@ export type OnUpdateCursoSubscription = {
       items:  Array< {
         __typename: "Estudiante",
         id: string,
-        firstName: string,
-        lastName: string,
-        espolUser: string,
-        espolId: string,
-        espolEmail: string,
+        nombres: string,
+        apellidos: string,
+        usuario: string,
+        matricula: string,
+        email: string,
         createdAt: string,
         updatedAt: string,
         cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
     profesorCursosId?: string | null,
     cursoDispositivoId: string,
+    cursoProfesorId: string,
   } | null,
 };
 
@@ -2040,9 +1911,8 @@ export type OnDeleteCursoSubscription = {
   onDeleteCurso?:  {
     __typename: "Curso",
     id: string,
-    color: string,
     paralelo: string,
-    nombreCurso: string,
+    nombre: string,
     creacion: string,
     dispositivo:  {
       __typename: "Device",
@@ -2070,21 +1940,36 @@ export type OnDeleteCursoSubscription = {
       items:  Array< {
         __typename: "Estudiante",
         id: string,
-        firstName: string,
-        lastName: string,
-        espolUser: string,
-        espolId: string,
-        espolEmail: string,
+        nombres: string,
+        apellidos: string,
+        usuario: string,
+        matricula: string,
+        email: string,
         createdAt: string,
         updatedAt: string,
         cursoEstudiantesId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
+    profesor:  {
+      __typename: "Profesor",
+      id: string,
+      nombres: string,
+      apellidos: string,
+      email: string,
+      password: string,
+      cursos?:  {
+        __typename: "ModelCursoConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
     createdAt: string,
     updatedAt: string,
     profesorCursosId?: string | null,
     cursoDispositivoId: string,
+    cursoProfesorId: string,
   } | null,
 };
 
@@ -2189,11 +2074,11 @@ export type OnCreateEstudianteSubscription = {
   onCreateEstudiante?:  {
     __typename: "Estudiante",
     id: string,
-    firstName: string,
-    lastName: string,
-    espolUser: string,
-    espolId: string,
-    espolEmail: string,
+    nombres: string,
+    apellidos: string,
+    usuario: string,
+    matricula: string,
+    email: string,
     asistencia?:  {
       __typename: "ModelAsistenciaConnection",
       items:  Array< {
@@ -2222,11 +2107,11 @@ export type OnUpdateEstudianteSubscription = {
   onUpdateEstudiante?:  {
     __typename: "Estudiante",
     id: string,
-    firstName: string,
-    lastName: string,
-    espolUser: string,
-    espolId: string,
-    espolEmail: string,
+    nombres: string,
+    apellidos: string,
+    usuario: string,
+    matricula: string,
+    email: string,
     asistencia?:  {
       __typename: "ModelAsistenciaConnection",
       items:  Array< {
@@ -2255,11 +2140,11 @@ export type OnDeleteEstudianteSubscription = {
   onDeleteEstudiante?:  {
     __typename: "Estudiante",
     id: string,
-    firstName: string,
-    lastName: string,
-    espolUser: string,
-    espolId: string,
-    espolEmail: string,
+    nombres: string,
+    apellidos: string,
+    usuario: string,
+    matricula: string,
+    email: string,
     asistencia?:  {
       __typename: "ModelAsistenciaConnection",
       items:  Array< {
@@ -2290,9 +2175,8 @@ export type OnCreateAsistenciaSubscription = {
     curso:  {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -2309,10 +2193,21 @@ export type OnCreateAsistenciaSubscription = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     },
     horario:  {
       __typename: "Horario",
@@ -2344,9 +2239,8 @@ export type OnUpdateAsistenciaSubscription = {
     curso:  {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -2363,10 +2257,21 @@ export type OnUpdateAsistenciaSubscription = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     },
     horario:  {
       __typename: "Horario",
@@ -2398,9 +2303,8 @@ export type OnDeleteAsistenciaSubscription = {
     curso:  {
       __typename: "Curso",
       id: string,
-      color: string,
       paralelo: string,
-      nombreCurso: string,
+      nombre: string,
       creacion: string,
       dispositivo:  {
         __typename: "Device",
@@ -2417,10 +2321,21 @@ export type OnDeleteAsistenciaSubscription = {
         __typename: "ModelEstudianteConnection",
         nextToken?: string | null,
       } | null,
+      profesor:  {
+        __typename: "Profesor",
+        id: string,
+        nombres: string,
+        apellidos: string,
+        email: string,
+        password: string,
+        createdAt: string,
+        updatedAt: string,
+      },
       createdAt: string,
       updatedAt: string,
       profesorCursosId?: string | null,
       cursoDispositivoId: string,
+      cursoProfesorId: string,
     },
     horario:  {
       __typename: "Horario",
