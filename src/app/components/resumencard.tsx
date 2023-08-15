@@ -9,19 +9,19 @@ export default function ResumenCard(props:{
     icon: string
 }) {
 
-  const [estudiantes, setEstudiantes]= useState(0)
+  const [estudiantes, setEstudiantes] = useState(0)
 
   return (
     <div className='flex flex-col h-52 w-52 items-center justify-center gap-4 border rounded-lg border-slate-200 bg-white shadow-md '>
-    <Image
-      src={props.icon}
-      width={60}
-      height={60}
-      alt="assist-control-system"
-      objectFit='scale-down'
-    />
-    <p className='text-slate-800'>{props.title}</p>
-    <p className='text-3xl font-bold'>{props.value}</p>
+      <Image
+        src={props.icon}
+        width={60}
+        height={60}
+        alt="assist-control-system"
+        objectFit='scale-down'
+      />
+      <p className='text-slate-800'>{props.title}</p>
+      <p className='text-3xl font-bold'>{props.value}</p>
     </div>
   );
 }

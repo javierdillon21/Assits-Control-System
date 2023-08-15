@@ -41,7 +41,7 @@ type Curso @model {
 
 type Device @model {
   id: ID!
-  topic: String!
+  topic: String! @primaryKey
 }
 
 type Horario @model {
