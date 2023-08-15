@@ -20,7 +20,7 @@ enum Asistio {
 
 type User @model {
   id: ID!
-  email: String!
+  email: String! @primaryKey
   password: String!
   profesor: Profesor! @hasOne
 }
@@ -45,7 +45,7 @@ type Curso @model {
 
 type Device @model {
   id: ID!
-  topic: String!
+  topic: String! @primaryKey
 }
 
 type Horario @model {
@@ -59,9 +59,10 @@ type Estudiante @model {
   id: ID!
   firstName: String!
   lastName: String!
-  espolUser: String!
-  espolId: String!
-  espolEmail: String!
+  espolUser: String! @primaryKey(sortKeyFields:["espolId","espolEmail"])
+  regDate: String!
+  espolId: String! 
+  espolEmail: String! 
   asistencia: [Asistencia] @hasMany
 }
 

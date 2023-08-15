@@ -1,5 +1,7 @@
+import NuevoEstudianteModal from '@/app/components/nuevoestudiantemodal';
 import Table from '@/app/components/table'
 import '@/app/globals.css'
+import { useState } from 'react';
 
 export default function Estudiantes() {
 
@@ -15,15 +17,19 @@ export default function Estudiantes() {
     {id: "018h2d12", firstName: "Nicolas", lastName: "Segovia", espolUser: "nisenare", espolEmail:"nisenare@espol.edu.ec"},
     {id: "018h2d12", firstName: "Nicolas", lastName: "Segovia", espolUser: "nisenare", espolEmail:"nisenare@espol.edu.ec"},
   ];
+  const [showNuevoEstudianteModal, setShowNuevoEstudianteModal] = useState(false);
+  const onCloseNuevoEstudianteModal = () => {setShowNuevoEstudianteModal(false)};
 
   return (
     <div className="overflow-hidden flex flex-col flex-1 h-full w-full p-2.5 gap-y-2.5">
+      <NuevoEstudianteModal visible={showNuevoEstudianteModal} onClose={onCloseNuevoEstudianteModal}/>
       <div className="flex flex-row h-10 items-center">
         <div className="flex flex-grow font-bold text-slate-700 text-xl">Estudiantes</div>
         <section id="busqueda-estudiantes" className="flex flex-grow justify-end gap-x-3">
           <input className="flex flex-grow pl-1 text-slate-500 border focus:border-slate-700 focus:outline-none border-slate-400 rounded-lg text-[0.9rem]"
               placeholder="Buscar..."/>
-          <button type="button" className="flex-flex-grow text-[0.9rem] bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2">
+          <button type="button" onClick={() => {setShowNuevoEstudianteModal(!showNuevoEstudianteModal)}}
+          className="flex-flex-grow text-[0.9rem] bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2">
           + Añadir estudiante
           </button>
         </section>
