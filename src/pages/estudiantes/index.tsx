@@ -40,18 +40,16 @@ export default function Estudiantes() {
 
   useEffect(() => {
     getEstudiantes().then((est) => setEstudiantes(est));
-    const subOnCreate = API.graphql<GraphQLSubscription<OnCreateEstudianteSubscription>>(
-      graphqlOperation(subscriptions.onCreateEstudiante)
-    ).subscribe({
-      next: ({ provider, value }) => {
-        setEstudiantes([...estudiantes, value.data?.onCreateEstudiante]);
-      },
-      error: (error) => console.warn(error)
-    });
-    return () => {
-      subOnCreate.unsubscribe();
-    };
   }, []);
+
+  const subOnCreate = API.graphql<GraphQLSubscription<OnCreateEstudianteSubscription>>(
+    graphqlOperation(subscriptions.onCreateEstudiante)
+  ).subscribe({
+    next: ({ provider, value }) => {
+      setEstudiantes([...estudiantes, value.data?.onCreateEstudiante]);
+    },
+    error: (error) => console.warn(error)
+  });
 
   //borrarTodo();
 
