@@ -1,49 +1,73 @@
-import { CreateCursoInput, CreateCursoMutation, Curso, GetCursoQuery, GetCursoQueryVariables, ListCursosQuery, ListCursosQueryVariables } from '@/API';
+import { CreateCursoInput, CreateCursoMutation, Curso, DeleteCursoInput, DeleteCursoMutation, GetCursoQuery, GetCursoQueryVariables, ListCursosQuery, ListCursosQueryVariables, OnCreateCursoSubscription } from '@/API';
 import CursoCard from '@/app/components/cursocard'
 import '@/app/globals.css'
 import { getCurso, listCursos } from '@/graphql/queries';
-import { API, Auth } from 'aws-amplify';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { useQuery } from 'urql';
-import { GraphQLQuery } from '@aws-amplify/api';
+import { GraphQLQuery, GraphQLSubscription } from '@aws-amplify/api';
 import { useEffect, useState } from 'react';
-import { createCurso } from '@/graphql/mutations';
+import { createCurso, deleteCurso } from '@/graphql/mutations';
 import NuevoCursoModal from '@/app/components/nuevocursomodal';
+import cursos from '../cursos';
+import { onCreateCurso } from '@/graphql/subscriptions';
 
 export default function Cursos() {
 
+
   const [showNuevoCursoModal, setShowNuevoCursoModal] = useState(false);
   const onCloseNuevoCursoModal = () => {setShowNuevoCursoModal(false)};
+  const [cursos, setCursos]= useState<CreateCursoInput[]| any>()
 
-  //TODO: fetch cursos from database
-  const [cursos, setCursos]= useState<CreateCursoInput>()
+  useEffect(() => {
+    getCursos().then((est) => setCursos(est));
+  }, []);
 
-  async function fetchingdata(){
-    const allTodos = await API.graphql<GraphQLQuery<ListCursosQuery>>(
-      { query: listCursos }
+  async function getCursos(){
+    const allCursos = await API.graphql<GraphQLQuery<ListCursosQuery>>(
+      {query: listCursos}
       );
-    console.log(allTodos)
+    console.log(allCursos)
+    let res = allCursos.data?.listCursos?.items;
+    return (res as CreateCursoInput[]);
   }
 
-  async function createdata(){
-    const inputs:CreateCursoInput={
-      cursoProfesorId: "1",
-      nombre: "Telemetria",
-      cursoDispositivoId: '1',
-      paralelo: '101',
-      profesorCursosId: "1"
-    }
+  const subOnCreate = API.graphql<GraphQLSubscription<OnCreateCursoSubscription>>(
+    graphqlOperation(onCreateCurso)
+  ).subscribe({
+    next: ({ provider, value }) => {
+      setCursos([...cursos, value.data?.onCreateCurso]);
+    },
+    error: (error) => console.warn(error)
+  });
 
-    const newTodo = await API.graphql<GraphQLQuery<CreateCursoMutation>>({ 
-      query: createCurso, 
-      variables: { input:  inputs}
+  async function borrarTodo() {
+    if (cursos.length == 0) return;
+    cursos.map((curso: CreateCursoInput) => {
+      const cursoDetails: DeleteCursoInput = {
+        id : curso.id || ''
+      };
+      
+      const deletedCurso = API.graphql<GraphQLQuery<DeleteCursoMutation>>({ 
+        query: deleteCurso, 
+        variables: { input: cursoDetails }
+      });
     });
   }
+  // async function createdata(){
+  //   const inputs:CreateCursoInput={
+  //     cursoProfesorId: "1",
+  //     nombre: "Telemetria",
+  //     cursoDispositivoId: '1',
+  //     paralelo: '101',
+  //     profesorCursosId: "1"
+  //   }
 
-  useEffect(()=>{
-    // createdata()
-    fetchingdata()
-  },[])
-  
+  //   const newTodo = await API.graphql<GraphQLQuery<CreateCursoMutation>>({ 
+  //     query: createCurso, 
+  //     variables: { input:  inputs}
+  //   });
+  // }
+  if (!cursos) return <></>
   return (
     <div className="overflow-hidden flex flex-col flex-1 w-full p-2.5 gap-y-2.5">
       <NuevoCursoModal visible={showNuevoCursoModal} onClose={onCloseNuevoCursoModal}/>
@@ -57,11 +81,12 @@ export default function Cursos() {
       </div>
       <hr/>
       <section id="cursos" className="-mb-2.5 grid h-full sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 overflow-auto gap-3 auto-rows-min">
-          {/* {
-            cursos.map((curso) => (
-              <CursoCard key={curso.id} curso={curso} color={curso.color}/>
-            ))
-          } */}
+          {
+            cursos.map((curso:CreateCursoInput) => (
+                <CursoCard curso={curso}/>
+              )
+            )
+          }
           
       </section>
     </div>

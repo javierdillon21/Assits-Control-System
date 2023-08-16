@@ -2,11 +2,20 @@
 
 //AWSTime ===> hh:mm:ss.sss
 
+
 interface Estudiante{
     name: String
     regDate: String,
     email: String,
     user: String
+}
+
+interface Horarios{
+    horario: {
+        dia: String,
+        horaDesde: String,
+        horaHasta: String
+    }[]
 }
 
 interface Curso{
