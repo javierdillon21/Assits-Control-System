@@ -11,7 +11,7 @@ import { createCurso } from '@/graphql/mutations';
 export default function Cursos() {
 
   //TODO: fetch cursos from database
-  const [cursos, setCursos]= useState<Curso>()
+  //const [cursos, setCursos]= useState<Curso>()
 
   async function fetchingdata(){
     const allTodos = await API.graphql<GraphQLQuery<ListCursosQuery>>(
