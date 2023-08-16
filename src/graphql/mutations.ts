@@ -16,14 +16,13 @@ export const createProfesor = /* GraphQL */ `
       cursos {
         items {
           id
+          profesorId
+          dispositivoId
           paralelo
           nombre
           creacion
           createdAt
           updatedAt
-          profesorCursosId
-          cursoDispositivoId
-          cursoProfesorId
           __typename
         }
         nextToken
@@ -49,14 +48,13 @@ export const updateProfesor = /* GraphQL */ `
       cursos {
         items {
           id
+          profesorId
+          dispositivoId
           paralelo
           nombre
           creacion
           createdAt
           updatedAt
-          profesorCursosId
-          cursoDispositivoId
-          cursoProfesorId
           __typename
         }
         nextToken
@@ -82,14 +80,13 @@ export const deleteProfesor = /* GraphQL */ `
       cursos {
         items {
           id
+          profesorId
+          dispositivoId
           paralelo
           nombre
           creacion
           createdAt
           updatedAt
-          profesorCursosId
-          cursoDispositivoId
-          cursoProfesorId
           __typename
         }
         nextToken
@@ -108,11 +105,25 @@ export const createCurso = /* GraphQL */ `
   ) {
     createCurso(input: $input, condition: $condition) {
       id
+      profesorId
+      dispositivoId
       paralelo
       nombre
       creacion
       dispositivo {
         id
+        cursoId
+        curso {
+          id
+          profesorId
+          dispositivoId
+          paralelo
+          nombre
+          creacion
+          createdAt
+          updatedAt
+          __typename
+        }
         topic
         createdAt
         updatedAt
@@ -121,12 +132,12 @@ export const createCurso = /* GraphQL */ `
       horarios {
         items {
           id
+          cursoId
           dia
           horaDesde
           horaHasta
           createdAt
           updatedAt
-          cursoHorariosId
           __typename
         }
         nextToken
@@ -134,39 +145,32 @@ export const createCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          matricula
-          nombres
-          apellidos
-          usuario
-          email
           id
+          cursoId
+          estudianteId
           createdAt
           updatedAt
-          cursoEstudiantesId
           __typename
         }
         nextToken
         __typename
       }
-      profesor {
-        id
-        nombres
-        apellidos
-        email
-        password
-        cursos {
-          nextToken
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
           __typename
         }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
       updatedAt
-      profesorCursosId
-      cursoDispositivoId
-      cursoProfesorId
       __typename
     }
   }
@@ -178,11 +182,25 @@ export const updateCurso = /* GraphQL */ `
   ) {
     updateCurso(input: $input, condition: $condition) {
       id
+      profesorId
+      dispositivoId
       paralelo
       nombre
       creacion
       dispositivo {
         id
+        cursoId
+        curso {
+          id
+          profesorId
+          dispositivoId
+          paralelo
+          nombre
+          creacion
+          createdAt
+          updatedAt
+          __typename
+        }
         topic
         createdAt
         updatedAt
@@ -191,12 +209,12 @@ export const updateCurso = /* GraphQL */ `
       horarios {
         items {
           id
+          cursoId
           dia
           horaDesde
           horaHasta
           createdAt
           updatedAt
-          cursoHorariosId
           __typename
         }
         nextToken
@@ -204,39 +222,32 @@ export const updateCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          matricula
-          nombres
-          apellidos
-          usuario
-          email
           id
+          cursoId
+          estudianteId
           createdAt
           updatedAt
-          cursoEstudiantesId
           __typename
         }
         nextToken
         __typename
       }
-      profesor {
-        id
-        nombres
-        apellidos
-        email
-        password
-        cursos {
-          nextToken
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
           __typename
         }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
       updatedAt
-      profesorCursosId
-      cursoDispositivoId
-      cursoProfesorId
       __typename
     }
   }
@@ -248,11 +259,25 @@ export const deleteCurso = /* GraphQL */ `
   ) {
     deleteCurso(input: $input, condition: $condition) {
       id
+      profesorId
+      dispositivoId
       paralelo
       nombre
       creacion
       dispositivo {
         id
+        cursoId
+        curso {
+          id
+          profesorId
+          dispositivoId
+          paralelo
+          nombre
+          creacion
+          createdAt
+          updatedAt
+          __typename
+        }
         topic
         createdAt
         updatedAt
@@ -261,12 +286,12 @@ export const deleteCurso = /* GraphQL */ `
       horarios {
         items {
           id
+          cursoId
           dia
           horaDesde
           horaHasta
           createdAt
           updatedAt
-          cursoHorariosId
           __typename
         }
         nextToken
@@ -274,39 +299,32 @@ export const deleteCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          matricula
-          nombres
-          apellidos
-          usuario
-          email
           id
+          cursoId
+          estudianteId
           createdAt
           updatedAt
-          cursoEstudiantesId
           __typename
         }
         nextToken
         __typename
       }
-      profesor {
-        id
-        nombres
-        apellidos
-        email
-        password
-        cursos {
-          nextToken
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
           __typename
         }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
       updatedAt
-      profesorCursosId
-      cursoDispositivoId
-      cursoProfesorId
       __typename
     }
   }
@@ -318,6 +336,38 @@ export const createDevice = /* GraphQL */ `
   ) {
     createDevice(input: $input, condition: $condition) {
       id
+      cursoId
+      curso {
+        id
+        profesorId
+        dispositivoId
+        paralelo
+        nombre
+        creacion
+        dispositivo {
+          id
+          cursoId
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        asistencias {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topic
       createdAt
       updatedAt
@@ -332,6 +382,38 @@ export const updateDevice = /* GraphQL */ `
   ) {
     updateDevice(input: $input, condition: $condition) {
       id
+      cursoId
+      curso {
+        id
+        profesorId
+        dispositivoId
+        paralelo
+        nombre
+        creacion
+        dispositivo {
+          id
+          cursoId
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        asistencias {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topic
       createdAt
       updatedAt
@@ -346,6 +428,38 @@ export const deleteDevice = /* GraphQL */ `
   ) {
     deleteDevice(input: $input, condition: $condition) {
       id
+      cursoId
+      curso {
+        id
+        profesorId
+        dispositivoId
+        paralelo
+        nombre
+        creacion
+        dispositivo {
+          id
+          cursoId
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        asistencias {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topic
       createdAt
       updatedAt
@@ -360,12 +474,26 @@ export const createHorario = /* GraphQL */ `
   ) {
     createHorario(input: $input, condition: $condition) {
       id
+      cursoId
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dia
       horaDesde
       horaHasta
       createdAt
       updatedAt
-      cursoHorariosId
       __typename
     }
   }
@@ -377,12 +505,26 @@ export const updateHorario = /* GraphQL */ `
   ) {
     updateHorario(input: $input, condition: $condition) {
       id
+      cursoId
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dia
       horaDesde
       horaHasta
       createdAt
       updatedAt
-      cursoHorariosId
       __typename
     }
   }
@@ -394,12 +536,26 @@ export const deleteHorario = /* GraphQL */ `
   ) {
     deleteHorario(input: $input, condition: $condition) {
       id
+      cursoId
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dia
       horaDesde
       horaHasta
       createdAt
       updatedAt
-      cursoHorariosId
       __typename
     }
   }
@@ -415,15 +571,27 @@ export const createEstudiante = /* GraphQL */ `
       apellidos
       usuario
       email
+      cursos {
+        items {
+          id
+          cursoId
+          estudianteId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       asistencia {
         items {
+          cursoId
+          estudianteId
+          horarioId
           estado
           id
           createdAt
           updatedAt
-          estudianteAsistenciaId
-          asistenciaCursoId
-          asistenciaHorarioId
           __typename
         }
         nextToken
@@ -432,7 +600,6 @@ export const createEstudiante = /* GraphQL */ `
       id
       createdAt
       updatedAt
-      cursoEstudiantesId
       __typename
     }
   }
@@ -448,15 +615,27 @@ export const updateEstudiante = /* GraphQL */ `
       apellidos
       usuario
       email
+      cursos {
+        items {
+          id
+          cursoId
+          estudianteId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       asistencia {
         items {
+          cursoId
+          estudianteId
+          horarioId
           estado
           id
           createdAt
           updatedAt
-          estudianteAsistenciaId
-          asistenciaCursoId
-          asistenciaHorarioId
           __typename
         }
         nextToken
@@ -465,7 +644,6 @@ export const updateEstudiante = /* GraphQL */ `
       id
       createdAt
       updatedAt
-      cursoEstudiantesId
       __typename
     }
   }
@@ -481,15 +659,27 @@ export const deleteEstudiante = /* GraphQL */ `
       apellidos
       usuario
       email
+      cursos {
+        items {
+          id
+          cursoId
+          estudianteId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       asistencia {
         items {
+          cursoId
+          estudianteId
+          horarioId
           estado
           id
           createdAt
           updatedAt
-          estudianteAsistenciaId
-          asistenciaCursoId
-          asistenciaHorarioId
           __typename
         }
         nextToken
@@ -498,7 +688,6 @@ export const deleteEstudiante = /* GraphQL */ `
       id
       createdAt
       updatedAt
-      cursoEstudiantesId
       __typename
     }
   }
@@ -509,60 +698,13 @@ export const createAsistencia = /* GraphQL */ `
     $condition: ModelAsistenciaConditionInput
   ) {
     createAsistencia(input: $input, condition: $condition) {
-      curso {
-        id
-        paralelo
-        nombre
-        creacion
-        dispositivo {
-          id
-          topic
-          createdAt
-          updatedAt
-          __typename
-        }
-        horarios {
-          nextToken
-          __typename
-        }
-        estudiantes {
-          nextToken
-          __typename
-        }
-        profesor {
-          id
-          nombres
-          apellidos
-          email
-          password
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        profesorCursosId
-        cursoDispositivoId
-        cursoProfesorId
-        __typename
-      }
-      horario {
-        id
-        dia
-        horaDesde
-        horaHasta
-        createdAt
-        updatedAt
-        cursoHorariosId
-        __typename
-      }
+      cursoId
+      estudianteId
+      horarioId
       estado
       id
       createdAt
       updatedAt
-      estudianteAsistenciaId
-      asistenciaCursoId
-      asistenciaHorarioId
       __typename
     }
   }
@@ -573,60 +715,13 @@ export const updateAsistencia = /* GraphQL */ `
     $condition: ModelAsistenciaConditionInput
   ) {
     updateAsistencia(input: $input, condition: $condition) {
-      curso {
-        id
-        paralelo
-        nombre
-        creacion
-        dispositivo {
-          id
-          topic
-          createdAt
-          updatedAt
-          __typename
-        }
-        horarios {
-          nextToken
-          __typename
-        }
-        estudiantes {
-          nextToken
-          __typename
-        }
-        profesor {
-          id
-          nombres
-          apellidos
-          email
-          password
-          createdAt
-          updatedAt
-          __typename
-        }
-        createdAt
-        updatedAt
-        profesorCursosId
-        cursoDispositivoId
-        cursoProfesorId
-        __typename
-      }
-      horario {
-        id
-        dia
-        horaDesde
-        horaHasta
-        createdAt
-        updatedAt
-        cursoHorariosId
-        __typename
-      }
+      cursoId
+      estudianteId
+      horarioId
       estado
       id
       createdAt
       updatedAt
-      estudianteAsistenciaId
-      asistenciaCursoId
-      asistenciaHorarioId
       __typename
     }
   }
@@ -637,13 +732,36 @@ export const deleteAsistencia = /* GraphQL */ `
     $condition: ModelAsistenciaConditionInput
   ) {
     deleteAsistencia(input: $input, condition: $condition) {
+      cursoId
+      estudianteId
+      horarioId
+      estado
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createCursoEstudiante = /* GraphQL */ `
+  mutation CreateCursoEstudiante(
+    $input: CreateCursoEstudianteInput!
+    $condition: ModelCursoEstudianteConditionInput
+  ) {
+    createCursoEstudiante(input: $input, condition: $condition) {
+      id
+      cursoId
+      estudianteId
       curso {
         id
+        profesorId
+        dispositivoId
         paralelo
         nombre
         creacion
         dispositivo {
           id
+          cursoId
           topic
           createdAt
           updatedAt
@@ -657,40 +775,165 @@ export const deleteAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
-        profesor {
-          id
-          nombres
-          apellidos
-          email
-          password
-          createdAt
-          updatedAt
+        asistencias {
+          nextToken
           __typename
         }
         createdAt
         updatedAt
-        profesorCursosId
-        cursoDispositivoId
-        cursoProfesorId
         __typename
       }
-      horario {
+      estudiante {
+        matricula
+        nombres
+        apellidos
+        usuario
+        email
+        cursos {
+          nextToken
+          __typename
+        }
+        asistencia {
+          nextToken
+          __typename
+        }
         id
-        dia
-        horaDesde
-        horaHasta
         createdAt
         updatedAt
-        cursoHorariosId
         __typename
       }
-      estado
-      id
       createdAt
       updatedAt
-      estudianteAsistenciaId
-      asistenciaCursoId
-      asistenciaHorarioId
+      __typename
+    }
+  }
+`;
+export const updateCursoEstudiante = /* GraphQL */ `
+  mutation UpdateCursoEstudiante(
+    $input: UpdateCursoEstudianteInput!
+    $condition: ModelCursoEstudianteConditionInput
+  ) {
+    updateCursoEstudiante(input: $input, condition: $condition) {
+      id
+      cursoId
+      estudianteId
+      curso {
+        id
+        profesorId
+        dispositivoId
+        paralelo
+        nombre
+        creacion
+        dispositivo {
+          id
+          cursoId
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        asistencias {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      estudiante {
+        matricula
+        nombres
+        apellidos
+        usuario
+        email
+        cursos {
+          nextToken
+          __typename
+        }
+        asistencia {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteCursoEstudiante = /* GraphQL */ `
+  mutation DeleteCursoEstudiante(
+    $input: DeleteCursoEstudianteInput!
+    $condition: ModelCursoEstudianteConditionInput
+  ) {
+    deleteCursoEstudiante(input: $input, condition: $condition) {
+      id
+      cursoId
+      estudianteId
+      curso {
+        id
+        profesorId
+        dispositivoId
+        paralelo
+        nombre
+        creacion
+        dispositivo {
+          id
+          cursoId
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        asistencias {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      estudiante {
+        matricula
+        nombres
+        apellidos
+        usuario
+        email
+        cursos {
+          nextToken
+          __typename
+        }
+        asistencia {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }

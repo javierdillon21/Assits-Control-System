@@ -25,27 +25,33 @@ type Profesor @model {
   apellidos: String!
   email: ID!
   password: String!
-  cursos: [Curso] @hasMany
+  cursos: [Curso] @hasMany(indexName: "byProfesor", fields:["id"])
 }
 
 type Curso @model {
   id: ID!
+  profesorId: ID @index(name: "byProfesor")
+  dispositivoId: ID
   paralelo: String!
   nombre: String!
   creacion: AWSDateTime
-  dispositivo: Device @hasOne
-  horarios: [Horario] @hasMany
-  estudiantes: [Estudiante] @hasMany
-  profesor: Profesor @hasOne
+  dispositivo: Device @hasOne(fields: ["dispositivoId"])
+  horarios: [Horario] @hasMany(indexName: "byCurso", fields:["id"])
+  estudiantes: [Estudiante] @manyToMany(relationName:"CursoEstudiante")
+  asistencias: [Asistencia] @hasMany(indexName: "byCurso", fields:["id"])
 }
 
 type Device @model {
   id: ID!
-  topic: String! @primaryKey
+  cursoId: ID!
+  curso: Curso! @belongsTo(fields:["cursoId"])
+  topic: String!
 }
 
 type Horario @model {
   id: ID!
+  cursoId: ID! @index(name: "byCurso")
+  asistencias: [Asistencia] @hasMany(indexName: "byHorario", fields: ["id"])
   dia: DiaSemana!
   horaDesde: AWSTime!
   horaHasta: AWSTime!
@@ -57,11 +63,13 @@ type Estudiante @model {
   apellidos: String!
   usuario: String!
   email: String!
-  asistencia: [Asistencia] @hasMany
+  cursos: [Curso] @manyToMany(relationName: "CursoEstudiante")
+  asistencia: [Asistencia] @hasMany(indexName: "byEstudiante", fields:["matricula"])
 }
 
 type Asistencia @model {
-  curso: Curso! @hasOne
-  horario: Horario! @hasOne
+  cursoId: ID! @index(name: "byCurso")
+  estudianteId: ID! @index(name: "byEstudiante")
+  horarioId: ID! @index(name: "byHorario")
   estado: Asistio!
 }

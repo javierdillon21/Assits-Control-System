@@ -13,14 +13,13 @@ export const getProfesor = /* GraphQL */ `
       cursos {
         items {
           id
+          profesorId
+          dispositivoId
           paralelo
           nombre
           creacion
           createdAt
           updatedAt
-          profesorCursosId
-          cursoDispositivoId
-          cursoProfesorId
           __typename
         }
         nextToken
@@ -62,11 +61,25 @@ export const getCurso = /* GraphQL */ `
   query GetCurso($id: ID!) {
     getCurso(id: $id) {
       id
+      profesorId
+      dispositivoId
       paralelo
       nombre
       creacion
       dispositivo {
         id
+        cursoId
+        curso {
+          id
+          profesorId
+          dispositivoId
+          paralelo
+          nombre
+          creacion
+          createdAt
+          updatedAt
+          __typename
+        }
         topic
         createdAt
         updatedAt
@@ -75,12 +88,12 @@ export const getCurso = /* GraphQL */ `
       horarios {
         items {
           id
+          cursoId
           dia
           horaDesde
           horaHasta
           createdAt
           updatedAt
-          cursoHorariosId
           __typename
         }
         nextToken
@@ -88,39 +101,32 @@ export const getCurso = /* GraphQL */ `
       }
       estudiantes {
         items {
-          matricula
-          nombres
-          apellidos
-          usuario
-          email
           id
+          cursoId
+          estudianteId
           createdAt
           updatedAt
-          cursoEstudiantesId
           __typename
         }
         nextToken
         __typename
       }
-      profesor {
-        id
-        nombres
-        apellidos
-        email
-        password
-        cursos {
-          nextToken
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
           __typename
         }
-        createdAt
-        updatedAt
+        nextToken
         __typename
       }
       createdAt
       updatedAt
-      profesorCursosId
-      cursoDispositivoId
-      cursoProfesorId
       __typename
     }
   }
@@ -134,11 +140,14 @@ export const listCursos = /* GraphQL */ `
     listCursos(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        profesorId
+        dispositivoId
         paralelo
         nombre
         creacion
         dispositivo {
           id
+          cursoId
           topic
           createdAt
           updatedAt
@@ -152,21 +161,12 @@ export const listCursos = /* GraphQL */ `
           nextToken
           __typename
         }
-        profesor {
-          id
-          nombres
-          apellidos
-          email
-          password
-          createdAt
-          updatedAt
+        asistencias {
+          nextToken
           __typename
         }
         createdAt
         updatedAt
-        profesorCursosId
-        cursoDispositivoId
-        cursoProfesorId
         __typename
       }
       nextToken
@@ -178,6 +178,38 @@ export const getDevice = /* GraphQL */ `
   query GetDevice($id: ID!) {
     getDevice(id: $id) {
       id
+      cursoId
+      curso {
+        id
+        profesorId
+        dispositivoId
+        paralelo
+        nombre
+        creacion
+        dispositivo {
+          id
+          cursoId
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        asistencias {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       topic
       createdAt
       updatedAt
@@ -194,6 +226,18 @@ export const listDevices = /* GraphQL */ `
     listDevices(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        cursoId
+        curso {
+          id
+          profesorId
+          dispositivoId
+          paralelo
+          nombre
+          creacion
+          createdAt
+          updatedAt
+          __typename
+        }
         topic
         createdAt
         updatedAt
@@ -208,12 +252,26 @@ export const getHorario = /* GraphQL */ `
   query GetHorario($id: ID!) {
     getHorario(id: $id) {
       id
+      cursoId
+      asistencias {
+        items {
+          cursoId
+          estudianteId
+          horarioId
+          estado
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dia
       horaDesde
       horaHasta
       createdAt
       updatedAt
-      cursoHorariosId
       __typename
     }
   }
@@ -227,12 +285,16 @@ export const listHorarios = /* GraphQL */ `
     listHorarios(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        cursoId
+        asistencias {
+          nextToken
+          __typename
+        }
         dia
         horaDesde
         horaHasta
         createdAt
         updatedAt
-        cursoHorariosId
         __typename
       }
       nextToken
@@ -248,15 +310,27 @@ export const getEstudiante = /* GraphQL */ `
       apellidos
       usuario
       email
+      cursos {
+        items {
+          id
+          cursoId
+          estudianteId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       asistencia {
         items {
+          cursoId
+          estudianteId
+          horarioId
           estado
           id
           createdAt
           updatedAt
-          estudianteAsistenciaId
-          asistenciaCursoId
-          asistenciaHorarioId
           __typename
         }
         nextToken
@@ -265,7 +339,6 @@ export const getEstudiante = /* GraphQL */ `
       id
       createdAt
       updatedAt
-      cursoEstudiantesId
       __typename
     }
   }
@@ -283,6 +356,10 @@ export const listEstudiantes = /* GraphQL */ `
         apellidos
         usuario
         email
+        cursos {
+          nextToken
+          __typename
+        }
         asistencia {
           nextToken
           __typename
@@ -290,7 +367,6 @@ export const listEstudiantes = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        cursoEstudiantesId
         __typename
       }
       nextToken
@@ -301,13 +377,55 @@ export const listEstudiantes = /* GraphQL */ `
 export const getAsistencia = /* GraphQL */ `
   query GetAsistencia($id: ID!) {
     getAsistencia(id: $id) {
+      cursoId
+      estudianteId
+      horarioId
+      estado
+      id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listAsistencias = /* GraphQL */ `
+  query ListAsistencias(
+    $filter: ModelAsistenciaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAsistencias(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        cursoId
+        estudianteId
+        horarioId
+        estado
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getCursoEstudiante = /* GraphQL */ `
+  query GetCursoEstudiante($id: ID!) {
+    getCursoEstudiante(id: $id) {
+      id
+      cursoId
+      estudianteId
       curso {
         id
+        profesorId
+        dispositivoId
         paralelo
         nombre
         creacion
         dispositivo {
           id
+          cursoId
           topic
           createdAt
           updatedAt
@@ -321,81 +439,353 @@ export const getAsistencia = /* GraphQL */ `
           nextToken
           __typename
         }
-        profesor {
-          id
-          nombres
-          apellidos
-          email
-          password
-          createdAt
-          updatedAt
+        asistencias {
+          nextToken
           __typename
         }
         createdAt
         updatedAt
-        profesorCursosId
-        cursoDispositivoId
-        cursoProfesorId
         __typename
       }
-      horario {
+      estudiante {
+        matricula
+        nombres
+        apellidos
+        usuario
+        email
+        cursos {
+          nextToken
+          __typename
+        }
+        asistencia {
+          nextToken
+          __typename
+        }
         id
-        dia
-        horaDesde
-        horaHasta
         createdAt
         updatedAt
-        cursoHorariosId
         __typename
       }
-      estado
-      id
       createdAt
       updatedAt
-      estudianteAsistenciaId
-      asistenciaCursoId
-      asistenciaHorarioId
       __typename
     }
   }
 `;
-export const listAsistencias = /* GraphQL */ `
-  query ListAsistencias(
-    $filter: ModelAsistenciaFilterInput
+export const listCursoEstudiantes = /* GraphQL */ `
+  query ListCursoEstudiantes(
+    $filter: ModelCursoEstudianteFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listAsistencias(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listCursoEstudiantes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
+        id
+        cursoId
+        estudianteId
         curso {
           id
+          profesorId
+          dispositivoId
           paralelo
           nombre
           creacion
           createdAt
           updatedAt
-          profesorCursosId
-          cursoDispositivoId
-          cursoProfesorId
           __typename
         }
-        horario {
+        estudiante {
+          matricula
+          nombres
+          apellidos
+          usuario
+          email
           id
-          dia
-          horaDesde
-          horaHasta
           createdAt
           updatedAt
-          cursoHorariosId
           __typename
         }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const cursosByProfesorId = /* GraphQL */ `
+  query CursosByProfesorId(
+    $profesorId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCursoFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    cursosByProfesorId(
+      profesorId: $profesorId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        profesorId
+        dispositivoId
+        paralelo
+        nombre
+        creacion
+        dispositivo {
+          id
+          cursoId
+          topic
+          createdAt
+          updatedAt
+          __typename
+        }
+        horarios {
+          nextToken
+          __typename
+        }
+        estudiantes {
+          nextToken
+          __typename
+        }
+        asistencias {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const horariosByCursoId = /* GraphQL */ `
+  query HorariosByCursoId(
+    $cursoId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelHorarioFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    horariosByCursoId(
+      cursoId: $cursoId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        cursoId
+        asistencias {
+          nextToken
+          __typename
+        }
+        dia
+        horaDesde
+        horaHasta
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const asistenciasByCursoId = /* GraphQL */ `
+  query AsistenciasByCursoId(
+    $cursoId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelAsistenciaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    asistenciasByCursoId(
+      cursoId: $cursoId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        cursoId
+        estudianteId
+        horarioId
         estado
         id
         createdAt
         updatedAt
-        estudianteAsistenciaId
-        asistenciaCursoId
-        asistenciaHorarioId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const asistenciasByEstudianteId = /* GraphQL */ `
+  query AsistenciasByEstudianteId(
+    $estudianteId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelAsistenciaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    asistenciasByEstudianteId(
+      estudianteId: $estudianteId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        cursoId
+        estudianteId
+        horarioId
+        estado
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const asistenciasByHorarioId = /* GraphQL */ `
+  query AsistenciasByHorarioId(
+    $horarioId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelAsistenciaFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    asistenciasByHorarioId(
+      horarioId: $horarioId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        cursoId
+        estudianteId
+        horarioId
+        estado
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const cursoEstudiantesByCursoId = /* GraphQL */ `
+  query CursoEstudiantesByCursoId(
+    $cursoId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCursoEstudianteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    cursoEstudiantesByCursoId(
+      cursoId: $cursoId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        cursoId
+        estudianteId
+        curso {
+          id
+          profesorId
+          dispositivoId
+          paralelo
+          nombre
+          creacion
+          createdAt
+          updatedAt
+          __typename
+        }
+        estudiante {
+          matricula
+          nombres
+          apellidos
+          usuario
+          email
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const cursoEstudiantesByEstudianteId = /* GraphQL */ `
+  query CursoEstudiantesByEstudianteId(
+    $estudianteId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelCursoEstudianteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    cursoEstudiantesByEstudianteId(
+      estudianteId: $estudianteId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        cursoId
+        estudianteId
+        curso {
+          id
+          profesorId
+          dispositivoId
+          paralelo
+          nombre
+          creacion
+          createdAt
+          updatedAt
+          __typename
+        }
+        estudiante {
+          matricula
+          nombres
+          apellidos
+          usuario
+          email
+          id
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
         __typename
       }
       nextToken

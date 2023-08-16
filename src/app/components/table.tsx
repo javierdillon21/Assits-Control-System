@@ -9,10 +9,10 @@ export default function Table(props: {
   return (
     <table className="text-left text-sm font-light">
       <thead className="border-b font-medium border-slate-400">
-        <tr>
+        <tr key="rowinicial">
           {
             props.cols.map((colName)=> (
-              <th scope="col" className={`text-slate-700 px-6 py-3`}>{colName}</th>
+              <th key={colName} scope="col" className={`text-slate-700 px-6 py-3`}>{colName}</th>
             ))
           }
         </tr>
@@ -20,11 +20,13 @@ export default function Table(props: {
       <tbody>
         {
           props.data.map((obj)=> (
-            <tr className="border-b border-slate-200">
+            <tr key={obj.id} className="border-b border-slate-200">
               {
-                Object.keys(obj).map((key) => (
-                  <td className="whitespace-nowrap px-6 py-4">{obj[key]}</td>
-                ))
+                Object.keys(obj).map((key) => {
+                  if (key != "id") {
+                    return <td key={`${obj.id}-${obj[key]}`} className="whitespace-nowrap px-6 py-4">{obj[key]}</td>
+                  }
+                })
               }
             </tr>
           ))
