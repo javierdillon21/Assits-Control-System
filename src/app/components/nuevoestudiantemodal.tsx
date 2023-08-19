@@ -21,7 +21,7 @@ export default function NuevoEstudianteModal(props: {
 
   const registrarEstudiante = async (data: any) => {
     Object.keys(data).map(key => {
-      data.key = data[key].toLowerCase();
+      data[key] = data[key].toLowerCase();
     })
     data.nombres = capFirstLetter(data.nombres);
     data.apellidos = capFirstLetter(data.apellidos);

@@ -6,8 +6,7 @@ import { GraphQLQuery, GraphQLSubscription } from '@aws-amplify/api';
 import * as queries from '../../graphql/queries';
 import * as subscriptions from '../../graphql/subscriptions';
 import { useEffect, useState } from 'react';
-import { DeleteEstudianteInput, DeleteEstudianteMutation, ListEstudiantesQuery, OnCreateEstudianteSubscription } from '@/API';
-
+import { DeleteEstudianteInput, DeleteEstudianteMutation, ListEstudiantesQuery, OnCreateEstudianteSubscription, OnDeleteEstudianteSubscription } from '@/API';
 import * as mutations from '../../graphql/mutations';
 
 export default function Estudiantes() {
@@ -20,38 +19,54 @@ export default function Estudiantes() {
     const allEstudiantes = await API.graphql<GraphQLQuery<ListEstudiantesQuery>>(
       {query: queries.listEstudiantes}
     );
-    let res = allEstudiantes.data?.listEstudiantes?.items;
+    const res = allEstudiantes.data?.listEstudiantes?.items;
     return (res as any[]);
   }
 
-  async function borrarTodo() {
-    if (estudiantes.length == 0) return;
-    estudiantes.map((estudiante) => {
-      const estudianteDetails: DeleteEstudianteInput = {
-        id: estudiante.id,
-      };
-      
-      const deletedEstudiante = API.graphql<GraphQLQuery<DeleteEstudianteMutation>>({ 
-        query: mutations.deleteEstudiante, 
-        variables: { input: estudianteDetails }
-      });
+  async function borrarById(id: string) {
+    const estudianteDetails: DeleteEstudianteInput = {
+      id: id
+    };
+    const deletedEstudiante = API.graphql<GraphQLQuery<DeleteEstudianteMutation>>({ 
+      query: mutations.deleteEstudiante, 
+      variables: { input: estudianteDetails }
     });
   }
 
+  async function viewEstudiante(id: string) {
+    console.log(id);
+  }
+
   useEffect(() => {
-    getEstudiantes().then((est) => setEstudiantes(est));
+    getEstudiantes().then((est) => {
+      setEstudiantes(est);
+    });
   }, []);
 
-  const subOnCreate = API.graphql<GraphQLSubscription<OnCreateEstudianteSubscription>>(
-    graphqlOperation(subscriptions.onCreateEstudiante)
-  ).subscribe({
-    next: ({ provider, value }) => {
-      setEstudiantes([...estudiantes, value.data?.onCreateEstudiante]);
-    },
-    error: (error) => console.warn(error)
-  });
+  useEffect(() => {
+    const subOnCreate = API.graphql<GraphQLSubscription<OnCreateEstudianteSubscription>>(
+      graphqlOperation(subscriptions.onCreateEstudiante)
+    ).subscribe({
+      next: ({ provider, value }) => {
+        setEstudiantes([...estudiantes, value.data?.onCreateEstudiante]);
+      },
+      error: (error) => console.warn(error)
+    });
 
-  //borrarTodo();
+    const subOnDelete = API.graphql<GraphQLSubscription<OnDeleteEstudianteSubscription>>(
+      graphqlOperation(subscriptions.onDeleteEstudiante)
+    ).subscribe({
+      next: ({ provider, value }) => {
+        setEstudiantes(estudiantes.filter((i)=>(i.id !== value.data?.onDeleteEstudiante?.id)))
+      },
+      error: (error) => console.warn(error)
+    });
+
+    return () => {
+      subOnCreate.unsubscribe();
+      subOnDelete.unsubscribe();
+    };
+  }, [estudiantes]);
 
   return (
     <div className="overflow-hidden flex flex-col flex-1 h-full w-full p-2.5 gap-y-2.5">
@@ -69,7 +84,7 @@ export default function Estudiantes() {
       </div>
       <hr/>
       <section id="tabla-estudiantes" className="flex flex-col flex-1 overflow-auto">
-          <Table cols={["Matricula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
+          <Table onItemView={viewEstudiante} onItemDelete={borrarById} cols={["Matricula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
             estudiantes.map((estu)=> {
               return {
                 id: estu.id,
