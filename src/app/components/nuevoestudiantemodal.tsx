@@ -9,9 +9,8 @@ export default function NuevoEstudianteModal(props: {
   onClose: Function
 }) {
   
-  if (!props.visible) return null;
-
   const { register, handleSubmit, watch, formState: { errors } } = useForm<CreateEstudianteInput>();
+  if (!props.visible) return null;
 
   const handleOnClose = (event: any) => {
     if (event.target.id === "modal-background") {

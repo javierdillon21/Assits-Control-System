@@ -8,12 +8,15 @@ import * as subscriptions from '../../graphql/subscriptions';
 import { useEffect, useState } from 'react';
 import { DeleteEstudianteInput, DeleteEstudianteMutation, ListEstudiantesQuery, OnCreateEstudianteSubscription, OnDeleteEstudianteSubscription } from '@/API';
 import * as mutations from '../../graphql/mutations';
+import { useRouter } from 'next/router';
 
 export default function Estudiantes() {
 
   const [estudiantes, setEstudiantes] = useState<any[]>([]);
+  const [estudiantesFiltered, setEstudiantesFiltered] = useState<any[]>([]);
   const [showNuevoEstudianteModal, setShowNuevoEstudianteModal] = useState(false);
   const onCloseNuevoEstudianteModal = () => {setShowNuevoEstudianteModal(false)};
+  const router = useRouter();
 
   async function getEstudiantes() {
     const allEstudiantes = await API.graphql<GraphQLQuery<ListEstudiantesQuery>>(
@@ -33,8 +36,18 @@ export default function Estudiantes() {
     });
   }
 
-  async function viewEstudiante(id: string) {
-    console.log(id);
+  function viewEstudiante(id: string) {
+    router.push("/estudiantes/" + id);
+  }
+
+  function buscarEstudiante(event: any) {
+    setEstudiantesFiltered(estudiantes.filter((est) => {
+      const minusc = event.target.value.toLowerCase();
+      return (minusc === est.nombres.toLowerCase() ||
+      minusc === est.apellidos.toLowerCase() ||
+      minusc === est.matricula.toLowerCase() ||
+      minusc === est.usuario.toLowerCase());
+    }));
   }
 
   useEffect(() => {
@@ -57,7 +70,7 @@ export default function Estudiantes() {
       graphqlOperation(subscriptions.onDeleteEstudiante)
     ).subscribe({
       next: ({ provider, value }) => {
-        setEstudiantes(estudiantes.filter((i)=>(i.id !== value.data?.onDeleteEstudiante?.id)))
+        setEstudiantes(estudiantes.filter((est)=>(est.id !== value.data?.onDeleteEstudiante?.id)))
       },
       error: (error) => console.warn(error)
     });
@@ -74,7 +87,7 @@ export default function Estudiantes() {
       <div className="flex flex-row h-10 items-center">
         <div className="flex flex-grow font-bold text-slate-700 text-xl">Estudiantes</div>
         <section id="busqueda-estudiantes" className="flex flex-grow justify-end gap-x-3">
-          <input className="flex flex-grow pl-1 text-slate-500 border focus:border-slate-700 focus:outline-none border-slate-400 rounded-lg text-[0.9rem]"
+          <input onKeyUp={buscarEstudiante}className="flex flex-grow pl-1 text-slate-500 border focus:border-slate-700 focus:outline-none border-slate-400 rounded-lg text-[0.9rem]"
               placeholder="Buscar..."/>
           <button type="button" onClick={() => {setShowNuevoEstudianteModal(true)}}
           className="flex-flex-grow text-[0.9rem] bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2">
@@ -85,7 +98,18 @@ export default function Estudiantes() {
       <hr/>
       <section id="tabla-estudiantes" className="flex flex-col flex-1 overflow-auto">
           <Table onItemView={viewEstudiante} onItemDelete={borrarById} cols={["Matricula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
+            estudiantesFiltered.length == 0?
             estudiantes.map((estu)=> {
+              return {
+                id: estu.id,
+                matricula: estu.matricula,
+                name: estu.nombres + " " + estu.apellidos,
+                regDate: estu.createdAt.split("T")[0],
+                email: estu.email,
+                user: estu.usuario
+              };
+            }) :
+            estudiantesFiltered.map((estu)=> {
               return {
                 id: estu.id,
                 matricula: estu.matricula,

@@ -1,15 +1,11 @@
-import user_round_icon from "../../../assets/svg/user_round.svg";
 import home_icon from '../../../assets/svg/home.svg';
 import file_icon from '../../../assets/svg/file.svg';
 import book_icon from '../../../assets/svg/book.svg';
 import acs_logo_white from '../../../assets/img/ACS_logo_white.png';
-import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from 'next/router';
 
 export default function Menu(props: any) {
-  const [show, showMenu] = useState(false);
-  const userName = "Nicolas Segovia";
   const sections = [
     {title: "Resumen", icon: home_icon.src, route: "/resumen"},
     {title: "Estudiantes", icon: file_icon.src, route: "/estudiantes"},
@@ -36,7 +32,7 @@ export default function Menu(props: any) {
           {
             sections.map(({title, icon, route}) => (
               <div key={route} className="flex h-12 justify-center items-center w-4/5">
-                <div onClick={() => goTo(route)} className={`flex h-full grow gap-4 items-center text-base ${router.pathname == route? "bg-slate-950": "bg-transparent"} py-1 px-4 rounded-lg hover:bg-slate-950 font-normal`}>
+                <div onClick={() => goTo(route)} className={`flex h-full grow gap-4 items-center text-base ${router.pathname.split("/")[1] == route.split("/")[1]? "bg-slate-950": "bg-transparent"} py-1 px-4 rounded-lg hover:bg-slate-950 font-normal`}>
                   <img className=" flex-none" />
                   <Image
                     src={icon}
