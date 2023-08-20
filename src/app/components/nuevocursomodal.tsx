@@ -1,7 +1,9 @@
-import { CreateCursoInput, CreateEstudianteInput, CreateHorarioInput } from '@/API';
+import { CreateCursoInput, CreateCursoMutation, CreateEstudianteInput, CreateHorarioInput, CreateHorarioMutation } from '@/API';
 import { Horarios} from '@/data';
-import { createEstudiante } from '@/graphql/mutations';
+import { createCurso, createEstudiante, createHorario } from '@/graphql/mutations';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { API } from 'aws-amplify';
+import { GraphQLQuery } from '@aws-amplify/api';
 
 export const inputStyle='flex border-b w-80 h-8 px-2'
 export const labelStyle='flex flex-col text-sm font-medium text-gray-600'
@@ -15,7 +17,7 @@ export default function NuevoCursoModal(props: {
   const { register: registerCurso, handleSubmit: handleSubmitCurso , watch: watchCurso , formState: { errors: errorCurso }, control: controlCurso  } = useForm<CreateCursoInput>();
   const { register: registerHorario, handleSubmit: handleSubmitHorario , watch: watchHorario , formState: { errors: errorHorario }, control: controlHorario } = useForm<Horarios>({
     defaultValues:{
-    horario: [{dia: "LUNES", horaDesde: "00:00", horaHasta: "00:00"}]
+    horario: [{dia: "LUNES", horaDesde: "12:00", horaHasta: "12:00"}]
   }});
 
   const { fields, append, remove } = useFieldArray({
@@ -29,16 +31,34 @@ export default function NuevoCursoModal(props: {
     }
   };
 
-  const submitForm = (data: CreateCursoInput) => {
-    // Object.keys(data).map(key => {
-    //   data[key] = data[key].toLowerCase();
-    // })
-    // data.nombre = capFirstLetter(data.firstName);
-    // data.paralelo = capFirstLetter(data.lastName);
-    // data.cursoProfesorId = ";
-    // data.cursoDispositivoId= " "
+  console.log(watchHorario())
+  const submitForm = async (data: CreateCursoInput) => {
+    
+    const cursoData: CreateCursoInput = data;
+    try{
+      const newCurso = await API.graphql<GraphQLQuery<CreateCursoMutation>>({
+        query: createCurso,
+        variables: {input: data}
+      });
+      console.log(" AQUI")
+      // props.onClose();
+    } catch (error: any) {
+      console.log(error);
+    }
 
-    console.log(data);
+    fields.forEach(async (horario, index)=>{
+      try{
+        const newHorario = await API.graphql<GraphQLQuery<CreateHorarioMutation>>({
+          query: createHorario,
+          variables: {input: horario}
+        });
+      } catch (error: any) {
+        console.log(error);
+      }
+    })
+
+    // props.onClose();
+
   }
 
   function capFirstLetter(str: string) {
@@ -48,17 +68,21 @@ export default function NuevoCursoModal(props: {
   return (
     <div onClick={handleOnClose} id="modal-background"
     className="fixed inset-0 bg-black bg-opacity-5 backdrop-filter backdrop-blur-sm flex justify-center items-center">
-      <form id="Nuevo" className="flex flex-col shrink-0 h-4/5 gap-5 bg-white p-10 rounded-lg" onSubmit={handleSubmitCurso(submitForm)}>
+      <form id="Nuevo" className="flex flex-col shrink-0 h-4/5 gap-5 bg-white p-10 rounded-lg" onSubmit={()=>{
+        console.log("dentro del handle")
+        handleSubmitCurso(submitForm);
+        handleSubmitHorario(()=>console.log("oka"));
+      }}>
       <p className='text-2xl font-bold'>Crear curso</p>
         <div className='flex w-full justify-center gap-10'>
         <input placeholder='Nombre' 
-        {...registerCurso("nombre", {required: true, maxLength: 20, pattern: {
+        {...registerCurso("nombre", {required: true, maxLength: 100, pattern: {
         value: /^[A-Z][a-z]+$/i,
         message: "Nombre invalido"}})}
         className={inputStyle}/>
 
         <input placeholder='Paralelo'
-        {...registerCurso("paralelo", {required: true, maxLength: 20, pattern: {
+        {...registerCurso("paralelo", {required: true, maxLength: 10, pattern: {
         value: /^[0-9]$/i,
         message: "Paralelo invalido"}})}
         className={inputStyle}/>
@@ -71,8 +95,8 @@ export default function NuevoCursoModal(props: {
             onClick={() =>
               append({
                 dia:"LUNES",
-                horaDesde: "00:00",
-                horaHasta: "00:00"
+                horaDesde: "12:00",
+                horaHasta: "12:00"
               })
             }
           >
@@ -86,11 +110,16 @@ export default function NuevoCursoModal(props: {
             <section className="flex items-end gap-4 justify-between px-2" key={field.id}>
                 <label className={labelStyle}> Dia
                 <select placeholder='Dia'
-                  {...registerHorario(`horario.${index}.dia`, {required: true, maxLength: 20, pattern: {
-                  value: /^[A-Z][a-z]+$/i,
-                  message: "Username invalido"
-                }})}
-                className={inputStyle}/>
+                  {...registerHorario(`horario.${index}.dia`, {required: true})}
+                className={inputStyle}>
+                  <option>LUNES</option>
+                  <option>MARTES</option>
+                  <option>MIERCOLES</option>
+                  <option>JUEVES</option>
+                  <option>VIERNES</option>
+                  <option>SABADO</option>
+                  <option>DOMINGO</option>
+                </select>
                 </label>
                 <label className={labelStyle}>  Desde
                 <input
@@ -107,16 +136,15 @@ export default function NuevoCursoModal(props: {
                   placeholder="Hora fin"
                   type='time'
                   {...registerHorario(`horario.${index}.horaHasta`, {
-                    valueAsNumber: true,
                     required: true
                   })}
                   className={errorHorario?.horario?.message? "error" : ""}
                 />
                 </label>
 
-                <button className="flex w-12 items-center justify-center  bg-red-800 rounded-lg hover:bg-red-700 font-semibold text-white p-2" type="button" onClick={() => remove(index)}>
+                {fields.length!=1 && <button className="flex w-12 items-center justify-center  bg-red-800 rounded-lg hover:bg-red-700 font-semibold text-white p-2" type="button" onClick={() => remove(index)}>
                   x
-                </button>
+                </button>} 
               </section>
 
           );
@@ -125,9 +153,7 @@ export default function NuevoCursoModal(props: {
 
         </div>
 
-        
-    
-        <button className="flex w-32 items-center justify-center self-center  bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2">Crear</button>
+        <input className="flex w-32 items-center justify-center self-center  bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2" type="submit" value="Crear" />
       </form>
     </div>
   );
