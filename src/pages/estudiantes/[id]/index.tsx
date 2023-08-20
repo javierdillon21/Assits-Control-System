@@ -26,7 +26,7 @@ export default function EstudianteViewPage() {
       const estudiante = res.data?.getEstudiante;
       setEstudiante(estudiante as any);
     }).catch(error => {})
-  });
+  }, []);
 
   useEffect(() => {
     if (estudiante) {
