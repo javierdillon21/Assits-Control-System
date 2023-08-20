@@ -9,9 +9,8 @@ export default function NuevoEstudianteModal(props: {
   onClose: Function
 }) {
   
-  if (!props.visible) return null;
-
   const { register, handleSubmit, watch, formState: { errors } } = useForm<CreateEstudianteInput>();
+  if (!props.visible) return null;
 
   const handleOnClose = (event: any) => {
     if (event.target.id === "modal-background") {
@@ -21,7 +20,7 @@ export default function NuevoEstudianteModal(props: {
 
   const registrarEstudiante = async (data: any) => {
     Object.keys(data).map(key => {
-      data.key = data[key].toLowerCase();
+      data[key] = data[key].toLowerCase();
     })
     data.nombres = capFirstLetter(data.nombres);
     data.apellidos = capFirstLetter(data.apellidos);
