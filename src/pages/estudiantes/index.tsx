@@ -95,7 +95,7 @@ export default function Estudiantes() {
           </button>
         </section>
       </div>
-      <hr/>
+      <hr className="-mb-2.5"/>
       <section id="tabla-estudiantes" className="flex flex-col flex-1 overflow-auto">
           <Table onItemView={viewEstudiante} onItemDelete={borrarById} cols={["Matricula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
             estudiantesFiltered.length == 0?

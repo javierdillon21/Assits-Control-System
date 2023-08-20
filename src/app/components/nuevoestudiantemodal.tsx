@@ -9,7 +9,7 @@ export default function NuevoEstudianteModal(props: {
   onClose: Function
 }) {
   
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<CreateEstudianteInput>();
+  const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<CreateEstudianteInput>();
   if (!props.visible) return null;
 
   const handleOnClose = (event: any) => {
@@ -31,6 +31,7 @@ export default function NuevoEstudianteModal(props: {
         query: mutations.createEstudiante,
         variables: {input: queryData}
       });
+      reset();
       props.onClose();
     } catch (error: any) {
       console.log(error);
