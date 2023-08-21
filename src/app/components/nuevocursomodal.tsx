@@ -40,6 +40,8 @@ export default function NuevoCursoModal(props: {
         query: createCurso,
         variables: {input: data}
       });
+
+      console.log(cursoData);
       console.log(" AQUI")
       // props.onClose();
     } catch (error: any) {
@@ -68,10 +70,12 @@ export default function NuevoCursoModal(props: {
   return (
     <div onClick={handleOnClose} id="modal-background"
     className="fixed inset-0 bg-black bg-opacity-5 backdrop-filter backdrop-blur-sm flex justify-center items-center">
-      <form id="Nuevo" className="flex flex-col shrink-0 h-4/5 gap-5 bg-white p-10 rounded-lg" onSubmit={()=>{
-        console.log("dentro del handle")
-        handleSubmitCurso(submitForm);
-        handleSubmitHorario(()=>console.log("oka"));
+      <form id="Nuevo" className="flex flex-col shrink-0 h-4/5 gap-5 bg-white p-10 rounded-lg" onSubmit={(e)=>{
+        console.log("dentro del handle");
+        
+        e.preventDefault();
+        
+        //handleSubmitHorario(()=>console.log("oka"));
       }}>
       <p className='text-2xl font-bold'>Crear curso</p>
         <div className='flex w-full justify-center gap-10'>
@@ -153,7 +157,8 @@ export default function NuevoCursoModal(props: {
 
         </div>
 
-        <input className="flex w-32 items-center justify-center self-center  bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2" type="submit" value="Crear" />
+        <button className="flex w-32 items-center justify-center self-center  bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2" onClick={ (e) => {
+        ;handleSubmitCurso(submitForm)}}>Crear</button>
       </form>
     </div>
   );
