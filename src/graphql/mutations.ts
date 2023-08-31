@@ -566,7 +566,7 @@ export const createEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     createEstudiante(input: $input, condition: $condition) {
-      matricula
+      cedula
       nombres
       apellidos
       usuario
@@ -610,7 +610,7 @@ export const updateEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     updateEstudiante(input: $input, condition: $condition) {
-      matricula
+      cedula
       nombres
       apellidos
       usuario
@@ -654,7 +654,7 @@ export const deleteEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     deleteEstudiante(input: $input, condition: $condition) {
-      matricula
+      cedula
       nombres
       apellidos
       usuario
@@ -784,7 +784,7 @@ export const createCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
-        matricula
+        cedula
         nombres
         apellidos
         usuario
@@ -849,7 +849,7 @@ export const updateCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
-        matricula
+        cedula
         nombres
         apellidos
         usuario
@@ -914,7 +914,7 @@ export const deleteCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
-        matricula
+        cedula
         nombres
         apellidos
         usuario

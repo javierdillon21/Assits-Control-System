@@ -45,7 +45,7 @@ export default function Estudiantes() {
       const minusc = event.target.value.toLowerCase();
       return (minusc === est.nombres.toLowerCase() ||
       minusc === est.apellidos.toLowerCase() ||
-      minusc === est.matricula.toLowerCase() ||
+      minusc === est.cedula.toLowerCase() ||
       minusc === est.usuario.toLowerCase());
     }));
   }
@@ -97,12 +97,12 @@ export default function Estudiantes() {
       </div>
       <hr className="-mb-2.5"/>
       <section id="tabla-estudiantes" className="flex flex-col flex-1 overflow-auto">
-          <Table onItemView={viewEstudiante} onItemDelete={borrarById} cols={["Matricula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
+          <Table onItemView={viewEstudiante} onItemDelete={borrarById} cols={["cedula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
             estudiantesFiltered.length == 0?
             estudiantes.map((estu)=> {
               return {
                 id: estu.id,
-                matricula: estu.matricula,
+                cedula: estu.cedula,
                 name: estu.nombres + " " + estu.apellidos,
                 regDate: estu.createdAt.split("T")[0],
                 email: estu.email,
@@ -112,7 +112,7 @@ export default function Estudiantes() {
             estudiantesFiltered.map((estu)=> {
               return {
                 id: estu.id,
-                matricula: estu.matricula,
+                cedula: estu.cedula,
                 name: estu.nombres + " " + estu.apellidos,
                 regDate: estu.createdAt.split("T")[0],
                 email: estu.email,

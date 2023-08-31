@@ -305,7 +305,7 @@ export const listHorarios = /* GraphQL */ `
 export const getEstudiante = /* GraphQL */ `
   query GetEstudiante($id: ID!) {
     getEstudiante(id: $id) {
-      matricula
+      cedula
       nombres
       apellidos
       usuario
@@ -351,7 +351,7 @@ export const listEstudiantes = /* GraphQL */ `
   ) {
     listEstudiantes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        matricula
+        cedula
         nombres
         apellidos
         usuario
@@ -448,7 +448,7 @@ export const getCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
-        matricula
+        cedula
         nombres
         apellidos
         usuario
@@ -499,7 +499,7 @@ export const listCursoEstudiantes = /* GraphQL */ `
           __typename
         }
         estudiante {
-          matricula
+          cedula
           nombres
           apellidos
           usuario
@@ -724,7 +724,7 @@ export const cursoEstudiantesByCursoId = /* GraphQL */ `
           __typename
         }
         estudiante {
-          matricula
+          cedula
           nombres
           apellidos
           usuario
@@ -774,7 +774,7 @@ export const cursoEstudiantesByEstudianteId = /* GraphQL */ `
           __typename
         }
         estudiante {
-          matricula
+          cedula
           nombres
           apellidos
           usuario

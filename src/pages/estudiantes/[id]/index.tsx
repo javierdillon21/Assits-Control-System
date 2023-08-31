@@ -16,6 +16,26 @@ export default function EstudianteViewPage() {
   const [asistencias, setAsistencias] = useState<any[]>([]);
   const [cursos, setCursos] = useState<any[]>([]);
 
+
+  const cursoTest = [
+    {
+      id: "93946590-d2fe-4324-8f8e-486bc9383b56",
+      nombre: "Sistemas Embebidos",
+      paralelo: "102",
+      createdAt: "2023-08-21T04:43:40.982Z"
+    }
+  ];
+
+  const asistenciaTest = [
+    {
+      id: "0123810231-183d-2938-j292p-0d1h82012",
+      fecha: "2023-08-21",
+      hora: "12:00 - 13:00",
+      dia: "LUNES",
+      estado: "ASISTIO"
+    }
+  ]
+
   async function getEstudiante() {
     const estudiante = await API.graphql<GraphQLQuery<GetEstudianteQuery>>(
       {
@@ -48,10 +68,12 @@ export default function EstudianteViewPage() {
   }, [router.isReady]);
 
   useEffect(() => {
+    if (cursoSelectedId.length == 0) {return;}
     const subOnAsistenciaCreate = API.graphql<GraphQLSubscription<OnCreateAsistenciaSubscription>>(
       graphqlOperation(subscriptions.onCreateAsistencia, {cursoId: cursoSelectedId, estudianteId: estudianteId})
     ).subscribe({
       next: ({ provider, value }) => {
+        console.log("dasda");
         setAsistencias([...asistencias, value.data?.onCreateAsistencia]);
       },
       error: (error) => console.warn(error)
@@ -64,7 +86,8 @@ export default function EstudianteViewPage() {
   function onClickCurso(cursoId: string) {
     cursoSelectedId = cursoId;
     getAsistencias(cursoId).then((asistencias) => {
-      setAsistencias(asistencias);
+      // setAsistencias(asistencias);
+      setAsistencias(asistenciaTest);
     });
   }
 
@@ -100,7 +123,7 @@ export default function EstudianteViewPage() {
         <>
         <section id="tabla-cursos" className="flex flex-col flex-1 overflow-auto">
           <Table shouldRemainHovered={true} onItemClick={onClickCurso} cols={["Nombre del curso","Paralelo", "Creacion"]} data={
-            cursos.map((curso) => {
+            cursoTest.map((curso) => {
               return {
                 id: curso.id,
                 nombreCurso: curso.nombre,
@@ -111,13 +134,14 @@ export default function EstudianteViewPage() {
           }/>
         </section>
         <section id="tabla-asistencias" className="flex flex-col flex-1 overflow-auto">
-          <Table cols={["Fecha","Hora", "Dia"]} data={
+          <Table cols={["Fecha","Hora", "Dia", "Estado"]} data={
             asistencias.map((asistencia) => {
               return {
                 id: asistencia.id,
-                nombreCurso: asistencia.nombre,
-                paraleloCurso: asistencia.paralelo,
-                creacion:  asistencia.createdAt.split("T")[0]
+                fecha: asistencia.fecha,
+                hora: asistencia.hora,
+                dia: asistencia.dia,
+                estado: "ASISTIO",
               }
             })
           }/>

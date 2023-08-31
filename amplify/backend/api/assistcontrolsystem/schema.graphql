@@ -58,13 +58,13 @@ type Horario @model {
 }
 
 type Estudiante @model {
-  matricula: ID!
+  cedula: ID!
   nombres: String!
   apellidos: String!
   usuario: String!
   email: String!
   cursos: [Curso] @manyToMany(relationName: "CursoEstudiante")
-  asistencia: [Asistencia] @hasMany(indexName: "byEstudiante", fields:["matricula"])
+  asistencia: [Asistencia] @hasMany(indexName: "byEstudiante", fields:["cedula"])
 }
 
 type Asistencia @model {

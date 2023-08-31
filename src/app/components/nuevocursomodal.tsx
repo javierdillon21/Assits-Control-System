@@ -100,7 +100,8 @@ export default function NuevoCursoModal(props: {
               append({
                 dia:"LUNES",
                 horaDesde: "12:00",
-                horaHasta: "12:00"
+                horaHasta: "12:00",
+                cursoId: ""
               })
             }
           >

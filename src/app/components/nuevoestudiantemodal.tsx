@@ -60,8 +60,8 @@ export default function NuevoEstudianteModal(props: {
           value: /^[A-Z][a-z]+$/i,
           message: "Username invalido"}})}/>
          <input  className="pl-1 text-slate-500 border focus:border-slate-700 focus:outline-none border-slate-400 rounded-lg text-[0.9rem]"
-            placeholder="Número de matrícula" {...register("matricula", {required: true, maxLength: 20, pattern: {
-            value: /^[0-9]{9}$/i,
+            placeholder="Número de cedula" {...register("cedula", {required: true, maxLength: 20, pattern: {
+            value: /^[0-9]{10}$/i,
             message: "Matricula invalida"}})}/>
         <input className="flex-flex-grow text-[0.9rem] bg-slate-700 rounded-lg hover:bg-slate-900 font-bold text-white p-2"
           value="Añadir" type="submit"/>

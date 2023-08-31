@@ -529,7 +529,7 @@ export const onCreateEstudiante = /* GraphQL */ `
     $filter: ModelSubscriptionEstudianteFilterInput
   ) {
     onCreateEstudiante(filter: $filter) {
-      matricula
+      cedula
       nombres
       apellidos
       usuario
@@ -572,7 +572,7 @@ export const onUpdateEstudiante = /* GraphQL */ `
     $filter: ModelSubscriptionEstudianteFilterInput
   ) {
     onUpdateEstudiante(filter: $filter) {
-      matricula
+      cedula
       nombres
       apellidos
       usuario
@@ -615,7 +615,7 @@ export const onDeleteEstudiante = /* GraphQL */ `
     $filter: ModelSubscriptionEstudianteFilterInput
   ) {
     onDeleteEstudiante(filter: $filter) {
-      matricula
+      cedula
       nombres
       apellidos
       usuario
@@ -741,7 +741,7 @@ export const onCreateCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
-        matricula
+        cedula
         nombres
         apellidos
         usuario
@@ -805,7 +805,7 @@ export const onUpdateCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
-        matricula
+        cedula
         nombres
         apellidos
         usuario
@@ -869,7 +869,7 @@ export const onDeleteCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
-        matricula
+        cedula
         nombres
         apellidos
         usuario

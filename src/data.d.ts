@@ -14,7 +14,8 @@ interface Horarios{
     horario: {
         dia: String,
         horaDesde: String,
-        horaHasta: String
+        horaHasta: String,
+        cursoId: String,
     }[]
 }
 
