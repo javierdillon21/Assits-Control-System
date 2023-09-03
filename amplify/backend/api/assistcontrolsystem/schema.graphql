@@ -58,7 +58,8 @@ type Horario @model {
 }
 
 type Estudiante @model {
-  cedula: ID!
+  id: ID!
+  cedula: ID! @index
   nombres: String!
   apellidos: String!
   usuario: String!

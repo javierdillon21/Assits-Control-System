@@ -566,6 +566,7 @@ export const createEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     createEstudiante(input: $input, condition: $condition) {
+      id
       cedula
       nombres
       apellidos
@@ -597,7 +598,6 @@ export const createEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
-      id
       createdAt
       updatedAt
       __typename
@@ -610,6 +610,7 @@ export const updateEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     updateEstudiante(input: $input, condition: $condition) {
+      id
       cedula
       nombres
       apellidos
@@ -641,7 +642,6 @@ export const updateEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
-      id
       createdAt
       updatedAt
       __typename
@@ -654,6 +654,7 @@ export const deleteEstudiante = /* GraphQL */ `
     $condition: ModelEstudianteConditionInput
   ) {
     deleteEstudiante(input: $input, condition: $condition) {
+      id
       cedula
       nombres
       apellidos
@@ -685,7 +686,6 @@ export const deleteEstudiante = /* GraphQL */ `
         nextToken
         __typename
       }
-      id
       createdAt
       updatedAt
       __typename
@@ -784,6 +784,7 @@ export const createCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
+        id
         cedula
         nombres
         apellidos
@@ -797,7 +798,6 @@ export const createCursoEstudiante = /* GraphQL */ `
           nextToken
           __typename
         }
-        id
         createdAt
         updatedAt
         __typename
@@ -849,6 +849,7 @@ export const updateCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
+        id
         cedula
         nombres
         apellidos
@@ -862,7 +863,6 @@ export const updateCursoEstudiante = /* GraphQL */ `
           nextToken
           __typename
         }
-        id
         createdAt
         updatedAt
         __typename
@@ -914,6 +914,7 @@ export const deleteCursoEstudiante = /* GraphQL */ `
         __typename
       }
       estudiante {
+        id
         cedula
         nombres
         apellidos
@@ -927,7 +928,6 @@ export const deleteCursoEstudiante = /* GraphQL */ `
           nextToken
           __typename
         }
-        id
         createdAt
         updatedAt
         __typename

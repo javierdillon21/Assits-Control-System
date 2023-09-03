@@ -603,6 +603,45 @@ export const horariosByCursoId = /* GraphQL */ `
     }
   }
 `;
+export const estudiantesByCedula = /* GraphQL */ `
+  query EstudiantesByCedula(
+    $cedula: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelEstudianteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    estudiantesByCedula(
+      cedula: $cedula
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        cedula
+        nombres
+        apellidos
+        usuario
+        email
+        cursos {
+          nextToken
+          __typename
+        }
+        asistencia {
+          nextToken
+          __typename
+        }
+        id
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const asistenciasByCursoId = /* GraphQL */ `
   query AsistenciasByCursoId(
     $cursoId: ID!

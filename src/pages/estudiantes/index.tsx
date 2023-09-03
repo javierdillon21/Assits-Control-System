@@ -97,7 +97,7 @@ export default function Estudiantes() {
       </div>
       <hr className="-mb-2.5"/>
       <section id="tabla-estudiantes" className="flex flex-col flex-1 overflow-auto">
-          <Table onItemView={viewEstudiante} onItemDelete={borrarById} cols={["cedula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
+          <Table onItemView={viewEstudiante} onItemDelete={borrarById} cols={["Cedula","Nombre", "Fecha de registro", "Correo", "Espol User"]} data={
             estudiantesFiltered.length == 0?
             estudiantes.map((estu)=> {
               return {

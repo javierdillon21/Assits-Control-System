@@ -192,6 +192,7 @@ export type CursoEstudiante = {
 
 export type Estudiante = {
   __typename: "Estudiante",
+  id: string,
   cedula: string,
   nombres: string,
   apellidos: string,
@@ -199,7 +200,6 @@ export type Estudiante = {
   email: string,
   cursos?: ModelCursoEstudianteConnection | null,
   asistencia?: ModelAsistenciaConnection | null,
-  id: string,
   createdAt: string,
   updatedAt: string,
 };
@@ -309,12 +309,12 @@ export type DeleteHorarioInput = {
 };
 
 export type CreateEstudianteInput = {
+  id?: string | null,
   cedula: string,
   nombres: string,
   apellidos: string,
   usuario: string,
   email: string,
-  id?: string | null,
 };
 
 export type ModelEstudianteConditionInput = {
@@ -329,12 +329,12 @@ export type ModelEstudianteConditionInput = {
 };
 
 export type UpdateEstudianteInput = {
+  id: string,
   cedula?: string | null,
   nombres?: string | null,
   apellidos?: string | null,
   usuario?: string | null,
   email?: string | null,
-  id: string,
 };
 
 export type DeleteEstudianteInput = {
@@ -456,6 +456,7 @@ export type ModelHorarioFilterInput = {
 };
 
 export type ModelEstudianteFilterInput = {
+  id?: ModelIDInput | null,
   cedula?: ModelIDInput | null,
   nombres?: ModelStringInput | null,
   apellidos?: ModelStringInput | null,
@@ -567,6 +568,7 @@ export type ModelSubscriptionHorarioFilterInput = {
 };
 
 export type ModelSubscriptionEstudianteFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
   cedula?: ModelSubscriptionIDInput | null,
   nombres?: ModelSubscriptionStringInput | null,
   apellidos?: ModelSubscriptionStringInput | null,
@@ -1171,6 +1173,7 @@ export type CreateEstudianteMutationVariables = {
 export type CreateEstudianteMutation = {
   createEstudiante?:  {
     __typename: "Estudiante",
+    id: string,
     cedula: string,
     nombres: string,
     apellidos: string,
@@ -1202,7 +1205,6 @@ export type CreateEstudianteMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1216,6 +1218,7 @@ export type UpdateEstudianteMutationVariables = {
 export type UpdateEstudianteMutation = {
   updateEstudiante?:  {
     __typename: "Estudiante",
+    id: string,
     cedula: string,
     nombres: string,
     apellidos: string,
@@ -1247,7 +1250,6 @@ export type UpdateEstudianteMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1261,6 +1263,7 @@ export type DeleteEstudianteMutationVariables = {
 export type DeleteEstudianteMutation = {
   deleteEstudiante?:  {
     __typename: "Estudiante",
+    id: string,
     cedula: string,
     nombres: string,
     apellidos: string,
@@ -1292,7 +1295,6 @@ export type DeleteEstudianteMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1396,6 +1398,7 @@ export type CreateCursoEstudianteMutation = {
     },
     estudiante:  {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -1409,7 +1412,6 @@ export type CreateCursoEstudianteMutation = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -1462,6 +1464,7 @@ export type UpdateCursoEstudianteMutation = {
     },
     estudiante:  {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -1475,7 +1478,6 @@ export type UpdateCursoEstudianteMutation = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -1528,6 +1530,7 @@ export type DeleteCursoEstudianteMutation = {
     },
     estudiante:  {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -1541,7 +1544,6 @@ export type DeleteCursoEstudianteMutation = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -1873,6 +1875,7 @@ export type GetEstudianteQueryVariables = {
 export type GetEstudianteQuery = {
   getEstudiante?:  {
     __typename: "Estudiante",
+    id: string,
     cedula: string,
     nombres: string,
     apellidos: string,
@@ -1904,7 +1907,6 @@ export type GetEstudianteQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1921,6 +1923,7 @@ export type ListEstudiantesQuery = {
     __typename: "ModelEstudianteConnection",
     items:  Array< {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -1934,7 +1937,6 @@ export type ListEstudiantesQuery = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -2025,6 +2027,7 @@ export type GetCursoEstudianteQuery = {
     },
     estudiante:  {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -2038,7 +2041,6 @@ export type GetCursoEstudianteQuery = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -2074,12 +2076,12 @@ export type ListCursoEstudiantesQuery = {
       },
       estudiante:  {
         __typename: "Estudiante",
+        id: string,
         cedula: string,
         nombres: string,
         apellidos: string,
         usuario: string,
         email: string,
-        id: string,
         createdAt: string,
         updatedAt: string,
       },
@@ -2158,6 +2160,40 @@ export type HorariosByCursoIdQuery = {
       dia: DiaSemana,
       horaDesde: string,
       horaHasta: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type EstudiantesByCedulaQueryVariables = {
+  cedula: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelEstudianteFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type EstudiantesByCedulaQuery = {
+  estudiantesByCedula?:  {
+    __typename: "ModelEstudianteConnection",
+    items:  Array< {
+      __typename: "Estudiante",
+      id: string,
+      cedula: string,
+      nombres: string,
+      apellidos: string,
+      usuario: string,
+      email: string,
+      cursos?:  {
+        __typename: "ModelCursoEstudianteConnection",
+        nextToken?: string | null,
+      } | null,
+      asistencia?:  {
+        __typename: "ModelAsistenciaConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -2269,12 +2305,12 @@ export type CursoEstudiantesByCursoIdQuery = {
       },
       estudiante:  {
         __typename: "Estudiante",
+        id: string,
         cedula: string,
         nombres: string,
         apellidos: string,
         usuario: string,
         email: string,
-        id: string,
         createdAt: string,
         updatedAt: string,
       },
@@ -2314,12 +2350,12 @@ export type CursoEstudiantesByEstudianteIdQuery = {
       },
       estudiante:  {
         __typename: "Estudiante",
+        id: string,
         cedula: string,
         nombres: string,
         apellidos: string,
         usuario: string,
         email: string,
-        id: string,
         createdAt: string,
         updatedAt: string,
       },
@@ -2895,6 +2931,7 @@ export type OnCreateEstudianteSubscriptionVariables = {
 export type OnCreateEstudianteSubscription = {
   onCreateEstudiante?:  {
     __typename: "Estudiante",
+    id: string,
     cedula: string,
     nombres: string,
     apellidos: string,
@@ -2926,7 +2963,6 @@ export type OnCreateEstudianteSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2939,6 +2975,7 @@ export type OnUpdateEstudianteSubscriptionVariables = {
 export type OnUpdateEstudianteSubscription = {
   onUpdateEstudiante?:  {
     __typename: "Estudiante",
+    id: string,
     cedula: string,
     nombres: string,
     apellidos: string,
@@ -2970,7 +3007,6 @@ export type OnUpdateEstudianteSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2983,6 +3019,7 @@ export type OnDeleteEstudianteSubscriptionVariables = {
 export type OnDeleteEstudianteSubscription = {
   onDeleteEstudiante?:  {
     __typename: "Estudiante",
+    id: string,
     cedula: string,
     nombres: string,
     apellidos: string,
@@ -3014,7 +3051,6 @@ export type OnDeleteEstudianteSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -3114,6 +3150,7 @@ export type OnCreateCursoEstudianteSubscription = {
     },
     estudiante:  {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -3127,7 +3164,6 @@ export type OnCreateCursoEstudianteSubscription = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -3179,6 +3215,7 @@ export type OnUpdateCursoEstudianteSubscription = {
     },
     estudiante:  {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -3192,7 +3229,6 @@ export type OnUpdateCursoEstudianteSubscription = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -3244,6 +3280,7 @@ export type OnDeleteCursoEstudianteSubscription = {
     },
     estudiante:  {
       __typename: "Estudiante",
+      id: string,
       cedula: string,
       nombres: string,
       apellidos: string,
@@ -3257,7 +3294,6 @@ export type OnDeleteCursoEstudianteSubscription = {
         __typename: "ModelAsistenciaConnection",
         nextToken?: string | null,
       } | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     },

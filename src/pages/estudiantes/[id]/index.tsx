@@ -44,6 +44,7 @@ export default function EstudianteViewPage() {
       }
     );
     const res = estudiante?.data?.getEstudiante;
+    console.log(res);
     return (res as any);
   }
 
@@ -73,7 +74,6 @@ export default function EstudianteViewPage() {
       graphqlOperation(subscriptions.onCreateAsistencia, {cursoId: cursoSelectedId, estudianteId: estudianteId})
     ).subscribe({
       next: ({ provider, value }) => {
-        console.log("dasda");
         setAsistencias([...asistencias, value.data?.onCreateAsistencia]);
       },
       error: (error) => console.warn(error)
@@ -98,8 +98,8 @@ export default function EstudianteViewPage() {
         {
 
           <div className="grid grid-cols-2 gap-2.5">
-            <div className="flex items-end justify-end font-bold text-slate-700 text-md"><>Matrícula:</></div>
-            <div className="text-md">{estudiante?.matricula}</div>
+            <div className="flex items-end justify-end font-bold text-slate-700 text-md"><>Cédula:</></div>
+            <div className="text-md">{estudiante?.cedula}</div>
 
             <div className="flex items-end justify-end font-bold text-slate-700 text-md"><>Primer nombre:</></div>
             <div className="text-md">{estudiante?.nombres}</div>
